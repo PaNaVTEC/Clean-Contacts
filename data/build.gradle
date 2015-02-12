@@ -1,0 +1,19 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion parent.ext.androidCompileSdkVersion
+    buildToolsVersion parent.ext.androidBuildToolsVersion
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile project(':repository')
+    compile parent.ext.libRetrofit
+    compile parent.ext.libGson
+    compile parent.ext.libOkhttp
+    compile parent.ext.libOkhttpConnection
+    compile parent.ext.libOrmlite
+
+    //compile parent.ext.libMappers
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Clean Contacts</string>
+    <string name="err_getting_contacts">Error getting contacts</string>
+
+</resources>

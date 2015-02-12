@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.0.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
+        classpath 'com.github.dcendents:android-maven-plugin:1.2'
+    }
+}
+
+allprojects {
+    ext {
+        // Android config
+        androidBuildToolsVersion = '21.1.2'
+        androidMinSdkVersion = 15
+        androidTargetSdkVersion = 21
+        androidCompileSdkVersion = 21
+        androidApplicationId = 'me.panavtec.cleancontacts'
+        androidVersionCode = 1
+        androidVersionName = '1.0'
+
+        // Libraries
+        libAndroidSupportv7 = 'com.android.support:appcompat-v7:21.0.+'
+        libPathQueue        = 'com.path:android-priority-jobqueue:1.1.2'
+        libRecyclerView     = 'com.android.support:recyclerview-v7:21.0.+'
+        libDagger           = 'com.squareup.dagger:dagger:1.2.2'
+        libDaggerCompiler   = 'com.squareup.dagger:dagger-compiler:1.2.2'
+        libButterknife      = 'com.jakewharton:butterknife:6.1.0'
+        libRetrofit         = 'com.squareup.retrofit:retrofit:1.9.0'
+        libGson             = 'com.google.code.gson:gson:2.3.1'
+        libOrmlite          = 'com.j256.ormlite:ormlite-android:4.48'
+        libOkhttp           = 'com.squareup.okhttp:okhttp:2.2.0'
+        libOkhttpConnection = 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
+        libMappers          = 'com.mobandme:android-transformer:1.0.1'
+        libOtto             = 'com.squareup:otto:1.3.5'
+        libSnackBars        = 'com.nispok:snackbar:2.7.5'
+        libRecyclerAdapters = 'com.github.cmc00022:easyrecycleradapters:0.1.6'
+        libPicasso          = 'com.squareup.picasso:picasso:2.4.0'
+    }
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+}
