@@ -12,7 +12,6 @@ dependencies {
     compile parent.ext.libRetrofit
     compile parent.ext.libGson
     compile parent.ext.libOkhttp
-    compile parent.ext.libOkhttpConnection
     compile parent.ext.libOrmlite
 
     //compile parent.ext.libMappers
