@@ -120,6 +120,10 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
     @Override
     public void onRefresh() {
         presenter.onRefresh();
+    }
+
+    @Override
+    public void refreshUi() {
         recyclerViewManager.onRefresh();
         swipeRefreshLayout.setRefreshing(true);
     }

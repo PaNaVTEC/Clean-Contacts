@@ -44,6 +44,7 @@ public class MainPresenter extends Presenter {
     }
 
     public void onRefresh() {
+        mainView.refreshUi();
         interactorExecutor.execute(getContactsInteractor);
     }
     
