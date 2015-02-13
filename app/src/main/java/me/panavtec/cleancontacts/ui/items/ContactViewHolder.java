@@ -4,18 +4,16 @@ import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
-
-import java.util.Locale;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
 import me.panavtec.cleancontacts.R;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.entities.Name;
 import me.panavtec.cleancontacts.domain.entities.Picture;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
+
+import java.util.Locale;
 
 public class ContactViewHolder extends EasyViewHolder<Contact> {
 
@@ -31,8 +29,7 @@ public class ContactViewHolder extends EasyViewHolder<Contact> {
         ButterKnife.inject(this, itemView);
     }
 
-    @Override
-    public void bindTo(Contact contact) {
+    @Override public void bindTo(Contact contact) {
         Name name = contact.getName();
         nameTextView.setText(String.format(Locale.getDefault(), "%s, %s %s", name.getTitle(), name.getFirst(), name.getLast()));
         Picture picture = contact.getPicture();

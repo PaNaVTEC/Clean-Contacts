@@ -18,8 +18,7 @@ public class ContactViewHolderFactory extends BaseEasyViewHolderFactory {
         this.imageLoader = imageLoader;
     }
 
-    @Override
-    public EasyViewHolder create(Class valueClass, ViewGroup parent) {
+    @Override public EasyViewHolder create(Class valueClass, ViewGroup parent) {
         return new ContactViewHolder(context, parent, imageLoader);
     }
 
