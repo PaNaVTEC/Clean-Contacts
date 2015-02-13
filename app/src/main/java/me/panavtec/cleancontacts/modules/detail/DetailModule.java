@@ -24,7 +24,7 @@ public class DetailModule {
 
     @Provides DetailPresenter providePresenter(EventBus bus,
                                                InteractorExecutor interactorExecutor,
-                                               GetContactInteractor getContactInteractor){
+                                               GetContactInteractor getContactInteractor) {
         return new DetailPresenter(bus, interactorExecutor, getContactInteractor, detailView);
     }
     
