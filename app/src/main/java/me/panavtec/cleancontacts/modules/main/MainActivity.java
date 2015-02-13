@@ -58,21 +58,6 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
         initRefreshLayout();
     }
 
-    private void initRefreshLayout() {
-        swipeRefreshLayout.setOnRefreshListener(this);
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            }
-
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                int topRowVerticalPosition = recyclerView == null || recyclerView.getChildCount() == 0
-                                ? 0
-                                : recyclerView.getChildAt(0).getTop();
-                swipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
-            }
-        });
-    }
-
     private void initToolbar() {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -87,6 +72,21 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
                 .emptyLoadingListTextView(emptyList)
                 .loadingListTextColor(android.R.color.white)
                 .build();
+    }
+
+    private void initRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener(this);
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            }
+
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition = recyclerView == null || recyclerView.getChildCount() == 0
+                        ? 0
+                        : recyclerView.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
+            }
+        });
     }
 
     @Override
