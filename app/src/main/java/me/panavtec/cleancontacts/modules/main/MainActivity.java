@@ -1,15 +1,19 @@
 package me.panavtec.cleancontacts.modules.main;
 
 import android.os.Bundle;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 import butterknife.InjectView;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
+import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
 import com.carlosdelachica.easyrecycleradapters.recycler_view_manager.EasyRecyclerViewManager;
 import me.panavtec.cleancontacts.R;
 import me.panavtec.cleancontacts.domain.entities.Contact;
+import me.panavtec.cleancontacts.modules.detail.DetailActivity;
 import me.panavtec.cleancontacts.modules.main.adapters.ContactViewHolderFactory;
 import me.panavtec.cleancontacts.presentation.main.MainPresenter;
 import me.panavtec.cleancontacts.presentation.main.MainView;
@@ -22,7 +26,7 @@ import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements MainView, SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends BaseActivity implements MainView, SwipeRefreshLayout.OnRefreshListener, EasyViewHolder.OnItemClickListener {
 
     @Inject MainPresenter presenter;
     @Inject ErrorManager errorManager;
@@ -59,7 +63,8 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
         EasyRecyclerAdapter adapter = new EasyRecyclerAdapter(contactViewHolderFactory, Contact.class, ContactViewHolder.class);
         recyclerViewManager = new EasyRecyclerViewManager.Builder(recyclerView, adapter)
                 .emptyLoadingListTextView(emptyList)
-                .loadingListTextColor(android.R.color.white)
+                .loadingListTextColor(android.R.color.black)
+                .clickListener(this)
                 .build();
     }
 
@@ -112,6 +117,15 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
 
     @Override protected List<Object> getModules() {
         return Arrays.<Object>asList(new MainModule(this));
+    }
+
+    @Override public void onItemClick(int position, View view) {
+        Contact contact = (Contact) recyclerViewManager.getItem(position);
+        View imageView = view.findViewById(R.id.imageView);
+        DetailActivity.launch(
+                this,
+                contact.getMd5(),
+                new Pair<>(imageView, "picture"));
     }
 
 }

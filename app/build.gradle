@@ -60,6 +60,7 @@ dependencies {
     compile parent.ext.libRecyclerView
     compile parent.ext.libPicasso
     compile parent.ext.libRecyclerAdapters
+    compile parent.ext.libFAB
 
     compile project(':domain')
     compile project(':presentation')

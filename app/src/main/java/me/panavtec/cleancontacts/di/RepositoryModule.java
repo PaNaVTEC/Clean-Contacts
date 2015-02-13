@@ -37,7 +37,8 @@ public class RepositoryModule {
         return new ContactsNetworkDataSourceImp(apiService);
     }
 
-    @Provides @Singleton ContactsBddDataSource provideContactsBddDataSource(Persistor<BddContact> persistor, DatabaseHelper helper) {
+    @Provides @Singleton ContactsBddDataSource provideContactsBddDataSource(Persistor<BddContact> persistor, 
+                                                                            DatabaseHelper helper) {
         return new ContactsBddDataSourceImp(persistor, helper.getContactDao());
     }
     

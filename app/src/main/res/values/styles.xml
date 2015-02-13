@@ -1,8 +1,7 @@
 <resources>
 
-    <style name="BaseAppTheme" parent="Theme.AppCompat">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/primary_dark</item>
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/white</item>
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme">

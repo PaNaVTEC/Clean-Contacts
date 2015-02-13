@@ -33,7 +33,7 @@ public class ContactViewHolder extends EasyViewHolder<Contact> {
         Name name = contact.getName();
         nameTextView.setText(String.format(Locale.getDefault(), "%s, %s %s", name.getTitle(), name.getFirst(), name.getLast()));
         Picture picture = contact.getPicture();
-        imageLoader.loadCircular(picture.getThumbnail(), imageView);
+        imageLoader.load(picture.getLarge(), imageView);
         phoneTextView.setText(contact.getPhone());
     }
 }
