@@ -1,4 +1,11 @@
 apply plugin: 'java'
+apply from: '../j2objc.gradle'
+
+j2objcConfig {
+    j2objcHome parent.ext.j2objcPath
+    destDir iOsProjectPath + 'Repository'
+    testExecutedCheck false
+}
 
 dependencies {
     compile project(':domain')

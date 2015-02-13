@@ -55,7 +55,7 @@ dependencies {
     compile parent.ext.libDagger
     provided parent.ext.libDaggerCompiler
     compile parent.ext.libButterknife
-    compile parent.ext.libOtto
+    compile parent.ext.libEventBus
     compile parent.ext.libSnackBars
     compile parent.ext.libRecyclerView
     compile parent.ext.libPicasso

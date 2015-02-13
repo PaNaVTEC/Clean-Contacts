@@ -11,6 +11,7 @@ buildscript {
 }
 
 allprojects {
+
     ext {
         // Android config
         androidBuildToolsVersion = '21.1.2'
@@ -20,6 +21,8 @@ allprojects {
         androidApplicationId = 'me.panavtec.cleancontacts'
         androidVersionCode = 1
         androidVersionName = '1.0'
+        j2objcPath = '/Users/panavtec/Documents/panavtecWorkspace/iOSCleanContacts/j2objc-dist'
+        iOsProjectPath = '/Users/panavtec/Documents/panavtecWorkspace/iOSCleanContacts/CleanContacts/CleanContacts/'
 
         // Libraries
         libAndroidSupportv7 = 'com.android.support:appcompat-v7:21.0.+'
@@ -34,7 +37,7 @@ allprojects {
         libOkhttp           = 'com.squareup.okhttp:okhttp:2.2.0'
         libOkhttpConnection = 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
         libMappers          = 'com.mobandme:android-transformer:1.0.1'
-        libOtto             = 'com.squareup:otto:1.3.5'
+        libEventBus         = 'de.greenrobot:eventbus:2.4.0'
         libSnackBars        = 'com.nispok:snackbar:2.7.5'
         libRecyclerAdapters = 'com.github.cmc00022:easyrecycleradapters:0.1.6'
         libPicasso          = 'com.squareup.picasso:picasso:2.4.0'
