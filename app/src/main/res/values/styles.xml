@@ -2,7 +2,7 @@
 
     <style name="BaseAppTheme" parent="Theme.AppCompat">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/primary</item>
+        <item name="android:windowBackground">@color/primary_dark</item>
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme">

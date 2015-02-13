@@ -2,82 +2,131 @@ package me.panavtec.cleancontacts.modules.main;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
+
+import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
+import com.carlosdelachica.easyrecycleradapters.recycler_view_manager.EasyRecyclerViewManager;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import butterknife.InjectView;
 import me.panavtec.cleancontacts.R;
 import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.modules.main.adapters.ContactAdapter;
+import me.panavtec.cleancontacts.modules.main.adapters.ContactViewHolderFactory;
 import me.panavtec.cleancontacts.presentation.main.MainPresenter;
 import me.panavtec.cleancontacts.presentation.main.MainView;
 import me.panavtec.cleancontacts.ui.BaseActivity;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
-
-import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.List;
+import me.panavtec.cleancontacts.ui.items.ContactViewHolder;
 
 public class MainActivity extends BaseActivity implements MainView, SwipeRefreshLayout.OnRefreshListener {
 
-    @Inject MainPresenter presenter;
-    @Inject ErrorManager errorManager;
-    @Inject ImageLoader imageLoader;
+    @Inject
+    MainPresenter presenter;
+    @Inject
+    ErrorManager errorManager;
+    @Inject
+    ImageLoader imageLoader;
 
-    @InjectView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
-    @InjectView(R.id.recyclerView) RecyclerView recyclerView;
+    @InjectView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @InjectView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    @InjectView(R.id.empty_list)
+    TextView emptyList;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
 
-    private ContactAdapter contactAdapter;
+    private EasyRecyclerViewManager recyclerViewManager;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initUi();
         presenter.onCreate();
     }
 
     private void initUi() {
-        contactAdapter = new ContactAdapter(this, imageLoader);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(contactAdapter);
-        swipeRefreshLayout.setOnRefreshListener(this);
+        initToolbar();
+        initRecyclerView();
+        initRefreshLayout();
     }
 
-    @Override public int onCreateViewId() {
+    private void initRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener(this);
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            }
+
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                int topRowVerticalPosition = recyclerView == null || recyclerView.getChildCount() == 0
+                                ? 0
+                                : recyclerView.getChildAt(0).getTop();
+                swipeRefreshLayout.setEnabled(topRowVerticalPosition >= 0);
+            }
+        });
+    }
+
+    private void initToolbar() {
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+    }
+
+    private void initRecyclerView() {
+        ContactViewHolderFactory contactViewHolderFactory = new ContactViewHolderFactory(this, imageLoader);
+        EasyRecyclerAdapter adapter = new EasyRecyclerAdapter(contactViewHolderFactory, Contact.class, ContactViewHolder.class);
+        recyclerViewManager = new EasyRecyclerViewManager.Builder(recyclerView, adapter)
+                .emptyLoadingListTextView(emptyList)
+                .loadingListTextColor(android.R.color.white)
+                .build();
+    }
+
+    @Override
+    public int onCreateViewId() {
         return R.layout.activity_main;
     }
 
-    @Override protected void onResume() {
+    @Override
+    protected void onResume() {
         super.onResume();
         presenter.onResume();
     }
 
-    @Override protected void onPause() {
+    @Override
+    protected void onPause() {
         super.onPause();
         presenter.onPause();
     }
 
-    @Override public void refreshContactsList(List<Contact> contacts) {
-        contactAdapter.addAll(contacts);
-        contactAdapter.notifyDataSetChanged();
+    @Override
+    public void refreshContactsList(List<Contact> contacts) {
+        recyclerViewManager.addAll(contacts);
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    @Override public void clearData() {
-        contactAdapter.clear();
-        contactAdapter.notifyDataSetChanged();
-    }
-
-    @Override public void showGetContactsError() {
+    @Override
+    public void showGetContactsError() {
         errorManager.showError(getString(R.string.err_getting_contacts));
     }
 
-    @Override public void onRefresh() {
+    @Override
+    public void onRefresh() {
         presenter.onRefresh();
+        recyclerViewManager.onRefresh();
         swipeRefreshLayout.setRefreshing(true);
     }
 
-    @Override protected List<Object> getModules() {
+    @Override
+    protected List<Object> getModules() {
         return Arrays.<Object>asList(new MainModule(this));
     }
-    
+
 }

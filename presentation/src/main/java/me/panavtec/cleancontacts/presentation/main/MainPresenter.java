@@ -44,7 +44,6 @@ public class MainPresenter extends Presenter {
     }
 
     public void onRefresh() {
-        mainView.clearData();
         interactorExecutor.execute(getContactsInteractor);
     }
     

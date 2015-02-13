@@ -39,7 +39,7 @@ allprojects {
         libMappers          = 'com.mobandme:android-transformer:1.0.1'
         libEventBus         = 'de.greenrobot:eventbus:2.4.0'
         libSnackBars        = 'com.nispok:snackbar:2.7.5'
-        libRecyclerAdapters = 'com.github.cmc00022:easyrecycleradapters:0.1.6'
+        libRecyclerAdapters = 'com.github.cmc00022:easyrecycleradapters:1.0.2'
         libPicasso          = 'com.squareup.picasso:picasso:2.4.0'
     }
 

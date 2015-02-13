@@ -59,6 +59,7 @@ dependencies {
     compile parent.ext.libSnackBars
     compile parent.ext.libRecyclerView
     compile parent.ext.libPicasso
+    compile parent.ext.libRecyclerAdapters
 
     compile project(':domain')
     compile project(':presentation')
