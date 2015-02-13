@@ -1,6 +1,13 @@
 apply plugin: 'java'
+apply from: '../j2objc.gradle'
+
+j2objcConfig {
+    j2objcHome parent.ext.j2objcPath
+    destDir iOsProjectPath + 'Presentation'
+    testExecutedCheck false
+    classPathVars '/Users/panavtec/Documents/panavtecWorkspace/BBcleancontacts/domain/build/libs/domain.jar'
+}
 
 dependencies {
     compile project(':domain')
-    compile parent.ext.libOtto
 }

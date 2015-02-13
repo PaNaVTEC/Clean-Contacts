@@ -5,7 +5,6 @@ import me.panavtec.cleancontacts.domain.interactors.InteractorExecutor;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
 import me.panavtec.cleancontacts.domain.interactors.contacts.events.GetContactsEvent;
 import me.panavtec.cleancontacts.presentation.Presenter;
-import com.squareup.otto.Subscribe;
 
 public class MainPresenter extends Presenter {
 
@@ -36,7 +35,7 @@ public class MainPresenter extends Presenter {
         bus.unregister(this);
     }
 
-    @Subscribe public void onGetContacts(GetContactsEvent event) {
+    public void onEvent(GetContactsEvent event) {
         if (event.getError() == null) {
             mainView.refreshContactsList(event.getContacts());
         } else {
@@ -45,7 +44,7 @@ public class MainPresenter extends Presenter {
     }
 
     public void onRefresh() {
-        mainView.clearData();
+        mainView.refreshUi();
         interactorExecutor.execute(getContactsInteractor);
     }
     
