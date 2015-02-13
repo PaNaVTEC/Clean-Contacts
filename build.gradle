@@ -15,7 +15,7 @@ allprojects {
     ext {
         // Android config
         androidBuildToolsVersion = '21.1.2'
-        androidMinSdkVersion = 15
+        androidMinSdkVersion = 16
         androidTargetSdkVersion = 21
         androidCompileSdkVersion = 21
         androidApplicationId = 'me.panavtec.cleancontacts'
@@ -41,6 +41,7 @@ allprojects {
         libSnackBars        = 'com.nispok:snackbar:2.7.5'
         libRecyclerAdapters = 'com.github.cmc00022:easyrecycleradapters:1.0.2'
         libPicasso          = 'com.squareup.picasso:picasso:2.4.0'
+        libFAB              = 'com.melnykov:floatingactionbutton:1.2.0'
     }
 
     repositories {

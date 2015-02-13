@@ -19,6 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".modules.detail.DetailActivity"
+            android:label="@string/detail"
+            android:parentActivityName=".modules.main.MainActivity"
+            />
     </application>
 
 </manifest>

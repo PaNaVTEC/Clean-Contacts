@@ -13,7 +13,9 @@
             tools:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
             android:id="@+id/imageView"
             android:layout_width="@dimen/avatar_size"
-            android:layout_height="@dimen/avatar_size"/>
+            android:layout_height="@dimen/avatar_size"
+            android:transitionName="picture"
+            />
 
     <LinearLayout
             android:orientation="vertical"

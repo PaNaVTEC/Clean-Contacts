@@ -1,12 +1,13 @@
 package me.panavtec.cleancontacts.di;
 
-import me.panavtec.cleancontacts.domain.EventBus;
-import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
-import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
-
-import javax.inject.Singleton;
+import me.panavtec.cleancontacts.domain.EventBus;
+import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
+import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
+import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
 
 @Module(
         complete = false,
@@ -16,6 +17,11 @@ public class InteractorsModule {
 
     @Provides @Singleton GetContactsInteractor provideGetContactsInteractor(EventBus bus, ContactsRepository repository) {
         return new GetContactsInteractor(bus, repository);
+    }
+
+    @Provides @Singleton
+    GetContactInteractor provideGetContactInteractor(EventBus bus, ContactsRepository repository) {
+        return new GetContactInteractor(bus, repository);
     }
 
 }

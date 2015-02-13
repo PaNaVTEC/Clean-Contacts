@@ -2,13 +2,14 @@ package me.panavtec.cleancontacts.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import butterknife.ButterKnife;
-import me.panavtec.cleancontacts.CleanContactsApp;
-import me.panavtec.cleancontacts.di.ActivityModule;
-import dagger.ObjectGraph;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.ButterKnife;
+import dagger.ObjectGraph;
+import me.panavtec.cleancontacts.CleanContactsApp;
+import me.panavtec.cleancontacts.di.ActivityModule;
 
 public class BaseActivity extends ActionBarActivity {
 
