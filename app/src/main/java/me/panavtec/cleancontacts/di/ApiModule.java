@@ -9,6 +9,8 @@ import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.Contac
 import com.squareup.okhttp.OkHttpClient;
 import dagger.Module;
 import dagger.Provides;
+import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.ContactsNetworkDataSourceImp;
+import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsNetworkDataSource;
 import retrofit.Endpoint;
 import retrofit.ErrorHandler;
 import retrofit.RequestInterceptor;
@@ -24,6 +26,10 @@ import javax.inject.Singleton;
         library = true
 )
 public class ApiModule {
+
+    @Provides @Singleton ContactsNetworkDataSource provideContactsNetworkDataSource(ContactsApiService apiService) {
+        return new ContactsNetworkDataSourceImp(apiService);
+    }
 
     @Provides @Singleton ContactsApiService provideApiService(@UserAgent final String userAgent,
                                                               Endpoint endPoint,
