@@ -1,11 +1,11 @@
 package me.panavtec.cleancontacts.modules.main;
 
 import android.os.Bundle;
-import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.InjectView;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
@@ -13,7 +13,7 @@ import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
 import com.carlosdelachica.easyrecycleradapters.recycler_view_manager.EasyRecyclerViewManager;
 import me.panavtec.cleancontacts.R;
 import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.modules.detail.DetailActivity;
+import me.panavtec.cleancontacts.modules.detail.DetailActionCommand;
 import me.panavtec.cleancontacts.modules.main.adapters.ContactViewHolderFactory;
 import me.panavtec.cleancontacts.presentation.main.MainPresenter;
 import me.panavtec.cleancontacts.presentation.main.MainView;
@@ -52,10 +52,8 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
     }
 
     private void initToolbar() {
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        }
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     private void initRecyclerView() {
@@ -121,11 +119,10 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
 
     @Override public void onItemClick(int position, View view) {
         Contact contact = (Contact) recyclerViewManager.getItem(position);
-        View imageView = view.findViewById(R.id.imageView);
-        DetailActivity.launch(
-                this,
-                contact.getMd5(),
-                new Pair<>(imageView, "picture"));
+        DetailActionCommand detailActionCommand = new DetailActionCommand(this, 
+                contact.getMd5(), 
+                (ImageView) view.findViewById(R.id.imageView));
+        detailActionCommand.execute();
     }
 
 }
