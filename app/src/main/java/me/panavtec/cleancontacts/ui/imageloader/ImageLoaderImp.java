@@ -21,6 +21,11 @@ public class ImageLoaderImp implements ImageLoader {
         picasso.load(url).into(imageView);
     }
 
+    @Override
+    public void loadCircular(String url, ImageView imageView, Drawable placeHolderDrawable) {
+        picasso.load(url).transform(new CircleTransform()).placeholder(placeHolderDrawable).into(imageView);
+    }
+
     @Override public void loadCircular(String url, ImageView imageView) {
         picasso.load(url).transform(new CircleTransform()).into(imageView);
     }
