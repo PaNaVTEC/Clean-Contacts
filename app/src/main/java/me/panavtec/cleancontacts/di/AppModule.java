@@ -1,10 +1,9 @@
-package me.panavtec.cleancontacts;
+package me.panavtec.cleancontacts.di;
 
 import android.app.Application;
-import me.panavtec.cleancontacts.di.UiModule;
-import me.panavtec.cleancontacts.di.DataModule;
 import dagger.Module;
 import dagger.Provides;
+import me.panavtec.cleancontacts.CleanContactsApp;
 
 import javax.inject.Singleton;
 
