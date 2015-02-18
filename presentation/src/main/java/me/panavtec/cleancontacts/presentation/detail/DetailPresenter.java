@@ -1,6 +1,6 @@
 package me.panavtec.cleancontacts.presentation.detail;
 
-import me.panavtec.cleancontacts.domain.EventBus;
+import me.panavtec.cleancontacts.domain.abstractions.Bus;
 import me.panavtec.cleancontacts.domain.interactors.InteractorExecutor;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.domain.interactors.contacts.events.GetContactEvent;
@@ -8,12 +8,12 @@ import me.panavtec.cleancontacts.presentation.Presenter;
 
 public class DetailPresenter extends Presenter {
 
-    private final EventBus bus;
+    private final Bus bus;
     private final InteractorExecutor interactorExecutor;
     private final GetContactInteractor getContactInteractor;
     private final DetailView detailView;
 
-    public DetailPresenter(EventBus bus,
+    public DetailPresenter(Bus bus,
                            InteractorExecutor interactorExecutor,
                            GetContactInteractor getContactInteractor,
                            DetailView detailView) {

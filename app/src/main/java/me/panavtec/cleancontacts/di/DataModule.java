@@ -9,8 +9,8 @@ import dagger.Provides;
 import me.panavtec.cleancontacts.BuildConfig;
 import me.panavtec.cleancontacts.data.RetrofitLog;
 import me.panavtec.cleancontacts.data.UserAgent;
-import me.panavtec.cleancontacts.domain.EventBus;
-import me.panavtec.cleancontacts.domain.EventBusImp;
+import me.panavtec.cleancontacts.domain.abstractions.Bus;
+import me.panavtec.cleancontacts.domain.BusImp;
 import me.panavtec.cleancontacts.domain.InteractorExecutorImp;
 import me.panavtec.cleancontacts.domain.interactors.InteractorExecutor;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
@@ -42,16 +42,16 @@ public class DataModule {
         return String.format("Sample-Android;%s;%s;%s;%d;", Build.MANUFACTURER, Build.MODEL, Build.VERSION.RELEASE, BuildConfig.VERSION_CODE);
     }
 
-    @Provides @Singleton EventBus provideEventbus() {
-        return new EventBusImp();
+    @Provides @Singleton Bus provideEventbus() {
+        return new BusImp();
     }
 
     @Provides @Singleton JobManager provideJobManager(Application app) {
         return new JobManager(app);
     }
 
-    @Provides @Singleton InteractorExecutor provideInteractorExecutor(JobManager jobManager, EventBus bus) {
-        return new InteractorExecutorImp(jobManager, bus);
+    @Provides @Singleton InteractorExecutor provideInteractorExecutor(JobManager jobManager, Bus bus) {
+        return new InteractorExecutorImp(jobManager);
     }
 
     @Provides @Singleton Picasso providePicasso(Application app) {

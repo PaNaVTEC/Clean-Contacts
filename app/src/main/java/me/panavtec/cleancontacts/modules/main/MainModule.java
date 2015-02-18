@@ -1,7 +1,7 @@
 package me.panavtec.cleancontacts.modules.main;
 
 import me.panavtec.cleancontacts.di.ActivityModule;
-import me.panavtec.cleancontacts.domain.EventBus;
+import me.panavtec.cleancontacts.domain.abstractions.Bus;
 import me.panavtec.cleancontacts.domain.interactors.InteractorExecutor;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
 import me.panavtec.cleancontacts.presentation.main.MainPresenter;
@@ -23,7 +23,7 @@ public class MainModule {
         this.mainView = mainView;
     }
 
-    @Provides @Singleton MainPresenter provideMainPresenter(EventBus bus,
+    @Provides @Singleton MainPresenter provideMainPresenter(Bus bus,
                                                             InteractorExecutor interactorExecutor,
                                                             GetContactsInteractor getContactsInteractor) {
         return new MainPresenter(bus, interactorExecutor, getContactsInteractor, mainView);

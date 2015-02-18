@@ -10,11 +10,9 @@ import com.path.android.jobqueue.Params;
 public class InteractorExecutorImp implements InteractorExecutor {
 
     private JobManager jobManager;
-    private EventBus bus;
 
-    public InteractorExecutorImp(JobManager jobManager, EventBus bus) {
+    public InteractorExecutorImp(JobManager jobManager) {
         this.jobManager = jobManager;
-        this.bus = bus;
     }
 
     @Override public void execute(Interactor interactor) {
@@ -27,7 +25,7 @@ public class InteractorExecutorImp implements InteractorExecutor {
 
     private Job interactorToJob(Interactor interactor, InteractorPriority priority) {
         Params params = new Params(priority.getPriorityValue());
-        return new InteractorJobImp(params, bus, interactor);
+        return new InteractorJobImp(params, interactor);
     }
 
 }
