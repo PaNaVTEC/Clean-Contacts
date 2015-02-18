@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
         recyclerViewManager = new EasyRecyclerViewManager.Builder(recyclerView, adapter)
                 .emptyLoadingListTextView(emptyList)
                 .loadingListTextColor(android.R.color.black)
+                .divider(R.drawable.list_divider)
                 .clickListener(this)
                 .build();
     }
