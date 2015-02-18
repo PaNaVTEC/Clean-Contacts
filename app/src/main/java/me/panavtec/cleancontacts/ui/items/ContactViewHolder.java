@@ -45,7 +45,7 @@ public class ContactViewHolder extends EasyViewHolder<Contact> {
         Name name = contact.getName();
         nameTextView.setText(String.format(Locale.getDefault(), "%s, %s %s", name.getTitle(), name.getFirst(), name.getLast()));
         Picture picture = contact.getPicture();
-        imageLoader.load(picture.getLarge(), imageView, placeHolderDrawable);
+        imageLoader.loadCircular(picture.getLarge(), imageView, placeHolderDrawable);
         phoneTextView.setText(contact.getPhone());
     }
     
