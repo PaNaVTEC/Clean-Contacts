@@ -7,10 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-import butterknife.InjectView;
+
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
 import com.carlosdelachica.easyrecycleradapters.recycler_view_manager.EasyRecyclerViewManager;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.InjectView;
 import me.panavtec.cleancontacts.R;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.modules.detail.DetailActivity;
@@ -21,10 +28,6 @@ import me.panavtec.cleancontacts.ui.BaseActivity;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
 import me.panavtec.cleancontacts.ui.items.ContactViewHolder;
-
-import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends BaseActivity implements MainView, SwipeRefreshLayout.OnRefreshListener, EasyViewHolder.OnItemClickListener {
 
@@ -123,10 +126,12 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
     @Override public void onItemClick(int position, View view) {
         Contact contact = (Contact) recyclerViewManager.getItem(position);
         View imageView = view.findViewById(R.id.imageView);
+        View nameTextView = view.findViewById(R.id.nameTextView);
         DetailActivity.launch(
                 this,
                 contact.getMd5(),
-                new Pair<>(imageView, "picture"));
+                new Pair<>(imageView, "picture"),
+                new Pair<>(nameTextView, "name"));
     }
 
 }
