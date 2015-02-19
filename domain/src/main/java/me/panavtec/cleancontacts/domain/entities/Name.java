@@ -29,4 +29,9 @@ public class Name {
     public void setLast(String last) {
         this.last = last;
     }
+
+    public String getFullName() {
+        return first + " " + last;
+    }
+
 }

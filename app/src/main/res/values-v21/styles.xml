@@ -9,6 +9,7 @@
         <!-- specify enter and exit transitions -->
         <item name="android:windowEnterTransition">@android:transition/explode</item>
         <item name="android:windowExitTransition">@android:transition/explode</item>
+        <item name="android:windowSharedElementsUseOverlay">false</item>
     </style>
 
 </resources>
