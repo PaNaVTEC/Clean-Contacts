@@ -2,11 +2,8 @@
 <resources>
 
     <style name="AppTheme" parent="BaseAppTheme">
-        <item name="android:colorPrimary">@color/primary</item>
-        <item name="android:colorPrimaryDark">@color/primary_dark</item>
-        <item name="android:colorAccent">@color/accent</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryDark</item>
+        <item name="android:colorEdgeEffect">?attr/colorAccent</item>
         <!-- enable window content transitions -->
         <item name="android:windowContentTransitions">true</item>
         <!-- specify enter and exit transitions -->
