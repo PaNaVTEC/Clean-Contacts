@@ -1,13 +1,17 @@
 package me.panavtec.cleancontacts.data.repository.contacts.datasources.api.entities;
 
 import com.google.gson.annotations.Expose;
+import com.mobandme.android.transformer.compiler.Mappable;
+import com.mobandme.android.transformer.compiler.Mapped;
+import me.panavtec.cleancontacts.domain.entities.Location;
 
+@Mappable(with = Location.class)
 public class ApiLocation {
 
-    @Expose private String street;
-    @Expose private String city;
-    @Expose private String state;
-    @Expose private String zip;
+    @Expose @Mapped public String street;
+    @Expose @Mapped public String city;
+    @Expose @Mapped public String state;
+    @Expose @Mapped public String zip;
 
     public String getStreet() {
         return street;

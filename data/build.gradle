@@ -11,4 +11,6 @@ dependencies {
     compile parent.ext.libGson
     compile parent.ext.libOkhttp
     compile parent.ext.libOrmlite
+    compile parent.ext.libMappers
+    provided parent.ext.libMappersCompiler
 }
