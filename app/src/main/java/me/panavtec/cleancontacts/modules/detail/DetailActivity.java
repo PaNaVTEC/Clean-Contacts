@@ -33,6 +33,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
     @InjectView(R.id.toolbar) Toolbar toolbar;
     @InjectView(R.id.nameTextView) TextView nameTextView;
     @InjectView(R.id.button_floating_action) FloatingActionButton buttonFloatingAction;
+    @InjectView(R.id.phoneInfoView) ContactInfoView phoneInfoView;
 
     private Contact contact;
     private String contactMd5;
@@ -77,6 +78,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
         this.contact = contact;
         showImageView();
         showContactName();
+        showMobilePhone();
     }
 
     private void showImageView() {
@@ -85,6 +87,10 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     private void showContactName() {
         nameTextView.setText(contact.getName().getFullName());
+    }
+
+    private void showMobilePhone() {
+        phoneInfoView.setInfoValue(contact.getPhone());
     }
 
     @Override

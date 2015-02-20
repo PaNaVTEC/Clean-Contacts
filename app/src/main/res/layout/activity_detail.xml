@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -48,9 +47,9 @@
                 android:layout_marginRight="16dp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/ic_star"
-                fab:fab_colorNormal="?attr/colorAccent"
-                fab:fab_shadow="true"
-                fab:fab_colorPressed="?attr/colorPrimary"
+                app:fab_colorNormal="?attr/colorAccent"
+                app:fab_shadow="true"
+                app:fab_colorPressed="?attr/colorPrimary"
                 />
 
             <LinearLayout
@@ -58,12 +57,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_below="@+id/contactImage"
-                android:padding="32dp"
+                android:padding="16dp"
+                android:layout_marginTop="26dp"
                 >
 
-                </LinearLayout>
+                <me.panavtec.cleancontacts.modules.detail.ContactInfoView
+                    android:id="@+id/phoneInfoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ci_info_label="@string/mobile"
+                    app:ci_info_icon="@drawable/ic_star"
+                    />
+                
+            </LinearLayout>
 
-            </RelativeLayout>
+        </RelativeLayout>
 
     </ScrollView>
 

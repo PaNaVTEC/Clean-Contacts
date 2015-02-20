@@ -38,7 +38,6 @@ public class ContactViewHolder extends EasyViewHolder<Contact> {
         int accentColor = context.getResources().getColor(R.color.accent);
         placeHolderDrawable = placeHolderResourceDrawable.mutate();
         placeHolderDrawable.setColorFilter(accentColor, PorterDuff.Mode.SRC_IN);
-
     }
 
     @Override public void bindTo(Contact contact) {
