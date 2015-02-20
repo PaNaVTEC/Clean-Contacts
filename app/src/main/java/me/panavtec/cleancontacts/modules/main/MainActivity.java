@@ -11,6 +11,13 @@ import butterknife.InjectView;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
 import com.carlosdelachica.easyrecycleradapters.recycler_view_manager.EasyRecyclerViewManager;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.InjectView;
 import me.panavtec.cleancontacts.R;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.modules.detail.DetailActionCommand;
@@ -21,10 +28,6 @@ import me.panavtec.cleancontacts.ui.BaseActivity;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
 import me.panavtec.cleancontacts.ui.items.ContactViewHolder;
-
-import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends BaseActivity implements MainView, SwipeRefreshLayout.OnRefreshListener, EasyViewHolder.OnItemClickListener {
 
@@ -52,8 +55,10 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
     }
 
     private void initToolbar() {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
     }
 
     private void initRecyclerView() {
@@ -122,7 +127,8 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
         Contact contact = (Contact) recyclerViewManager.getItem(position);
         DetailActionCommand detailActionCommand = new DetailActionCommand(this, 
                 contact.getMd5(), 
-                (ImageView) view.findViewById(R.id.imageView));
+                (ImageView) view.findViewById(R.id.imageView),
+                (TextView)view.findViewById(R.id.nameTextView));
         detailActionCommand.execute();
     }
 
