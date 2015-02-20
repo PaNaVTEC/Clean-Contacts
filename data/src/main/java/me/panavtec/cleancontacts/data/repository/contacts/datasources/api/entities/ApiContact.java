@@ -1,26 +1,30 @@
 package me.panavtec.cleancontacts.data.repository.contacts.datasources.api.entities;
 
 import com.google.gson.annotations.Expose;
+import com.mobandme.android.transformer.compiler.Mappable;
+import com.mobandme.android.transformer.compiler.Mapped;
+import me.panavtec.cleancontacts.domain.entities.Contact;
 
+@Mappable(with = Contact.class)
 public class ApiContact {
 
-    @Expose private String gender;
-    @Expose private ApiName name;
-    @Expose private ApiLocation location;
-    @Expose private String email;
-    @Expose private String username;
-    @Expose private String password;
-    @Expose private String salt;
-    @Expose private String md5;
-    @Expose private String sha1;
-    @Expose private String sha256;
-    @Expose private String registered;
-    @Expose private String dob;
-    @Expose private String phone;
-    @Expose private String cell;
-    @Expose private String SSN;
-    @Expose private ApiPicture picture;
-    @Expose private String version;
+    @Expose @Mapped public String gender;
+    @Expose @Mapped public ApiName name;
+    @Expose @Mapped public ApiLocation location;
+    @Expose @Mapped public String email;
+    @Expose @Mapped public String username;
+    @Expose @Mapped public String password;
+    @Expose @Mapped public String salt;
+    @Expose @Mapped public String md5;
+    @Expose @Mapped public String sha1;
+    @Expose @Mapped public String sha256;
+    @Expose @Mapped public String registered;
+    @Expose @Mapped public String dob;
+    @Expose @Mapped public String phone;
+    @Expose @Mapped public String cell;
+    @Expose @Mapped public String SSN;
+    @Expose @Mapped public ApiPicture picture;
+    @Expose @Mapped public String version;
 
     public String getGender() {
         return gender;

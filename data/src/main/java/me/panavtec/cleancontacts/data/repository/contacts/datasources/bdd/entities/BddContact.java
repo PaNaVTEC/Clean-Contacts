@@ -1,30 +1,34 @@
 package me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entities;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.mobandme.android.transformer.compiler.Mappable;
+import com.mobandme.android.transformer.compiler.Mapped;
+import me.panavtec.cleancontacts.domain.entities.Contact;
 
+@Mappable(with = Contact.class)
 public class BddContact {
 
     public static final String FIELD_MD5 = "md5";
     public static final String FIELD_ID = "id";
 
     @DatabaseField(generatedId = true, columnName = FIELD_ID) private int id;
-    @DatabaseField private String gender;
-    @DatabaseField(foreign = true, foreignAutoRefresh = true) private BddName name;
-    @DatabaseField(foreign = true, foreignAutoRefresh = true) private BddLocation location;
-    @DatabaseField private String email;
-    @DatabaseField private String username;
-    @DatabaseField private String password;
-    @DatabaseField private String salt;
-    @DatabaseField(columnName = FIELD_MD5) private String md5;
-    @DatabaseField private String sha1;
-    @DatabaseField private String sha256;
-    @DatabaseField private String registered;
-    @DatabaseField private String dob;
-    @DatabaseField private String phone;
-    @DatabaseField private String cell;
-    @DatabaseField private String SSN;
-    @DatabaseField(foreign = true, foreignAutoRefresh = true) private BddPicture picture;
-    @DatabaseField private String version;
+    @DatabaseField @Mapped public String gender;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true) @Mapped public BddName name;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true) @Mapped public BddLocation location;
+    @DatabaseField @Mapped public String email;
+    @DatabaseField @Mapped public String username;
+    @DatabaseField @Mapped public String password;
+    @DatabaseField @Mapped public String salt;
+    @DatabaseField(columnName = FIELD_MD5) @Mapped public String md5;
+    @DatabaseField @Mapped public String sha1;
+    @DatabaseField @Mapped public String sha256;
+    @DatabaseField @Mapped public String registered;
+    @DatabaseField @Mapped public String dob;
+    @DatabaseField @Mapped public String phone;
+    @DatabaseField @Mapped public String cell;
+    @DatabaseField @Mapped public String SSN;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true) @Mapped public BddPicture picture;
+    @DatabaseField @Mapped public String version;
 
     public int getId() {
         return id;

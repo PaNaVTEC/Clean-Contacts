@@ -48,8 +48,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
     compile parent.ext.libAndroidSupportv7
     compile parent.ext.libPathQueue
     compile parent.ext.libDagger
@@ -61,6 +59,8 @@ dependencies {
     compile parent.ext.libPicasso
     compile parent.ext.libRecyclerAdapters
     compile parent.ext.libFAB
+//    compile parent.ext.libMappers
+//    provided parent.ext.libMappersCompiler
 
     compile project(':domain')
     compile project(':presentation')
