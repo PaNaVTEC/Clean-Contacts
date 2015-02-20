@@ -128,7 +128,7 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
         DetailActionCommand detailActionCommand = new DetailActionCommand(this, 
                 contact.getMd5(), 
                 (ImageView) view.findViewById(R.id.imageView),
-                (TextView)view.findViewById(R.id.nameTextView));
+                (TextView) view.findViewById(R.id.nameTextView));
         detailActionCommand.execute();
     }
 
