@@ -1,12 +1,7 @@
 package me.panavtec.cleancontacts.modules.detail;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 import butterknife.InjectView;
 import me.panavtec.cleancontacts.R;
@@ -23,7 +18,7 @@ import java.util.List;
 
 public class DetailActivity extends BaseActivity implements DetailView {
 
-    private static final String CONTACT_MD5_EXTRA = "ContactExtra";
+    public static final String CONTACT_MD5_EXTRA = "ContactExtra";
 
     @Inject DetailPresenter presenter;
     @Inject ImageLoader imageLoader;
@@ -34,13 +29,6 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     private Contact contact;
     private String contactMd5;
-
-    public static void launch(Activity from, String contactMd5, Pair<View, String> sharedElements) {
-        Intent intent = new Intent(from, DetailActivity.class);
-        intent.putExtra(CONTACT_MD5_EXTRA, contactMd5);
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(from, sharedElements);
-        from.startActivity(intent, options.toBundle());
-    }
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

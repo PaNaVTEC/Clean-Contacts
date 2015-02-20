@@ -3,7 +3,6 @@ package me.panavtec.cleancontacts.di;
 import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import me.panavtec.cleancontacts.AppModule;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.errors.SnackbarErrorManagerImp;
 import dagger.Module;

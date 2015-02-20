@@ -1,6 +1,7 @@
 package me.panavtec.cleancontacts.data.repository.contacts.datasources.api;
 
-import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.mappers.ApiContactMapper;
+import com.mobandme.android.transformer.Transformer;
+import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.entities.ApiContact;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.responses.ApiContactResult;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.responses.ApiContactsResponse;
 import me.panavtec.cleancontacts.domain.entities.Contact;
@@ -13,7 +14,7 @@ import java.util.List;
 public class ContactsNetworkDataSourceImp implements ContactsNetworkDataSource {
 
     private ContactsApiService apiService;
-    private static final ApiContactMapper contactMapper = new ApiContactMapper();
+    private static final Transformer transformer = new Transformer.Builder().build(ApiContact.class);
 
     public ContactsNetworkDataSourceImp(ContactsApiService apiService) {
         this.apiService = apiService;
@@ -26,7 +27,7 @@ public class ContactsNetworkDataSourceImp implements ContactsNetworkDataSource {
             List<Contact> contacts = new ArrayList<>();
             if (results != null) {
                 for (ApiContactResult apiContact : results) {
-                    contacts.add(contactMapper.dataToModel(apiContact.getUser()));
+                    contacts.add(transformer.transform(apiContact.getUser(), Contact.class));
                 }
             }
             return contacts;

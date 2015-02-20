@@ -1,6 +1,6 @@
 package me.panavtec.cleancontacts.domain.interactors.contacts;
 
-import me.panavtec.cleancontacts.domain.EventBus;
+import me.panavtec.cleancontacts.domain.abstractions.Bus;
 import me.panavtec.cleancontacts.domain.interactors.Interactor;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.contacts.events.GetContactsEvent;
@@ -11,10 +11,10 @@ import java.util.List;
 
 public class GetContactsInteractor implements Interactor {
 
-    private EventBus bus;
+    private Bus bus;
     private ContactsRepository repository;
 
-    public GetContactsInteractor(EventBus bus, ContactsRepository repository) {
+    public GetContactsInteractor(Bus bus, ContactsRepository repository) {
         this.bus = bus;
         this.repository = repository;
     }

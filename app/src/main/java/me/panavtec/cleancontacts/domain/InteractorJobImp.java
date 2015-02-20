@@ -6,12 +6,10 @@ import com.path.android.jobqueue.Params;
 
 public class InteractorJobImp extends Job {
 
-    private EventBus bus;
     private Interactor interactor;
 
-    public InteractorJobImp(Params params, EventBus bus, Interactor interactor) {
+    public InteractorJobImp(Params params, Interactor interactor) {
         super(params);
-        this.bus = bus;
         this.interactor = interactor;
     }
 

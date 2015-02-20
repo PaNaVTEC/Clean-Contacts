@@ -1,13 +1,17 @@
 package me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entities;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.mobandme.android.transformer.compiler.Mappable;
+import com.mobandme.android.transformer.compiler.Mapped;
+import me.panavtec.cleancontacts.domain.entities.Name;
 
+@Mappable(with = Name.class)
 public class BddName {
 
     @DatabaseField(generatedId = true, columnName = "id") private int id;
-    @DatabaseField private String title;
-    @DatabaseField private String first;
-    @DatabaseField private String last;
+    @DatabaseField @Mapped public String title;
+    @DatabaseField @Mapped public String first;
+    @DatabaseField @Mapped public String last;
 
     public int getId() {
         return id;

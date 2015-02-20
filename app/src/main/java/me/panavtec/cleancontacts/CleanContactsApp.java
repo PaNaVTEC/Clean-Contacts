@@ -3,6 +3,7 @@ package me.panavtec.cleancontacts;
 import android.app.Application;
 import android.content.Context;
 import dagger.ObjectGraph;
+import me.panavtec.cleancontacts.di.AppModule;
 
 public class CleanContactsApp extends Application {
 

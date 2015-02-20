@@ -3,8 +3,8 @@ package me.panavtec.cleancontacts.modules.detail;
 import dagger.Module;
 import dagger.Provides;
 import me.panavtec.cleancontacts.di.ActivityModule;
-import me.panavtec.cleancontacts.domain.EventBus;
-import me.panavtec.cleancontacts.domain.interactors.InteractorExecutor;
+import me.panavtec.cleancontacts.domain.abstractions.Bus;
+import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.presentation.detail.DetailPresenter;
 import me.panavtec.cleancontacts.presentation.detail.DetailView;
@@ -22,10 +22,10 @@ public class DetailModule {
         this.detailView = detailView;
     }
 
-    @Provides DetailPresenter providePresenter(EventBus bus,
-                                               InteractorExecutor interactorExecutor,
+    @Provides DetailPresenter providePresenter(Bus bus,
+                                               InteractorInvoker interactorInvoker,
                                                GetContactInteractor getContactInteractor) {
-        return new DetailPresenter(bus, interactorExecutor, getContactInteractor, detailView);
+        return new DetailPresenter(bus, interactorInvoker, getContactInteractor, detailView);
     }
     
 }
