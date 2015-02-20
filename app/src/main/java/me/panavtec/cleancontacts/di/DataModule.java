@@ -11,8 +11,8 @@ import me.panavtec.cleancontacts.data.RetrofitLog;
 import me.panavtec.cleancontacts.data.UserAgent;
 import me.panavtec.cleancontacts.domain.abstractions.Bus;
 import me.panavtec.cleancontacts.domain.BusImp;
-import me.panavtec.cleancontacts.domain.InteractorExecutorImp;
-import me.panavtec.cleancontacts.domain.interactors.InteractorExecutor;
+import me.panavtec.cleancontacts.domain.InteractorInvokerImp;
+import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoaderImp;
 import retrofit.Endpoint;
@@ -50,8 +50,8 @@ public class DataModule {
         return new JobManager(app);
     }
 
-    @Provides @Singleton InteractorExecutor provideInteractorExecutor(JobManager jobManager, Bus bus) {
-        return new InteractorExecutorImp(jobManager);
+    @Provides @Singleton InteractorInvoker provideInteractorExecutor(JobManager jobManager, Bus bus) {
+        return new InteractorInvokerImp(jobManager);
     }
 
     @Provides @Singleton Picasso providePicasso(Application app) {

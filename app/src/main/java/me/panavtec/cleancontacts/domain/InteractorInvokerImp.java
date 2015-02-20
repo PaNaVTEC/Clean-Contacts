@@ -1,17 +1,17 @@
 package me.panavtec.cleancontacts.domain;
 
 import me.panavtec.cleancontacts.domain.interactors.Interactor;
-import me.panavtec.cleancontacts.domain.interactors.InteractorExecutor;
+import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.InteractorPriority;
 import com.path.android.jobqueue.Job;
 import com.path.android.jobqueue.JobManager;
 import com.path.android.jobqueue.Params;
 
-public class InteractorExecutorImp implements InteractorExecutor {
+public class InteractorInvokerImp implements InteractorInvoker {
 
     private JobManager jobManager;
 
-    public InteractorExecutorImp(JobManager jobManager) {
+    public InteractorInvokerImp(JobManager jobManager) {
         this.jobManager = jobManager;
     }
 

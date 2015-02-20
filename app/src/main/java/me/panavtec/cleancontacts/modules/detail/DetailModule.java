@@ -4,7 +4,7 @@ import dagger.Module;
 import dagger.Provides;
 import me.panavtec.cleancontacts.di.ActivityModule;
 import me.panavtec.cleancontacts.domain.abstractions.Bus;
-import me.panavtec.cleancontacts.domain.interactors.InteractorExecutor;
+import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.presentation.detail.DetailPresenter;
 import me.panavtec.cleancontacts.presentation.detail.DetailView;
@@ -23,9 +23,9 @@ public class DetailModule {
     }
 
     @Provides DetailPresenter providePresenter(Bus bus,
-                                               InteractorExecutor interactorExecutor,
+                                               InteractorInvoker interactorInvoker,
                                                GetContactInteractor getContactInteractor) {
-        return new DetailPresenter(bus, interactorExecutor, getContactInteractor, detailView);
+        return new DetailPresenter(bus, interactorInvoker, getContactInteractor, detailView);
     }
     
 }

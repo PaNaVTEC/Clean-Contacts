@@ -1,7 +1,7 @@
 package me.panavtec.cleancontacts.presentation.main;
 
 import me.panavtec.cleancontacts.domain.abstractions.Bus;
-import me.panavtec.cleancontacts.domain.interactors.InteractorExecutor;
+import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
 import me.panavtec.cleancontacts.domain.interactors.contacts.events.GetContactsEvent;
 import me.panavtec.cleancontacts.presentation.Presenter;
@@ -9,22 +9,22 @@ import me.panavtec.cleancontacts.presentation.Presenter;
 public class MainPresenter extends Presenter {
 
     private Bus bus;
-    private InteractorExecutor interactorExecutor;
+    private InteractorInvoker interactorInvoker;
     private GetContactsInteractor getContactsInteractor;
     private MainView mainView;
 
     public MainPresenter(Bus bus,
-                         InteractorExecutor interactorExecutor,
+                         InteractorInvoker interactorInvoker,
                          GetContactsInteractor getContactsInteractor,
                          MainView mainView) {
         this.bus = bus;
-        this.interactorExecutor = interactorExecutor;
+        this.interactorInvoker = interactorInvoker;
         this.getContactsInteractor = getContactsInteractor;
         this.mainView = mainView;
     }
 
     public void onCreate() {
-        interactorExecutor.execute(getContactsInteractor);
+        interactorInvoker.execute(getContactsInteractor);
     }
 
     @Override public void onResume() {
@@ -45,7 +45,7 @@ public class MainPresenter extends Presenter {
 
     public void onRefresh() {
         mainView.refreshUi();
-        interactorExecutor.execute(getContactsInteractor);
+        interactorInvoker.execute(getContactsInteractor);
     }
 
 }

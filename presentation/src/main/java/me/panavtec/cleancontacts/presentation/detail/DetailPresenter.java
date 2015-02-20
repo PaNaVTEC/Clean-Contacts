@@ -1,7 +1,7 @@
 package me.panavtec.cleancontacts.presentation.detail;
 
 import me.panavtec.cleancontacts.domain.abstractions.Bus;
-import me.panavtec.cleancontacts.domain.interactors.InteractorExecutor;
+import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.domain.interactors.contacts.events.GetContactEvent;
 import me.panavtec.cleancontacts.presentation.Presenter;
@@ -9,16 +9,16 @@ import me.panavtec.cleancontacts.presentation.Presenter;
 public class DetailPresenter extends Presenter {
 
     private final Bus bus;
-    private final InteractorExecutor interactorExecutor;
+    private final InteractorInvoker interactorInvoker;
     private final GetContactInteractor getContactInteractor;
     private final DetailView detailView;
 
     public DetailPresenter(Bus bus,
-                           InteractorExecutor interactorExecutor,
+                           InteractorInvoker interactorInvoker,
                            GetContactInteractor getContactInteractor,
                            DetailView detailView) {
         this.bus = bus;
-        this.interactorExecutor = interactorExecutor;
+        this.interactorInvoker = interactorInvoker;
         this.getContactInteractor = getContactInteractor;
         this.detailView = detailView;
     }
@@ -34,7 +34,7 @@ public class DetailPresenter extends Presenter {
 
     public void onCreate(String contactMd5) {
         getContactInteractor.setData(contactMd5);
-        interactorExecutor.execute(getContactInteractor);
+        interactorInvoker.execute(getContactInteractor);
     }
 
     public void onEvent(GetContactEvent event) {

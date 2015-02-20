@@ -2,7 +2,7 @@ package me.panavtec.cleancontacts.modules.main;
 
 import me.panavtec.cleancontacts.di.ActivityModule;
 import me.panavtec.cleancontacts.domain.abstractions.Bus;
-import me.panavtec.cleancontacts.domain.interactors.InteractorExecutor;
+import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
 import me.panavtec.cleancontacts.presentation.main.MainPresenter;
 import me.panavtec.cleancontacts.presentation.main.MainView;
@@ -24,9 +24,9 @@ public class MainModule {
     }
 
     @Provides @Singleton MainPresenter provideMainPresenter(Bus bus,
-                                                            InteractorExecutor interactorExecutor,
+                                                            InteractorInvoker interactorInvoker,
                                                             GetContactsInteractor getContactsInteractor) {
-        return new MainPresenter(bus, interactorExecutor, getContactsInteractor, mainView);
+        return new MainPresenter(bus, interactorInvoker, getContactsInteractor, mainView);
     }
 
 }
