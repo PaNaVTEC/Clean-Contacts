@@ -50,7 +50,7 @@ public class DataModule {
         return new JobManager(app);
     }
 
-    @Provides @Singleton InteractorInvoker provideInteractorExecutor(JobManager jobManager, Bus bus) {
+    @Provides @Singleton InteractorInvoker provideInteractorInvoker(JobManager jobManager, Bus bus) {
         return new InteractorInvokerImp(jobManager);
     }
 
