@@ -15,7 +15,7 @@ public class InteractorInvokerImp implements InteractorInvoker {
         this.jobManager = jobManager;
     }
 
-    @Override public void execute(Interactor interactor) {
+    @Override public void invoke(Interactor interactor) {
         execute(interactor, InteractorPriority.MEDIUM);
     }
 

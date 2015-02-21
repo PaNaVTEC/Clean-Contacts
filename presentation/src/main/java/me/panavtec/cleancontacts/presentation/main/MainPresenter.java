@@ -24,7 +24,7 @@ public class MainPresenter extends Presenter {
     }
 
     public void onCreate() {
-        interactorInvoker.execute(getContactsInteractor);
+        interactorInvoker.invoke(getContactsInteractor);
     }
 
     @Override public void onResume() {
@@ -45,7 +45,7 @@ public class MainPresenter extends Presenter {
 
     public void onRefresh() {
         mainView.refreshUi();
-        interactorInvoker.execute(getContactsInteractor);
+        interactorInvoker.invoke(getContactsInteractor);
     }
 
 }
