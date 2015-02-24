@@ -1,0 +1,14 @@
+rootProject.name = 'desktop'
+include 'domain'
+project(':domain').projectDir = new File(settingsDir, '../domain')
+
+include 'repository'
+project(':repository').projectDir = new File(settingsDir, '../repository')
+
+include 'presentation'
+project(':presentation').projectDir = new File(settingsDir, '../presentation')
+
+include 'desktopapp'
+
+include 'data'
+
