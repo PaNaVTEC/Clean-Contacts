@@ -1,10 +1,12 @@
 package me.panavtec.cleancontacts.desktop.ui.main;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class SimpleContact {
-    private StringProperty firstName;
-    private StringProperty lastName;
+
+    private StringProperty firstName = new SimpleStringProperty();
+    private StringProperty lastName = new SimpleStringProperty();
 
     public String getFirstName() {
         return firstName.get();
