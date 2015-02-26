@@ -8,11 +8,11 @@ public class InteractorExecutorImp implements InteractorInvoker {
 
     
     
-    @Override public void invoke(Interactor interactor) {
+    @Override public void execute(Interactor interactor) {
         interactor.execute();
     }
 
-    @Override public void invoke(Interactor interactor, InteractorPriority priority) {
+    @Override public void execute(Interactor interactor, InteractorPriority priority) {
 
 
     }

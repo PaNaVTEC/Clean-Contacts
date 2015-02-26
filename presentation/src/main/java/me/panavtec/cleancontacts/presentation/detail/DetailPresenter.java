@@ -34,7 +34,7 @@ public class DetailPresenter extends Presenter {
 
     public void onCreate(String contactMd5) {
         getContactInteractor.setData(contactMd5);
-        interactorInvoker.invoke(getContactInteractor);
+        interactorInvoker.execute(getContactInteractor);
     }
 
     public void onEvent(GetContactEvent event) {

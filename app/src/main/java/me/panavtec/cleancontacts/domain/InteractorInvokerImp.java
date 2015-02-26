@@ -15,11 +15,11 @@ public class InteractorInvokerImp implements InteractorInvoker {
         this.jobManager = jobManager;
     }
 
-    @Override public void invoke(Interactor interactor) {
-        invoke(interactor, InteractorPriority.MEDIUM);
+    @Override public void execute(Interactor interactor) {
+        execute(interactor, InteractorPriority.MEDIUM);
     }
 
-    @Override public void invoke(Interactor interactor, InteractorPriority priority) {
+    @Override public void execute(Interactor interactor, InteractorPriority priority) {
         jobManager.addJob(interactorToJob(interactor, priority));
     }
 
