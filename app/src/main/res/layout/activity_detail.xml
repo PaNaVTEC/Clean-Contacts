@@ -22,7 +22,7 @@
                 android:layout_height="228dp"
                 android:transitionName="picture"
                 android:scaleType="centerCrop"
-                tools:background="@android:color/black"
+                tools:background="@color/primary"
                 />
 
             <TextView
@@ -57,18 +57,48 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_below="@+id/contactImage"
-                android:padding="16dp"
                 android:layout_marginTop="26dp"
                 >
+
+                <me.panavtec.cleancontacts.modules.detail.ContactInfoView
+                    android:id="@+id/cellInfoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ci_info_label="@string/mobile"
+                    app:ci_info_icon="@drawable/ic_mobile"
+                    />
 
                 <me.panavtec.cleancontacts.modules.detail.ContactInfoView
                     android:id="@+id/phoneInfoView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:ci_info_label="@string/mobile"
-                    app:ci_info_icon="@drawable/ic_star"
+                    app:ci_info_label="@string/phone"
+                    app:ci_info_icon="@drawable/ic_phone"
                     />
-                
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="64dp"
+                    android:background="@android:color/darker_gray"
+                    />
+
+                <me.panavtec.cleancontacts.modules.detail.ContactInfoView
+                    android:id="@+id/emailInfoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ci_info_label="@string/email"
+                    app:ci_info_icon="@drawable/ic_email"
+                    />
+
+                <me.panavtec.cleancontacts.modules.detail.ContactInfoView
+                    android:id="@+id/addressInfoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ci_info_label="@string/address"
+                    app:ci_info_icon="@drawable/ic_location"
+                    />
+
             </LinearLayout>
 
         </RelativeLayout>
