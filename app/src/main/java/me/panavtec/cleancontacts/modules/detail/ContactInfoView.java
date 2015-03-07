@@ -69,9 +69,19 @@ public class ContactInfoView extends LinearLayout {
     }
 
     private void initView() {
-        setClickable(true);
+        initBackground();
+        initPadding();
         initInfo();
         initIcon();
+    }
+
+    private void initBackground() {
+        setBackground(getResources().getDrawable(R.drawable.list_selector));
+    }
+
+    private void initPadding() {
+        int itemPadding = getResources().getDimensionPixelSize(R.dimen.item_padding);
+        setPadding(itemPadding, itemPadding, itemPadding, itemPadding);
     }
 
     private void initInfo() {

@@ -3,10 +3,13 @@ package me.panavtec.cleancontacts.di;
 import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import me.panavtec.cleancontacts.ui.errors.ErrorManager;
-import me.panavtec.cleancontacts.ui.errors.SnackbarErrorManagerImp;
+
 import dagger.Module;
 import dagger.Provides;
+import me.panavtec.cleancontacts.ui.errors.ErrorManager;
+import me.panavtec.cleancontacts.ui.errors.SnackbarErrorManagerImp;
+import me.panavtec.cleancontacts.ui.helper_util.HelperUtil;
+import me.panavtec.cleancontacts.ui.helper_util.HelperUtilImpl;
 
 @Module(
         addsTo = AppModule.class,
@@ -36,4 +39,7 @@ public class ActivityModule {
         return new SnackbarErrorManagerImp(activity);
     }
 
+    @Provides HelperUtil provideHelperUtil(Context context) {
+        return new HelperUtilImpl(context);
+    }
 }

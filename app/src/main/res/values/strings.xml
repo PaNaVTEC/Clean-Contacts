@@ -5,5 +5,9 @@
     <string name="err_getting_contacts">Error getting contact</string>
     <string name="detail">Detail</string>
     <string name="mobile">Mobile</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
+    <string name="just_a_sample">Just a sample</string>
 
 </resources>
