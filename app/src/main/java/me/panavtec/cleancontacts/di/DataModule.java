@@ -14,7 +14,7 @@ import me.panavtec.cleancontacts.domain.BusImp;
 import me.panavtec.cleancontacts.domain.InteractorInvokerImp;
 import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
-import me.panavtec.cleancontacts.ui.imageloader.ImageLoaderImp;
+import me.panavtec.cleancontacts.ui.imageloader.PicassoImageLoader;
 import retrofit.Endpoint;
 import retrofit.Endpoints;
 
@@ -59,7 +59,7 @@ public class DataModule {
     }
 
     @Provides @Singleton ImageLoader provideImageLoader(Picasso picasso) {
-        return new ImageLoaderImp(picasso);
+        return new PicassoImageLoader(picasso);
     }
 
 }
