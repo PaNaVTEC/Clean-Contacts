@@ -1,4 +1,4 @@
-package me.panavtec.cleancontacts.ui.helper_util;
+package me.panavtec.cleancontacts.ui.elevation;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -8,19 +8,17 @@ import android.view.View;
 import me.panavtec.cleancontacts.R;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class HelperUtilImplLollipop extends HelperUtilImplBase {
+public class LollipopElevationHandler extends NoElevationHandler {
 
-    public HelperUtilImplLollipop(Context context){
+    public LollipopElevationHandler(Context context) {
         super(context);
     }
 
-    @Override
-    public void setElevation(View view, float elevation){
+    @Override public void setElevation(View view, float elevation) {
         view.setElevation(elevation);
     }
 
-    @Override
-    public void setElevation(View view) {
+    @Override public void setDefaultElevation(View view) {
         view.setElevation(view.getResources().getDimensionPixelSize(R.dimen.default_elevation));
     }
 
