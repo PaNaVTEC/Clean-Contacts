@@ -26,7 +26,7 @@ import me.panavtec.cleancontacts.presentation.main.MainPresenter;
 import me.panavtec.cleancontacts.presentation.main.MainView;
 import me.panavtec.cleancontacts.ui.BaseActivity;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
-import me.panavtec.cleancontacts.ui.helper_util.HelperUtil;
+import me.panavtec.cleancontacts.ui.elevation.ElevationHandler;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
 import me.panavtec.cleancontacts.ui.items.ContactViewHolder;
 
@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
     @Inject MainPresenter presenter;
     @Inject ErrorManager errorManager;
     @Inject ImageLoader imageLoader;
-    @Inject HelperUtil helperUtil;
+    @Inject ElevationHandler elevationHandler;
 
     @InjectView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
     @InjectView(R.id.recyclerView) RecyclerView recyclerView;
@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            helperUtil.setElevation(toolbar);
+            elevationHandler.setDefaultElevation(toolbar);
         }
     }
 
