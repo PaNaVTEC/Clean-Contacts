@@ -1,40 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="horizontal"
-        android:padding="@dimen/item_padding"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/list_selector">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:padding="@dimen/item_padding"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_selector"
+    >
 
     <ImageView
-            tools:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
-            android:id="@+id/imageView"
-            android:layout_width="@dimen/avatar_size"
-            android:layout_height="@dimen/avatar_size"
-            android:transitionName="picture"
-            />
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/avatar_size"
+        android:layout_height="@dimen/avatar_size"
+        android:transitionName="picture"
+        tools:src="@drawable/ic_contact_placerholder"
+        tools:background="@color/accent"
+        />
 
     <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="@dimen/item_padding"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/item_padding"
+        android:paddingRight="@dimen/item_padding"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            tools:text="Nombre, apellidos apellidos"
+            android:id="@+id/nameTextView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:transitionName="name"
+            />
 
         <TextView
-                tools:text="Nombre, apellidos apellidos"
-                android:id="@+id/nameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <TextView
-                tools:text="+ 34 (672 123 123)"
-                android:id="@+id/phoneTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            tools:text="+ 34 (672 123 123)"
+            android:id="@+id/phoneTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

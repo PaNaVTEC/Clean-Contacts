@@ -7,10 +7,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.InjectView;
+
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
 import com.carlosdelachica.easyrecycleradapters.recycler_view_manager.EasyRecyclerViewManager;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.InjectView;
 import me.panavtec.cleancontacts.R;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.modules.detail.DetailActionCommand;
@@ -19,18 +26,16 @@ import me.panavtec.cleancontacts.presentation.main.MainPresenter;
 import me.panavtec.cleancontacts.presentation.main.MainView;
 import me.panavtec.cleancontacts.ui.BaseActivity;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
+import me.panavtec.cleancontacts.ui.elevation.ElevationHandler;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
 import me.panavtec.cleancontacts.ui.items.ContactViewHolder;
-
-import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends BaseActivity implements MainView, SwipeRefreshLayout.OnRefreshListener, EasyViewHolder.OnItemClickListener {
 
     @Inject MainPresenter presenter;
     @Inject ErrorManager errorManager;
     @Inject ImageLoader imageLoader;
+    @Inject ElevationHandler elevationHandler;
 
     @InjectView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
     @InjectView(R.id.recyclerView) RecyclerView recyclerView;
@@ -52,8 +57,11 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
     }
 
     private void initToolbar() {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            elevationHandler.setDefaultElevation(toolbar);
+        }
     }
 
     private void initRecyclerView() {
@@ -62,6 +70,7 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
         recyclerViewManager = new EasyRecyclerViewManager.Builder(recyclerView, adapter)
                 .emptyLoadingListTextView(emptyList)
                 .loadingListTextColor(android.R.color.black)
+                .divider(R.drawable.list_divider)
                 .clickListener(this)
                 .build();
     }
@@ -121,7 +130,8 @@ public class MainActivity extends BaseActivity implements MainView, SwipeRefresh
         Contact contact = (Contact) recyclerViewManager.getItem(position);
         DetailActionCommand detailActionCommand = new DetailActionCommand(this, 
                 contact.getMd5(), 
-                (ImageView) view.findViewById(R.id.imageView));
+                (ImageView) view.findViewById(R.id.imageView),
+                (TextView) view.findViewById(R.id.nameTextView));
         detailActionCommand.execute();
     }
 
