@@ -17,7 +17,7 @@ The project is composed in 5 modules:
 ###MVP
 Model View presenter implemented in 2 modules. The Java module does not uses dependencies with the framework as R.string etc... 
 
-##Navigation via ActionCommands
+###Navigation via ActionCommands
 This is an idea of [Pedrovgs](https://github.com/pedrovgs/EffectiveAndroidUI), create small classes named "ActionCommands" that are used to navigate between activities, you can find this implementation in "DetailActionCommand"
 
 ###Minimal repository
