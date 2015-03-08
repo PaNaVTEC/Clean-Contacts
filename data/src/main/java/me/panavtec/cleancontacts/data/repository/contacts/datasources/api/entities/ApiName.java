@@ -8,31 +8,31 @@ import me.panavtec.cleancontacts.domain.entities.Name;
 @Mappable(with = Name.class)
 public class ApiName {
 
-    @Expose @Mapped public String title;
-    @Expose @Mapped public String first;
-    @Expose @Mapped public String last;
+  @Expose @Mapped public String title;
+  @Expose @Mapped public String first;
+  @Expose @Mapped public String last;
 
-    public String getTitle() {
-        return title;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public String getFirst() {
-        return first;
-    }
+  public String getFirst() {
+    return first;
+  }
 
-    public void setFirst(String first) {
-        this.first = first;
-    }
+  public void setFirst(String first) {
+    this.first = first;
+  }
 
-    public String getLast() {
-        return last;
-    }
+  public String getLast() {
+    return last;
+  }
 
-    public void setLast(String last) {
-        this.last = last;
-    }
+  public void setLast(String last) {
+    this.last = last;
+  }
 }

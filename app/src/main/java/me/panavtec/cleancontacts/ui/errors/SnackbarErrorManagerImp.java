@@ -6,14 +6,13 @@ import com.nispok.snackbar.SnackbarManager;
 
 public class SnackbarErrorManagerImp implements ErrorManager {
 
-    private Activity activity;
+  private Activity activity;
 
-    public SnackbarErrorManagerImp(Activity activity) {
-        this.activity = activity;
-    }
+  public SnackbarErrorManagerImp(Activity activity) {
+    this.activity = activity;
+  }
 
-    @Override public void showError(String error) {
-        SnackbarManager.show(Snackbar.with(activity).text(error));
-    }
-
+  @Override public void showError(String error) {
+    SnackbarManager.show(Snackbar.with(activity).text(error));
+  }
 }

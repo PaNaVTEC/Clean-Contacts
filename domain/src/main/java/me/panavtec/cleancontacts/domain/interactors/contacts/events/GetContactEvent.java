@@ -5,13 +5,13 @@ import me.panavtec.cleancontacts.domain.interactors.BaseEvent;
 
 public class GetContactEvent extends BaseEvent {
 
-    private Contact contact;
+  private Contact contact;
 
-    public Contact getContact() {
-        return contact;
-    }
+  public Contact getContact() {
+    return contact;
+  }
 
-    public void setContact(Contact contact) {
-        this.contact = contact;
-    }
+  public void setContact(Contact contact) {
+    this.contact = contact;
+  }
 }

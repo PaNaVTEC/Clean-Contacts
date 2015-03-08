@@ -1,4 +1,3 @@
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,36 +8,39 @@
     android:orientation="vertical"
     >
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
+  <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar"
+      />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+  <android.support.v4.widget.SwipeRefreshLayout
+      android:id="@+id/swipeRefreshLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:context=".MainActivity"
+      >
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".MainActivity">
+        android:layout_height="match_parent"
+        >
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/recyclerView"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          tools:listitem="@layout/item_contact"
+          />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/item_contact"/>
+      <TextView
+          android:id="@+id/empty_list"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          />
 
-            <TextView
-                android:id="@+id/empty_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                />
+    </FrameLayout>
 
-        </FrameLayout>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
+  </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

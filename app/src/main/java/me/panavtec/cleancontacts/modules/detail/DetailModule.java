@@ -10,22 +10,20 @@ import me.panavtec.cleancontacts.presentation.detail.DetailPresenter;
 import me.panavtec.cleancontacts.presentation.detail.DetailView;
 
 @Module(
-        addsTo = ActivityModule.class,
-        injects = DetailActivity.class,
-        library = true)
+    addsTo = ActivityModule.class,
+    injects = DetailActivity.class,
+    library = true)
 
 public class DetailModule {
 
-    private DetailView detailView;
+  private DetailView detailView;
 
-    public DetailModule(DetailView detailView) {
-        this.detailView = detailView;
-    }
+  public DetailModule(DetailView detailView) {
+    this.detailView = detailView;
+  }
 
-    @Provides DetailPresenter providePresenter(Bus bus,
-                                               InteractorInvoker interactorInvoker,
-                                               GetContactInteractor getContactInteractor) {
-        return new DetailPresenter(bus, interactorInvoker, getContactInteractor, detailView);
-    }
-    
+  @Provides DetailPresenter providePresenter(Bus bus, InteractorInvoker interactorInvoker,
+      GetContactInteractor getContactInteractor) {
+    return new DetailPresenter(bus, interactorInvoker, getContactInteractor, detailView);
+  }
 }

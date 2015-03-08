@@ -8,40 +8,40 @@ import me.panavtec.cleancontacts.domain.entities.Picture;
 @Mappable(with = Picture.class)
 public class BddPicture {
 
-    @DatabaseField(generatedId = true, columnName = "id") private int id;
-    @DatabaseField @Mapped public String large;
-    @DatabaseField @Mapped public String medium;
-    @DatabaseField @Mapped public String thumbnail;
+  @DatabaseField(generatedId = true, columnName = "id") private int id;
+  @DatabaseField @Mapped public String large;
+  @DatabaseField @Mapped public String medium;
+  @DatabaseField @Mapped public String thumbnail;
 
-    public int getId() {
-        return id;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public String getLarge() {
-        return large;
-    }
+  public String getLarge() {
+    return large;
+  }
 
-    public void setLarge(String large) {
-        this.large = large;
-    }
+  public void setLarge(String large) {
+    this.large = large;
+  }
 
-    public String getMedium() {
-        return medium;
-    }
+  public String getMedium() {
+    return medium;
+  }
 
-    public void setMedium(String medium) {
-        this.medium = medium;
-    }
+  public void setMedium(String medium) {
+    this.medium = medium;
+  }
 
-    public String getThumbnail() {
-        return thumbnail;
-    }
+  public String getThumbnail() {
+    return thumbnail;
+  }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
+  public void setThumbnail(String thumbnail) {
+    this.thumbnail = thumbnail;
+  }
 }

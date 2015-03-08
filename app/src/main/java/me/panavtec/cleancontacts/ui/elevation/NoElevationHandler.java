@@ -5,16 +5,15 @@ import android.view.View;
 
 public class NoElevationHandler implements ElevationHandler {
 
-    protected Context context;
+  protected Context context;
 
-    public NoElevationHandler(Context context){
-        this.context = context;
-    }
+  public NoElevationHandler(Context context) {
+    this.context = context;
+  }
 
-    @Override public void setElevation(View view, float elevation) {
-    }
+  @Override public void setElevation(View view, float elevation) {
+  }
 
-    @Override public void setDefaultElevation(View view) {
-    }
-
+  @Override public void setDefaultElevation(View view) {
+  }
 }

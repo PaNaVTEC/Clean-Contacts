@@ -6,12 +6,11 @@ import retrofit.http.Query;
 
 public interface ContactsApiService {
 
-    static final String API_VERSION = "/0.4.1";
+  static final String API_VERSION = "/0.4.1";
 
-    @GET(API_VERSION)
-    public ApiContactsResponse obtainUser();
+  @GET(API_VERSION)
+  public ApiContactsResponse obtainUser();
 
-    @GET(API_VERSION)
-    public ApiContactsResponse obtainUsers(@Query("results") int users);
-
+  @GET(API_VERSION)
+  public ApiContactsResponse obtainUsers(@Query("results") int users);
 }

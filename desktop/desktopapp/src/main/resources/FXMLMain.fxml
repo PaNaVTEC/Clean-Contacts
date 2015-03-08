@@ -6,23 +6,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane"
-            prefHeight="200"
-            prefWidth="320" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="me.panavtec.cleancontacts.desktop.ui.main.FXMLMainController">
-    <children>
-        <TableView fx:id="tableView">
-            <columns>
-                <TableColumn fx:id="firstNameColumn" text="First Name" prefWidth="100">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="firstName"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="lastNameColumn" text="Last Name" prefWidth="100">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="lastName"/>
-                    </cellValueFactory>
-                </TableColumn>
-            </columns>
-        </TableView>
-    </children>
+    prefHeight="200"
+    prefWidth="320" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="me.panavtec.cleancontacts.desktop.ui.main.FXMLMainController">
+  <children>
+    <TableView fx:id="tableView">
+      <columns>
+        <TableColumn fx:id="firstNameColumn" text="First Name" prefWidth="100">
+          <cellValueFactory>
+            <PropertyValueFactory property="firstName"/>
+          </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="lastNameColumn" text="Last Name" prefWidth="100">
+          <cellValueFactory>
+            <PropertyValueFactory property="lastName"/>
+          </cellValueFactory>
+        </TableColumn>
+      </columns>
+    </TableView>
+  </children>
 </AnchorPane>

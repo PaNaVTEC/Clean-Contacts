@@ -1,7 +1,7 @@
 buildscript {
-    dependencies {
-        //classpath parent.ext.classPathAndroidApt
-    }
+  dependencies {
+    //classpath parent.ext.classPathAndroidApt
+  }
 }
 
 apply plugin: 'com.android.application'
@@ -11,58 +11,58 @@ def STRING = "String"
 def BOOLEAN = "boolean"
 
 android {
-    compileSdkVersion parent.ext.androidCompileSdkVersion
-    buildToolsVersion parent.ext.androidBuildToolsVersion
+  compileSdkVersion parent.ext.androidCompileSdkVersion
+  buildToolsVersion parent.ext.androidBuildToolsVersion
 
-    defaultConfig {
-        applicationId parent.ext.androidApplicationId
-        minSdkVersion parent.ext.androidMinSdkVersion
-        targetSdkVersion parent.ext.androidTargetSdkVersion
-        versionCode parent.ext.androidVersionCode
-        versionName parent.ext.androidVersionName
+  defaultConfig {
+    applicationId parent.ext.androidApplicationId
+    minSdkVersion parent.ext.androidMinSdkVersion
+    targetSdkVersion parent.ext.androidTargetSdkVersion
+    versionCode parent.ext.androidVersionCode
+    versionName parent.ext.androidVersionName
 
-        // If you have a dev/prod api url, you maybe need to set this in buildtypes
-        buildConfigField STRING,   "API_URL"          , '"http://api.randomuser.me/"'
+    // If you have a dev/prod api url, you maybe need to set this in buildtypes
+    buildConfigField STRING, "API_URL", '"http://api.randomuser.me/"'
+  }
+  buildTypes {
+    debug {
+      buildConfigField BOOLEAN, "RETROFIT_LOG", "true"
     }
-    buildTypes {
-        debug {
-            buildConfigField BOOLEAN,  "RETROFIT_LOG"     , "true"
-        }
-        release {
-            buildConfigField BOOLEAN,  "RETROFIT_LOG"     , "false"
+    release {
+      buildConfigField BOOLEAN, "RETROFIT_LOG", "false"
 
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+  }
 
-    //you can use the diamond operator, multi-catch, strings in switches
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
+  //you can use the diamond operator, multi-catch, strings in switches
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_7
+    targetCompatibility JavaVersion.VERSION_1_7
+  }
 
-    packagingOptions {
-        exclude 'META-INF/services/javax.annotation.processing.Processor'
-    }
+  packagingOptions {
+    exclude 'META-INF/services/javax.annotation.processing.Processor'
+  }
 }
 
 dependencies {
-    compile parent.ext.libAndroidSupportv7
-    compile parent.ext.libPathQueue
-    compile parent.ext.libDagger
-    provided parent.ext.libDaggerCompiler
-    compile parent.ext.libButterknife
-    compile parent.ext.libEventBus
-    compile parent.ext.libSnackBars
-    compile parent.ext.libRecyclerView
-    compile parent.ext.libPicasso
-    compile parent.ext.libRecyclerAdapters
-    compile parent.ext.libFAB
-//    compile parent.ext.libMappers
-//    provided parent.ext.libMappersCompiler
+  compile parent.ext.libAndroidSupportv7
+  compile parent.ext.libPathQueue
+  compile parent.ext.libDagger
+  provided parent.ext.libDaggerCompiler
+  compile parent.ext.libButterknife
+  compile parent.ext.libEventBus
+  compile parent.ext.libSnackBars
+  compile parent.ext.libRecyclerView
+  compile parent.ext.libPicasso
+  compile parent.ext.libRecyclerAdapters
+  compile parent.ext.libFAB
+  //    compile parent.ext.libMappers
+  //    provided parent.ext.libMappersCompiler
 
-    compile project(':domain')
-    compile project(':presentation')
-    compile project(':data')
+  compile project(':domain')
+  compile project(':presentation')
+  compile project(':data')
 }
