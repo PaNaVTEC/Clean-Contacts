@@ -1,5 +1,5 @@
 apply plugin: 'java'
 
 dependencies {
-    compile project(':domain')
+  compile project(':domain')
 }

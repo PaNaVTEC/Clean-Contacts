@@ -13,38 +13,37 @@ import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.errors.SnackbarErrorManagerImp;
 
 @Module(
-        addsTo = AppModule.class,
-        library = true
-)
+    addsTo = AppModule.class,
+    library = true)
 public class ActivityModule {
 
-    private ActionBarActivity activity;
+  private ActionBarActivity activity;
 
-    public ActivityModule(ActionBarActivity activity) {
-        this.activity = activity;
-    }
+  public ActivityModule(ActionBarActivity activity) {
+    this.activity = activity;
+  }
 
-    @Provides ActionBar provideActionBar() {
-        return activity.getSupportActionBar();
-    }
+  @Provides ActionBar provideActionBar() {
+    return activity.getSupportActionBar();
+  }
 
-    @Provides Context provideContext() {
-        return activity;
-    }
+  @Provides Context provideContext() {
+    return activity;
+  }
 
-    @Provides ActionBarActivity provideActivity() {
-        return activity;
-    }
+  @Provides ActionBarActivity provideActivity() {
+    return activity;
+  }
 
-    @Provides ErrorManager provideErrorManager() {
-        return new SnackbarErrorManagerImp(activity);
-    }
+  @Provides ErrorManager provideErrorManager() {
+    return new SnackbarErrorManagerImp(activity);
+  }
 
-    @Provides ElevationHandler provideElevationUtil(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return new LollipopElevationHandler(context);
-        } else {
-            return new NoElevationHandler(context);
-        }
+  @Provides ElevationHandler provideElevationUtil(Context context) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      return new LollipopElevationHandler(context);
+    } else {
+      return new NoElevationHandler(context);
     }
+  }
 }

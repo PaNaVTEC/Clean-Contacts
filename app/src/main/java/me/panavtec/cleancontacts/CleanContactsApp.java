@@ -7,27 +7,27 @@ import me.panavtec.cleancontacts.di.AppModule;
 
 public class CleanContactsApp extends Application {
 
-    private ObjectGraph objectGraph;
+  private ObjectGraph objectGraph;
 
-    @Override public void onCreate() {
-        super.onCreate();
-        initObjectGraph();
-    }
+  @Override public void onCreate() {
+    super.onCreate();
+    initObjectGraph();
+  }
 
-    private void initObjectGraph() {
-        objectGraph = ObjectGraph.create(new AppModule(this));
-        inject(this);
-    }
+  private void initObjectGraph() {
+    objectGraph = ObjectGraph.create(new AppModule(this));
+    inject(this);
+  }
 
-    public void inject(Object object) {
-        objectGraph.inject(object);
-    }
+  public void inject(Object object) {
+    objectGraph.inject(object);
+  }
 
-    public static CleanContactsApp get(Context context) {
-        return (CleanContactsApp) context.getApplicationContext();
-    }
+  public static CleanContactsApp get(Context context) {
+    return (CleanContactsApp) context.getApplicationContext();
+  }
 
-    public ObjectGraph getObjectGraph() {
-        return objectGraph;
-    }
+  public ObjectGraph getObjectGraph() {
+    return objectGraph;
+  }
 }

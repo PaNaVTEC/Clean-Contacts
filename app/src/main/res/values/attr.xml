@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="ContactInfoViewAttrs">
-        <attr name="ci_info_value" format="string" />
-        <attr name="ci_info_label" format="string" />
-        <attr name="ci_info_icon" format="reference" />
-    </declare-styleable>
-    
+  <declare-styleable name="ContactInfoViewAttrs">
+    <attr name="ci_info_value"
+        format="string"/>
+    <attr name="ci_info_label"
+        format="string"/>
+    <attr name="ci_info_icon"
+        format="reference"/>
+  </declare-styleable>
+
 </resources>

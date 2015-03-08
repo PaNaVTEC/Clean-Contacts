@@ -25,5 +25,5 @@ package me.panavtec.cleancontacts.ui;
  * @author Pedro Vicente Gómez Sánchez
  */
 public interface ActionCommand {
-    void execute();
+  void execute();
 }

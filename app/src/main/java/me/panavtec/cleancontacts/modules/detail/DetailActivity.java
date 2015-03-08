@@ -1,7 +1,10 @@
 package me.panavtec.cleancontacts.modules.detail;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.InjectView;
@@ -15,132 +18,187 @@ import me.panavtec.cleancontacts.domain.entities.Location;
 import me.panavtec.cleancontacts.presentation.detail.DetailPresenter;
 import me.panavtec.cleancontacts.presentation.detail.DetailView;
 import me.panavtec.cleancontacts.ui.BaseActivity;
+import me.panavtec.cleancontacts.ui.Coordinator;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
 
-public class DetailActivity extends BaseActivity implements DetailView {
+public class DetailActivity extends BaseActivity implements DetailView,
+    Coordinator.CoordinatorCompleteAction {
 
-    public static final String CONTACT_MD5_EXTRA = "ContactExtra";
+  public static final String CONTACT_MD5_EXTRA = "ContactExtra";
+  public static final String CONTACT_THUMBNAIL_EXTRA = "ContactThumbnailExtra";
 
-    @Inject DetailPresenter presenter;
-    @Inject ImageLoader imageLoader;
-    @Inject ErrorManager errorManager;
+  private static final String COORDINATE_TRANSITION = "COORDINATE_TRANSITION";
+  private static final String COORDINATE_SHOW_CONTACT = "COORDINATE_SHOW_CONTACT";
 
-    @InjectView(R.id.contactImage) ImageView contactImageView;
-    @InjectView(R.id.toolbar) Toolbar toolbar;
-    @InjectView(R.id.nameTextView) TextView nameTextView;
-    @InjectView(R.id.phoneInfoView) ContactInfoView phoneInfoView;
-    @InjectView(R.id.cellInfoView) ContactInfoView cellInfoView;
-    @InjectView(R.id.emailInfoView) ContactInfoView emailInfoView;
-    @InjectView(R.id.addressInfoView) ContactInfoView addressInfoView;
+  @Inject DetailPresenter presenter;
+  @Inject ImageLoader imageLoader;
+  @Inject ErrorManager errorManager;
 
-    private Contact contact;
-    private String contactMd5;
+  @InjectView(R.id.contactImage) ImageView contactImageView;
+  @InjectView(R.id.toolbar) Toolbar toolbar;
+  @InjectView(R.id.nameTextView) TextView nameTextView;
+  @InjectView(R.id.phoneInfoView) ContactInfoView phoneInfoView;
+  @InjectView(R.id.cellInfoView) ContactInfoView cellInfoView;
+  @InjectView(R.id.emailInfoView) ContactInfoView emailInfoView;
+  @InjectView(R.id.addressInfoView) ContactInfoView addressInfoView;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        parseArguments();
-        initUi();
-        presenter.onCreate(contactMd5);
+  private Contact contact;
+  private String contactMd5;
+  private String thumbnail;
+  private Coordinator coordinator;
+
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    coordinator = new Coordinator(this, COORDINATE_TRANSITION, COORDINATE_SHOW_CONTACT);
+    parseArguments();
+    initTransitionElements();
+    initUi();
+    presenter.onCreate(contactMd5);
+  }
+
+  private void initTransitionElements() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && addTransitionListener()) {
+      imageLoader.loadWithoutEffects(thumbnail, contactImageView);
+    } else {
+      coordinator.completeAction(COORDINATE_TRANSITION);
     }
+  }
 
-    private void parseArguments() {
-        contactMd5 = getIntent().getStringExtra(CONTACT_MD5_EXTRA);
+  private void parseArguments() {
+    contactMd5 = getIntent().getStringExtra(CONTACT_MD5_EXTRA);
+    thumbnail = getIntent().getStringExtra(CONTACT_THUMBNAIL_EXTRA);
+  }
+
+  private void initUi() {
+    initToolbar();
+  }
+
+  private void initToolbar() {
+    if (toolbar != null) {
+      setSupportActionBar(toolbar);
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+  }
 
-    private void initUi() {
-        initToolbar();
-    }
+  @Override public int onCreateViewId() {
+    return R.layout.activity_detail;
+  }
 
-    private void initToolbar() {
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+  @Override protected void onResume() {
+    super.onResume();
+    presenter.onResume();
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+    presenter.onPause();
+  }
+
+  @Override public void showContactData(Contact contact) {
+    this.contact = contact;
+    coordinator.completeAction(COORDINATE_SHOW_CONTACT);
+    showContactName();
+    showContactMobilePhone();
+    showContactPhone();
+    showContactEmail();
+    showAddress();
+  }
+
+  private void showFullImage() {
+    imageLoader.loadWithoutEffects(contact.getPicture().getLarge(), contactImageView);
+  }
+
+  private void showContactName() {
+    nameTextView.setText(contact.getName().getFullName());
+  }
+
+  private void showContactMobilePhone() {
+    cellInfoView.setInfoValue(contact.getCell());
+  }
+
+  private void showContactPhone() {
+    phoneInfoView.setInfoValue(contact.getPhone());
+  }
+
+  private void showContactEmail() {
+    emailInfoView.setInfoValue(contact.getEmail());
+  }
+
+  private void showAddress() {
+    Location location = contact.getLocation();
+    String address = location.getStreet()
+        + ", "
+        + location.getCity()
+        + ", "
+        + location.getZip()
+        + ", "
+        + location.getState();
+    addressInfoView.setInfoValue(address);
+  }
+
+  @Override public void onCoordinatorComplete() {
+    showFullImage();
+  }
+
+  @Override public void showGetContactError() {
+    errorManager.showError(getString(R.string.err_getting_contacts));
+  }
+
+  @OnClick(R.id.phoneInfoView) public void phoneClicked() {
+    errorManager.showError(getString(R.string.just_a_sample));
+  }
+
+  @OnClick(R.id.emailInfoView) public void emailClicked() {
+    errorManager.showError(getString(R.string.just_a_sample));
+  }
+
+  @OnClick(R.id.cellInfoView) public void cellClicked() {
+    errorManager.showError(getString(R.string.just_a_sample));
+  }
+
+  @OnClick(R.id.button_floating_action) public void favouriteClicked() {
+    errorManager.showError(getString(R.string.just_a_sample));
+  }
+
+  @OnClick(R.id.addressInfoView) public void addressClicked() {
+    errorManager.showError(getString(R.string.just_a_sample));
+  }
+
+  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+  private boolean addTransitionListener() {
+    final Transition transition = getWindow().getSharedElementEnterTransition();
+    if (transition != null) {
+      transition.addListener(new Transition.TransitionListener() {
+
+        @Override public void onTransitionEnd(Transition transition) {
+          coordinator.completeAction(COORDINATE_TRANSITION);
+          transition.removeListener(this);
         }
+
+        @Override public void onTransitionStart(Transition transition) {
+        }
+
+        @Override public void onTransitionCancel(Transition transition) {
+          transition.removeListener(this);
+        }
+
+        @Override public void onTransitionPause(Transition transition) {
+        }
+
+        @Override public void onTransitionResume(Transition transition) {
+        }
+      });
+      return true;
     }
 
-    @Override public int onCreateViewId() {
-        return R.layout.activity_detail;
-    }
+    // If we reach here then we have not added a listener
+    coordinator.completeAction(COORDINATE_TRANSITION);
+    return false;
+  }
 
-    @Override protected void onResume() {
-        super.onResume();
-        presenter.onResume();
-    }
-
-    @Override protected void onPause() {
-        super.onPause();
-        presenter.onPause();
-    }
-
-    @Override public void showContactData(Contact contact) {
-        this.contact = contact;
-        showImageView();
-        showContactName();
-        showMobilePhone();
-        showPhone();
-        showEmail();
-        showAddress();
-    }
-
-    private void showImageView() {
-        imageLoader.load(contact.getPicture().getLarge(), contactImageView);
-    }
-
-    private void showContactName() {
-        nameTextView.setText(contact.getName().getFullName());
-    }
-
-    private void showMobilePhone() {
-        cellInfoView.setInfoValue(contact.getCell());
-    }
-
-    private void showPhone() {
-        phoneInfoView.setInfoValue(contact.getPhone());
-    }
-
-    private void showEmail() {
-        emailInfoView.setInfoValue(contact.getEmail());
-    }
-
-    private void showAddress() {
-        Location location = contact.getLocation();
-        String address = location.getStreet()
-            + ", "
-            + location.getCity()
-            + ", "
-            + location.getZip()
-            + ", "
-            + location.getState();
-        addressInfoView.setInfoValue(address);
-    }
-
-    @Override public void showGetContactError() {
-        errorManager.showError(getString(R.string.err_getting_contacts));
-    }
-
-    @OnClick(R.id.phoneInfoView) public void phoneClicked() {
-        errorManager.showError(getString(R.string.just_a_sample));
-    }
-
-    @OnClick(R.id.emailInfoView) public void emailClicked() {
-        errorManager.showError(getString(R.string.just_a_sample));
-    }
-
-    @OnClick(R.id.cellInfoView) public void cellClicked() {
-        errorManager.showError(getString(R.string.just_a_sample));
-    }
-
-    @OnClick(R.id.button_floating_action) public void favouriteClicked() {
-        errorManager.showError(getString(R.string.just_a_sample));
-    }
-
-    @OnClick(R.id.addressInfoView) public void addressClicked() {
-        errorManager.showError(getString(R.string.just_a_sample));
-    }
-
-    protected List<Object> getModules() {
-        return Arrays.<Object>asList(new DetailModule(this));
-    }
-
+  protected List<Object> getModules() {
+    return Arrays.<Object>asList(new DetailModule(this));
+  }
+  
 }

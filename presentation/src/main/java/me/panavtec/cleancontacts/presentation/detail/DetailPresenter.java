@@ -8,41 +8,37 @@ import me.panavtec.cleancontacts.presentation.Presenter;
 
 public class DetailPresenter extends Presenter {
 
-    private final Bus bus;
-    private final InteractorInvoker interactorInvoker;
-    private final GetContactInteractor getContactInteractor;
-    private final DetailView detailView;
+  private final Bus bus;
+  private final InteractorInvoker interactorInvoker;
+  private final GetContactInteractor getContactInteractor;
+  private final DetailView detailView;
 
-    public DetailPresenter(Bus bus,
-                           InteractorInvoker interactorInvoker,
-                           GetContactInteractor getContactInteractor,
-                           DetailView detailView) {
-        this.bus = bus;
-        this.interactorInvoker = interactorInvoker;
-        this.getContactInteractor = getContactInteractor;
-        this.detailView = detailView;
+  public DetailPresenter(Bus bus, InteractorInvoker interactorInvoker,
+      GetContactInteractor getContactInteractor, DetailView detailView) {
+    this.bus = bus;
+    this.interactorInvoker = interactorInvoker;
+    this.getContactInteractor = getContactInteractor;
+    this.detailView = detailView;
+  }
+
+  @Override public void onResume() {
+    bus.register(this);
+  }
+
+  @Override public void onPause() {
+    bus.unregister(this);
+  }
+
+  public void onCreate(String contactMd5) {
+    getContactInteractor.setData(contactMd5);
+    interactorInvoker.execute(getContactInteractor);
+  }
+
+  public void onEvent(GetContactEvent event) {
+    if (event.getError() == null) {
+      detailView.showContactData(event.getContact());
+    } else {
+      detailView.showGetContactError();
     }
-
-
-    @Override public void onResume() {
-        bus.register(this);
-    }
-
-    @Override public void onPause() {
-        bus.unregister(this);
-    }
-
-    public void onCreate(String contactMd5) {
-        getContactInteractor.setData(contactMd5);
-        interactorInvoker.execute(getContactInteractor);
-    }
-
-    public void onEvent(GetContactEvent event) {
-        if (event.getError() == null) {
-            detailView.showContactData(event.getContact());
-        } else {
-            detailView.showGetContactError();
-        }
-    }
-
+  }
 }
