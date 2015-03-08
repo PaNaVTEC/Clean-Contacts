@@ -24,5 +24,5 @@ public class AppModule {
   @Provides @Singleton Application provideApplication() {
     return app;
   }
-  
+
 }
