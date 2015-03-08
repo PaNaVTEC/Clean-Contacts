@@ -9,7 +9,7 @@ import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entiti
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.persistors.Persistor;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
-import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.CannotObtainBddContactException;
+import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainBddContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainContactsBddException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.PersistContactsBddException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.UnknownObtainContactsException;
@@ -57,14 +57,14 @@ public class ContactsBddDataSourceImp implements ContactsBddDataSource {
     }
   }
 
-  @Override public Contact obtain(String md5) throws CannotObtainBddContactException {
+  @Override public Contact obtain(String md5) throws ObtainBddContactException {
 
     try {
       BddContact bddContact =
           daoContacts.queryBuilder().where().eq(BddContact.FIELD_MD5, md5).queryForFirst();
       return transformer.transform(bddContact, Contact.class);
     } catch (Throwable e) {
-      throw new CannotObtainBddContactException();
+      throw new ObtainBddContactException();
     }
   }
 }
