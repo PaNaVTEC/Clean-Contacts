@@ -1,10 +1,12 @@
 package me.panavtec.cleancontacts.di;
 
 import android.app.Application;
+import android.os.Build;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
 import me.panavtec.cleancontacts.CleanContactsApp;
+import me.panavtec.cleancontacts.di.qualifiers.ApiLevel;
 
 @Module(
     includes = {
@@ -25,4 +27,8 @@ public class AppModule {
     return app;
   }
 
+  @Provides @Singleton @ApiLevel int provideApiLevel() {
+    return Build.VERSION.SDK_INT;
+  }
+  
 }
