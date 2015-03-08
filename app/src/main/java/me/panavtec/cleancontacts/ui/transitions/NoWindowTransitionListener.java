@@ -9,7 +9,9 @@ public class NoWindowTransitionListener implements WindowTransitionListener {
   }
 
   @Override public boolean start() {
-    endListener.onEndTransition();
+    if (endListener != null) {
+      endListener.onEndTransition();
+    }
     return false;
   }
   

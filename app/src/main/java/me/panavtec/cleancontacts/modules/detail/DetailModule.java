@@ -8,9 +8,11 @@ import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.presentation.detail.DetailPresenter;
 import me.panavtec.cleancontacts.ui.Coordinator;
+import me.panavtec.cleancontacts.ui.transitions.WindowTransitionListener;
 
 @Module(
     addsTo = ActivityModule.class,
+    library = true,
     injects = DetailActivity.class)
 public class DetailModule {
 
@@ -29,5 +31,9 @@ public class DetailModule {
 
   @Provides Coordinator provideCoordinator() {
     return new Coordinator(detailActivity, coordinatorActions);
+  }
+  
+  @Provides WindowTransitionListener.WindowTransitionEndListener provideEndListener() {
+    return detailActivity;
   }
 }
