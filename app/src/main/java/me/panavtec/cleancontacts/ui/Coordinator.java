@@ -16,14 +16,10 @@ public class Coordinator {
       throw new NullPointerException("Coordinate complete action must not be null");
     }
     if (actions == null || actions.length == 0) {
-      throw new IllegalArgumentException("There are no actions to coordinate");
+      throw new IllegalArgumentException("No actions configured");
     }
     this.coordinatorCompleteAction = coordinatorCompleteAction;
     this.actions = Arrays.asList(actions);
-  }
-
-  public void addAction(String action) {
-    actions.add(action);
   }
 
   public void completeAction(String action) {

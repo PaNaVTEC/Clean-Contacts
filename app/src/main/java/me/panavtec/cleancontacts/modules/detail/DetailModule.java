@@ -7,23 +7,27 @@ import me.panavtec.cleancontacts.domain.abstractions.Bus;
 import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.presentation.detail.DetailPresenter;
-import me.panavtec.cleancontacts.presentation.detail.DetailView;
+import me.panavtec.cleancontacts.ui.Coordinator;
 
 @Module(
     addsTo = ActivityModule.class,
-    injects = DetailActivity.class,
-    library = true)
-
+    injects = DetailActivity.class)
 public class DetailModule {
 
-  private DetailView detailView;
+  private DetailActivity detailActivity;
+  private String[] coordinatorActions;
 
-  public DetailModule(DetailView detailView) {
-    this.detailView = detailView;
+  public DetailModule(DetailActivity detailActivity, String[] coordinatorActions) {
+    this.detailActivity = detailActivity;
+    this.coordinatorActions = coordinatorActions;
   }
 
   @Provides DetailPresenter providePresenter(Bus bus, InteractorInvoker interactorInvoker,
       GetContactInteractor getContactInteractor) {
-    return new DetailPresenter(bus, interactorInvoker, getContactInteractor, detailView);
+    return new DetailPresenter(bus, interactorInvoker, getContactInteractor, detailActivity);
+  }
+
+  @Provides Coordinator provideCoordinator() {
+    return new Coordinator(detailActivity, coordinatorActions);
   }
 }

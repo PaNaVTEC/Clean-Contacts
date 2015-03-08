@@ -1,5 +1,6 @@
 package me.panavtec.cleancontacts.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import butterknife.ButterKnife;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import me.panavtec.cleancontacts.CleanContactsApp;
 import me.panavtec.cleancontacts.di.ActivityModule;
+import me.panavtec.cleancontacts.di.LollipopModule;
+import me.panavtec.cleancontacts.di.PreLollipopModule;
 
 public class BaseActivity extends ActionBarActivity {
 
@@ -69,6 +72,8 @@ public class BaseActivity extends ActionBarActivity {
     private List<Object> getCombinedModules(List<Object> modules) {
       List<Object> combined = new ArrayList<>(modules);
       combined.add(new ActivityModule(activity));
+      combined.add(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? new LollipopModule()
+          : new PreLollipopModule());
       return combined;
     }
   }
