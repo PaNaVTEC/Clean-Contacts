@@ -10,7 +10,6 @@ import java.util.List;
 import me.panavtec.cleancontacts.CleanContactsApp;
 import me.panavtec.cleancontacts.di.ActivityModule;
 import me.panavtec.cleancontacts.di.LollipopModule;
-import me.panavtec.cleancontacts.di.PreLollipopModule;
 
 public class BaseActivity extends ActionBarActivity {
 
@@ -72,8 +71,9 @@ public class BaseActivity extends ActionBarActivity {
     private List<Object> getCombinedModules(List<Object> modules) {
       List<Object> combined = new ArrayList<>(modules);
       combined.add(new ActivityModule(activity));
-      combined.add(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? new LollipopModule()
-          : new PreLollipopModule());
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        combined.add(new LollipopModule(activity.getWindow()));
+      }
       return combined;
     }
   }
