@@ -12,8 +12,7 @@ import me.panavtec.cleancontacts.presentation.main.MainView;
 
 @Module(
     addsTo = ActivityModule.class,
-    injects = MainActivity.class,
-    library = true)
+    injects = MainActivity.class)
 public class MainModule {
 
   private MainView mainView;
