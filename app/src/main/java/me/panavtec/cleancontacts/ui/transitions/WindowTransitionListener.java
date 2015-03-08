@@ -4,7 +4,11 @@ public interface WindowTransitionListener {
   public boolean start();
   public void setupListener(WindowTransitionEndListener endListener);
   
-  static interface WindowTransitionEndListener {
+  public static interface WindowTransitionEndListener {
     void onEndTransition();
+  }
+  
+  public static interface Factory {
+    WindowTransitionListener createWindowTransitionListener();
   }
 }

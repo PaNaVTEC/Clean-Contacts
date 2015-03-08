@@ -4,6 +4,9 @@ import android.view.View;
 
 public interface ElevationHandler {
   void setElevation(View view, float elevation);
-
   void setDefaultElevation(View view);
+  
+  public interface Factory {
+    ElevationHandler createElevationHandler();
+  }
 }
