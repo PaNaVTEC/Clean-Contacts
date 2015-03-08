@@ -8,11 +8,10 @@ import android.view.Window;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class LollipopWindowTransitionListener implements WindowTransitionListener {
   
-  private WindowTransitionEndListener endListener;
   private Window window;
+  private WindowTransitionEndListener endListener;
 
-  public LollipopWindowTransitionListener(WindowTransitionEndListener endListener, Window window) {
-    this.endListener = endListener;
+  public LollipopWindowTransitionListener(Window window) {
     this.window = window;
   }
 
@@ -45,6 +44,10 @@ public class LollipopWindowTransitionListener implements WindowTransitionListene
     // If we reach here then we have not added a listener
     notificateEnd();
     return false;
+  }
+
+  @Override public void setupListener(WindowTransitionEndListener endListener) {
+    this.endListener = endListener;
   }
 
   private void notificateEnd() {

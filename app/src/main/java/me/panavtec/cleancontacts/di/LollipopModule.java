@@ -27,6 +27,6 @@ public class LollipopModule {
 
   @Provides WindowTransitionListener provideWindowTransitionListener(
       WindowTransitionListener.WindowTransitionEndListener endListener) {
-    return new LollipopWindowTransitionListener(endListener, window);
+    return new LollipopWindowTransitionListener(window);
   }
 }

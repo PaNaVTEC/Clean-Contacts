@@ -57,6 +57,7 @@ public class DetailActivity extends BaseActivity
   }
 
   private void initTransitionElements() {
+    windowTransitionListener.setupListener(this);
     imageLoader.loadWithoutEffects(thumbnail, contactImageView);
     windowTransitionListener.start();
   }

@@ -4,7 +4,7 @@ public class NoWindowTransitionListener implements WindowTransitionListener {
 
   private WindowTransitionEndListener endListener;
 
-  public NoWindowTransitionListener(WindowTransitionEndListener endListener) {
+  @Override public void setupListener(WindowTransitionEndListener endListener) {
     this.endListener = endListener;
   }
 

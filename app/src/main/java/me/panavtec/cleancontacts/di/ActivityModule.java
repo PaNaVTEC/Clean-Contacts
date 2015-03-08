@@ -44,7 +44,7 @@ public class ActivityModule {
   }
 
   @Provides WindowTransitionListener provideWindowTransitionListener() {
-    return new NoWindowTransitionListener(null);
+    return new NoWindowTransitionListener();
   }
   
 }
