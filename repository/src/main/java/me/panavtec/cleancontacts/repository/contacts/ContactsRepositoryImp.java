@@ -7,7 +7,7 @@ import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CantRetr
 import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsNetworkDataSource;
-import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.CannotObtainBddContactException;
+import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainBddContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ContactsNetworkException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainContactsBddException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.PersistContactsBddException;
@@ -44,7 +44,7 @@ public class ContactsRepositoryImp implements ContactsRepository {
   @Override public Contact obtain(String md5) throws CannotObtainContactException {
     try {
       return bddDataSource.obtain(md5);
-    } catch (CannotObtainBddContactException e) {
+    } catch (ObtainBddContactException e) {
       throw new CannotObtainContactException();
     }
   }
