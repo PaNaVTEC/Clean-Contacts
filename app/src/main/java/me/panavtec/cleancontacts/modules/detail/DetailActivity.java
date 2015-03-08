@@ -1,10 +1,7 @@
 package me.panavtec.cleancontacts.modules.detail;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.transition.Transition;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.InjectView;
@@ -21,19 +18,23 @@ import me.panavtec.cleancontacts.ui.BaseActivity;
 import me.panavtec.cleancontacts.ui.Coordinator;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
+import me.panavtec.cleancontacts.ui.transitions.WindowTransitionListener;
 
-public class DetailActivity extends BaseActivity implements DetailView,
-    Coordinator.CoordinatorCompleteAction {
+public class DetailActivity extends BaseActivity
+    implements DetailView, Coordinator.CoordinatorCompleteAction,
+    WindowTransitionListener.WindowTransitionEndListener {
 
   public static final String CONTACT_MD5_EXTRA = "ContactExtra";
   public static final String CONTACT_THUMBNAIL_EXTRA = "ContactThumbnailExtra";
 
-  private static final String COORDINATE_TRANSITION = "COORDINATE_TRANSITION";
+  private static final String COORDINATE_END_TRANSITION = "COORDINATE_END_TRANSITION";
   private static final String COORDINATE_SHOW_CONTACT = "COORDINATE_SHOW_CONTACT";
 
   @Inject DetailPresenter presenter;
   @Inject ImageLoader imageLoader;
   @Inject ErrorManager errorManager;
+  @Inject Coordinator coordinator;
+  @Inject WindowTransitionListener windowTransitionListener;
 
   @InjectView(R.id.contactImage) ImageView contactImageView;
   @InjectView(R.id.toolbar) Toolbar toolbar;
@@ -46,11 +47,9 @@ public class DetailActivity extends BaseActivity implements DetailView,
   private Contact contact;
   private String contactMd5;
   private String thumbnail;
-  private Coordinator coordinator;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    coordinator = new Coordinator(this, COORDINATE_TRANSITION, COORDINATE_SHOW_CONTACT);
     parseArguments();
     initTransitionElements();
     initUi();
@@ -58,11 +57,9 @@ public class DetailActivity extends BaseActivity implements DetailView,
   }
 
   private void initTransitionElements() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && addTransitionListener()) {
-      imageLoader.loadWithoutEffects(thumbnail, contactImageView);
-    } else {
-      coordinator.completeAction(COORDINATE_TRANSITION);
-    }
+    windowTransitionListener.setupListener(this);
+    imageLoader.loadWithoutEffects(thumbnail, contactImageView);
+    windowTransitionListener.start();
   }
 
   private void parseArguments() {
@@ -165,40 +162,13 @@ public class DetailActivity extends BaseActivity implements DetailView,
     errorManager.showError(getString(R.string.just_a_sample));
   }
 
-  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-  private boolean addTransitionListener() {
-    final Transition transition = getWindow().getSharedElementEnterTransition();
-    if (transition != null) {
-      transition.addListener(new Transition.TransitionListener() {
-
-        @Override public void onTransitionEnd(Transition transition) {
-          coordinator.completeAction(COORDINATE_TRANSITION);
-          transition.removeListener(this);
-        }
-
-        @Override public void onTransitionStart(Transition transition) {
-        }
-
-        @Override public void onTransitionCancel(Transition transition) {
-          transition.removeListener(this);
-        }
-
-        @Override public void onTransitionPause(Transition transition) {
-        }
-
-        @Override public void onTransitionResume(Transition transition) {
-        }
-      });
-      return true;
-    }
-
-    // If we reach here then we have not added a listener
-    coordinator.completeAction(COORDINATE_TRANSITION);
-    return false;
+  @Override public void onEndTransition() {
+    coordinator.completeAction(COORDINATE_END_TRANSITION);
   }
 
   protected List<Object> getModules() {
-    return Arrays.<Object>asList(new DetailModule(this));
+    return Arrays.<Object>asList(new DetailModule(this, new String[] {
+        COORDINATE_END_TRANSITION, COORDINATE_SHOW_CONTACT
+    }));
   }
-  
 }
