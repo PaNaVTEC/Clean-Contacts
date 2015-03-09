@@ -1,4 +1,4 @@
-package me.panavtec.cleancontacts.domain.repository;
+package me.panavtec.cleancontacts.repository.contacts.cachingstrategy;
 
 import java.util.Collection;
 

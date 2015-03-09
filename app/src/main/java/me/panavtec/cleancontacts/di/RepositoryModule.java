@@ -3,12 +3,12 @@ package me.panavtec.cleancontacts.di;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
-
 import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.domain.repository.CachingStrategy;
 import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
 import me.panavtec.cleancontacts.repository.contacts.ContactCachingStrategy;
 import me.panavtec.cleancontacts.repository.contacts.ContactsRepositoryImp;
+import me.panavtec.cleancontacts.repository.contacts.cachingstrategy.CachingStrategy;
+import me.panavtec.cleancontacts.repository.contacts.cachingstrategy.TimeUnit;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsNetworkDataSource;
 
@@ -27,7 +27,7 @@ public class RepositoryModule {
   }
 
   @Provides @Singleton CachingStrategy<Contact> provideCachingStrategy() {
-    return new ContactCachingStrategy();
+    return new ContactCachingStrategy(1, TimeUnit.MINUTES);
   }
     
 }
