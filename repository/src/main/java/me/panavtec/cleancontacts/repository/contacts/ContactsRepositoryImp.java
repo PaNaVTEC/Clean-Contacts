@@ -4,6 +4,7 @@ import java.util.List;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CannotObtainContactException;
 import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CantRetrieveContactsException;
+import me.panavtec.cleancontacts.domain.repository.CachingStrategy;
 import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsNetworkDataSource;
@@ -18,18 +19,21 @@ public class ContactsRepositoryImp implements ContactsRepository {
 
   private final ContactsNetworkDataSource networkDataSource;
   private final ContactsBddDataSource bddDataSource;
+  private final CachingStrategy<Contact> cachingStrategy;
 
-  public ContactsRepositoryImp(ContactsNetworkDataSource networkDataSource,
-      ContactsBddDataSource bddDataSource) {
+    public ContactsRepositoryImp(ContactsNetworkDataSource networkDataSource,
+      ContactsBddDataSource bddDataSource,
+      CachingStrategy<Contact> cachingStrategy) {
     this.networkDataSource = networkDataSource;
     this.bddDataSource = bddDataSource;
-  }
+    this.cachingStrategy = cachingStrategy;
+    }
 
   @Override public List<Contact> obtainContacts() throws CantRetrieveContactsException {
     List<Contact> contacts = null;
     try {
       contacts = bddDataSource.obtainContacts();
-      if (contacts == null || contacts.size() == 0) {
+      if (!cachingStrategy.isValid(contacts)) {
         contacts = networkDataSource.obtainContacts();
         bddDataSource.persist(contacts);
       }
