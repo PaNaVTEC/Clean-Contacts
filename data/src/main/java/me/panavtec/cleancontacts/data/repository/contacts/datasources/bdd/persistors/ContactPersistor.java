@@ -17,9 +17,6 @@ public class ContactPersistor implements Persistor<BddContact> {
 
   @Override public void persist(BddContact data) throws SQLException {
     if (data != null) {
-      //should be done on the mapping
-      data.setPersistedTime(System.currentTimeMillis());
-
       BddLocation location = data.getLocation();
       if (location != null) {
         helper.getLocationDao().create(location);

@@ -5,7 +5,7 @@ import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CannotObtainContactException;
 import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CantRetrieveContactsException;
 import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
-import me.panavtec.cleancontacts.repository.contacts.cachingstrategy.CachingStrategy;
+import me.panavtec.cleancontacts.repository.caching.strategy.CachingStrategy;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsNetworkDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ContactsNetworkException;
@@ -20,20 +20,22 @@ public class ContactsRepositoryImp implements ContactsRepository {
   private final ContactsNetworkDataSource networkDataSource;
   private final ContactsBddDataSource bddDataSource;
   private final CachingStrategy<Contact> cachingStrategy;
+  private final CachingStrategy<List<Contact>> contactListCachingStrategy;
 
-    public ContactsRepositoryImp(ContactsNetworkDataSource networkDataSource,
-      ContactsBddDataSource bddDataSource,
-      CachingStrategy<Contact> cachingStrategy) {
+  public ContactsRepositoryImp(ContactsNetworkDataSource networkDataSource,
+      ContactsBddDataSource bddDataSource, CachingStrategy<Contact> cachingStrategy,
+      CachingStrategy<List<Contact>> contactListCachingStrategy) {
     this.networkDataSource = networkDataSource;
     this.bddDataSource = bddDataSource;
     this.cachingStrategy = cachingStrategy;
-    }
+    this.contactListCachingStrategy = contactListCachingStrategy;
+  }
 
   @Override public List<Contact> obtainContacts() throws CantRetrieveContactsException {
     List<Contact> contacts = null;
     try {
       contacts = bddDataSource.obtainContacts();
-      if (!cachingStrategy.isValid(contacts)) {
+      if (!contactListCachingStrategy.isValid(contacts)) {
         contacts = networkDataSource.obtainContacts();
         bddDataSource.persist(contacts);
       }
@@ -47,7 +49,11 @@ public class ContactsRepositoryImp implements ContactsRepository {
 
   @Override public Contact obtain(String md5) throws CannotObtainContactException {
     try {
-      return bddDataSource.obtain(md5);
+      Contact contact = bddDataSource.obtain(md5);
+      if (!cachingStrategy.isValid(contact)) {
+        throw new ObtainBddContactException();
+      }
+      return contact;
     } catch (ObtainBddContactException e) {
       throw new CannotObtainContactException();
     }

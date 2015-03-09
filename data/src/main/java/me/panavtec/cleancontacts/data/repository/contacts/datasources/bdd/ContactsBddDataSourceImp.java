@@ -48,6 +48,7 @@ public class ContactsBddDataSourceImp implements ContactsBddDataSource {
     try {
       for (Contact contact : contacts) {
         BddContact bddContact = transformer.transform(contact, BddContact.class);
+        bddContact.setPersistedTime(System.currentTimeMillis());
         persistor.persist(bddContact);
       }
     } catch (SQLException e) {
