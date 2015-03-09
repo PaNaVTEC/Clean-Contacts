@@ -23,8 +23,10 @@ public class Coordinator {
   }
 
   public void completeAction(String action) {
-    completedActions.add(action);
-    checkComplete();
+    if (actions.contains(action)) {
+      completedActions.add(action);
+      checkComplete();
+    }
   }
 
   public void reset() {
