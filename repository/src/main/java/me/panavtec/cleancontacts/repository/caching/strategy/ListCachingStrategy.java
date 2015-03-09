@@ -1,5 +1,6 @@
 package me.panavtec.cleancontacts.repository.caching.strategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListCachingStrategy<T> implements CachingStrategy<List<T>> {
@@ -16,11 +17,25 @@ public class ListCachingStrategy<T> implements CachingStrategy<List<T>> {
     }
     
     for (T single : data) {
-      if (!cachingStrategy.isValid(single)) {
+      if (!isValidSingle(single)) {
         return false;
       }
     }
     return true;
+  }
+  
+  public boolean isValidSingle(T data) {
+    return cachingStrategy.isValid(data);
+  }
+  
+  public List<T> candidatesToPurgue(List<T> data) {
+    ArrayList<T> purgue = new ArrayList<>();
+    for (T single : data) {
+      if (!isValidSingle(single)) {
+        purgue.add(single);
+      }
+    }
+    return purgue;
   }
 
 }

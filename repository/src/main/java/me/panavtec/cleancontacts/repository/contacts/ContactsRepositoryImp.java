@@ -6,9 +6,11 @@ import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CannotOb
 import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CantRetrieveContactsException;
 import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
 import me.panavtec.cleancontacts.repository.caching.strategy.CachingStrategy;
+import me.panavtec.cleancontacts.repository.caching.strategy.ListCachingStrategy;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsNetworkDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ContactsNetworkException;
+import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.DeleteContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainBddContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainContactsBddException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.PersistContactsBddException;
@@ -20,11 +22,11 @@ public class ContactsRepositoryImp implements ContactsRepository {
   private final ContactsNetworkDataSource networkDataSource;
   private final ContactsBddDataSource bddDataSource;
   private final CachingStrategy<Contact> cachingStrategy;
-  private final CachingStrategy<List<Contact>> contactListCachingStrategy;
+  private final ListCachingStrategy<Contact> contactListCachingStrategy;
 
   public ContactsRepositoryImp(ContactsNetworkDataSource networkDataSource,
       ContactsBddDataSource bddDataSource, CachingStrategy<Contact> cachingStrategy,
-      CachingStrategy<List<Contact>> contactListCachingStrategy) {
+      ListCachingStrategy<Contact> contactListCachingStrategy) {
     this.networkDataSource = networkDataSource;
     this.bddDataSource = bddDataSource;
     this.cachingStrategy = cachingStrategy;
@@ -36,6 +38,7 @@ public class ContactsRepositoryImp implements ContactsRepository {
     try {
       contacts = bddDataSource.obtainContacts();
       if (!contactListCachingStrategy.isValid(contacts)) {
+        purgueCache(contactListCachingStrategy, contacts);
         contacts = networkDataSource.obtainContacts();
         bddDataSource.persist(contacts);
       }
@@ -58,4 +61,14 @@ public class ContactsRepositoryImp implements ContactsRepository {
       throw new CannotObtainContactException();
     }
   }
+
+  private void purgueCache(ListCachingStrategy<Contact> cachingStrategy, List<Contact> contacts) {
+    List<Contact> purgue = cachingStrategy.candidatesToPurgue(contacts);
+    try {
+      bddDataSource.delete(purgue);
+    } catch (DeleteContactException e) {
+      e.printStackTrace();
+    }
+  }
+  
 }
