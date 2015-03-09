@@ -29,6 +29,7 @@ public class BddContact {
   @DatabaseField @Mapped public String SSN;
   @DatabaseField(foreign = true, foreignAutoRefresh = true) @Mapped public BddPicture picture;
   @DatabaseField @Mapped public String version;
+  @DatabaseField @Mapped public long persistedTime;
 
   public int getId() {
     return id;
@@ -172,5 +173,13 @@ public class BddContact {
 
   public void setVersion(String version) {
     this.version = version;
+  }
+
+  public long getPersistedTime() {
+    return persistedTime;
+  }
+
+  public void setPersistedTime(long persistedTime) {
+    this.persistedTime = persistedTime;
   }
 }

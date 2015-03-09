@@ -1,20 +1,17 @@
 package me.panavtec.cleancontacts.repository.contacts;
 
-import java.util.Collection;
-
 import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.domain.repository.CachingStrategy;
+import me.panavtec.cleancontacts.repository.contacts.cachingstrategy.TimeUnit;
+import me.panavtec.cleancontacts.repository.contacts.cachingstrategy.TtlCachingStrategy;
 
-public class ContactCachingStrategy implements CachingStrategy<Contact> {
+public class ContactCachingStrategy extends TtlCachingStrategy<Contact> {
 
-    @Override
-    public boolean isValid(Contact data) {
-        return data != null;
-    }
+  public ContactCachingStrategy(int ttl, TimeUnit timeUnit) {
+    super(ttl, timeUnit);
+  }
 
-    @Override
-    public boolean isValid(Collection<Contact> dataList) {
-        return dataList != null && dataList.size() > 0;
-    }
-    
+  @Override protected long getTime(Contact data) {
+    return data.getPersistedTime();
+  }
+
 }
