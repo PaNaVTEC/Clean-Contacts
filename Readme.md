@@ -1,13 +1,13 @@
 #CleanContacts
 
-Clean contacts is a sample repository to demostrate Clean architecture in Android. It has also many other details that hopefully will be useful too. 
+Clean contacts is a sample repository to illustrate Clean architecture in Android. It has also many other details that hopefully will be useful too.
 
 ##How to start with this repository
-The project is composed in 5 modules:
+The project is divided in 5 modules:
 
-* App (Android): has UI, Dependency injection (Configuration) and implementation details of some figures like the Bus and Invoker.
-* Presentation (Java): Has presenters of (MVP) and the contract (View interface) to comunicate with.
-* Domain (Java): Interactors and bussines logic
+* App (Android): Contains UI, Dependency injection (Configuration) and implementation details of some figures like the Bus and Invoker.
+* Presentation (Java): Contains presenters of (MVP) and the contract (View interface) to comunicate with.
+* Domain (Java): Contains Interactors and bussines logic
 * Repository (Java): Basic [repository](http://martinfowler.com/eaaCatalog/repository.html) implementation. It handles the data sources and knows when to choose network/bdd.
 * Data (Android): Data sources implementation (network, bdd, shared prefs...)
 * **Bonus:** Desktop. Using the logic of this app and re-implementation details (App module and data module) I re-used code to create a JavaFX implementation of the first screen to show a contact list
