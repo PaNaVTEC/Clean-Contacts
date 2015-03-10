@@ -1,7 +1,8 @@
-package me.panavtec.cleancontacts.repository.caching.strategy;
+package me.panavtec.cleancontacts.repository.caching.strategy.list;
 
 import java.util.ArrayList;
 import java.util.List;
+import me.panavtec.cleancontacts.repository.caching.strategy.CachingStrategy;
 
 public class ListCachingStrategy<T> implements CachingStrategy<List<T>> {
 
