@@ -9,8 +9,7 @@ import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.Pers
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.UnknownObtainContactsException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.UnknownPersistContactsException;
 
-public interface ContactsBddDataSource {
-  public List<Contact> obtainContacts()
+public interface ContactsBddDataSource {List<Contact> obtainContacts()
       throws ObtainContactsBddException, UnknownObtainContactsException;
 
   void persist(List<Contact> contacts)
