@@ -4,9 +4,10 @@ import com.j256.ormlite.field.DatabaseField;
 import com.mobandme.android.transformer.compiler.Mappable;
 import com.mobandme.android.transformer.compiler.Mapped;
 import me.panavtec.cleancontacts.domain.entities.Contact;
+import me.panavtec.cleancontacts.repository.caching.strategy.ttl.TtlCachingObject;
 
 @Mappable(with = Contact.class)
-public class BddContact {
+public class BddContact implements TtlCachingObject {
 
   public static final String FIELD_MD5 = "md5";
   public static final String FIELD_ID = "id";
@@ -29,7 +30,7 @@ public class BddContact {
   @DatabaseField @Mapped public String SSN;
   @DatabaseField(foreign = true, foreignAutoRefresh = true) @Mapped public BddPicture picture;
   @DatabaseField @Mapped public String version;
-  @DatabaseField @Mapped public long persistedTime;
+  @DatabaseField public long persistedTime;
 
   public int getId() {
     return id;
@@ -175,7 +176,7 @@ public class BddContact {
     this.version = version;
   }
 
-  public long getPersistedTime() {
+  @Override public long getPersistedTime() {
     return persistedTime;
   }
 
