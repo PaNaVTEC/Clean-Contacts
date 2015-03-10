@@ -2,6 +2,7 @@ package me.panavtec.cleancontacts.repository.contacts.datasources;
 
 import java.util.List;
 import me.panavtec.cleancontacts.domain.entities.Contact;
+import me.panavtec.cleancontacts.repository.caching.exception.InvalidCacheException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.DeleteContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainBddContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainContactsBddException;
@@ -11,12 +12,12 @@ import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.Unkn
 
 public interface ContactsBddDataSource {
   public List<Contact> obtainContacts()
-      throws ObtainContactsBddException, UnknownObtainContactsException;
+      throws ObtainContactsBddException, InvalidCacheException, UnknownObtainContactsException;
 
   void persist(List<Contact> contacts)
       throws PersistContactsBddException, UnknownPersistContactsException;
 
-  Contact obtain(String md5) throws ObtainBddContactException;
+  Contact obtain(String md5) throws InvalidCacheException, ObtainBddContactException;
 
-  void delete(List<Contact> purgue) throws DeleteContactException;
+  void delete(List<Contact> deleted) throws DeleteContactException;
 }
