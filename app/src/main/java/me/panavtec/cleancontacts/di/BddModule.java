@@ -3,6 +3,7 @@ package me.panavtec.cleancontacts.di;
 import android.app.Application;
 import dagger.Module;
 import dagger.Provides;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 import me.panavtec.cleancontacts.BuildConfig;
 import me.panavtec.cleancontacts.data.DatabaseHelper;
@@ -11,17 +12,31 @@ import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.Contac
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entities.BddContact;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.persistors.ContactPersistor;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.persistors.Persistor;
+import me.panavtec.cleancontacts.repository.caching.strategy.CachingStrategy;
+import me.panavtec.cleancontacts.repository.caching.strategy.list.ListCachingStrategy;
+import me.panavtec.cleancontacts.repository.caching.strategy.nullsafe.NotNullCachingStrategy;
+import me.panavtec.cleancontacts.repository.caching.strategy.ttl.TtlCachingStrategy;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
 
 @Module(
     complete = false,
-    library = true
-)
+    library = true)
 public class BddModule {
 
+  @Provides @Singleton CachingStrategy<BddContact> provideContactCachingStrategy() {
+    return new NotNullCachingStrategy<>();
+  }
+
+  @Provides @Singleton ListCachingStrategy<BddContact> provideListContactCachingStrategy() {
+    return new ListCachingStrategy<>(new TtlCachingStrategy<BddContact>(3, TimeUnit.MINUTES));
+  }
+
   @Provides @Singleton ContactsBddDataSource provideContactsBddDataSource(
-      Persistor<BddContact> persistor, DatabaseHelper helper) {
-    return new ContactsBddDataSourceImp(persistor, helper.getContactDao());
+      Persistor<BddContact> persistor, DatabaseHelper helper,
+      CachingStrategy<BddContact> singleContactCachingStrategy,
+      ListCachingStrategy<BddContact> listCachingStrategy) {
+    return new ContactsBddDataSourceImp(persistor, helper.getContactDao(),
+        singleContactCachingStrategy, listCachingStrategy);
   }
 
   @Provides @Singleton Persistor<BddContact> provideContactPersistor(DatabaseHelper helper) {
