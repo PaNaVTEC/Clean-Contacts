@@ -3,10 +3,10 @@ package me.panavtec.cleancontacts.domain.repository;
 import java.util.List;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CannotObtainContactException;
-import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CantRetrieveContactsException;
+import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.RetrieveContactsException;
 
 public interface ContactsRepository {
-  List<Contact> obtainContacts() throws CantRetrieveContactsException;
+  List<Contact> obtainContacts() throws RetrieveContactsException;
 
   Contact obtain(String md5) throws CannotObtainContactException;
 }
