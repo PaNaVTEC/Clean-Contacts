@@ -12,10 +12,11 @@ import java.util.List;
 
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CannotObtainContactException;
-import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CantRetrieveContactsException;
+import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.RetrieveContactsException;
 import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
+import me.panavtec.cleancontacts.repository.caching.exception.InvalidCacheException;
 import me.panavtec.cleancontacts.repository.caching.strategy.CachingStrategy;
-import me.panavtec.cleancontacts.repository.caching.strategy.ListCachingStrategy;
+import me.panavtec.cleancontacts.repository.caching.strategy.list.ListCachingStrategy;
 import me.panavtec.cleancontacts.repository.contacts.ContactsRepositoryImp;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsNetworkDataSource;
@@ -44,7 +45,7 @@ public class ContactRepositoryTest {
             when(mockContactsBddDataSource.obtain(FAKE_CONTACT_MD5)).thenReturn(new Contact());
             when(mockContactsBddDataSource.obtainContacts()).thenReturn(Arrays.asList(new Contact(), new Contact(), new Contact(), new Contact(), new Contact()));
             when(mockContactsNetworkDataSource.obtainContacts()).thenReturn(Arrays.asList(new Contact(), new Contact(), new Contact()));
-        } catch (ObtainBddContactException | ContactsNetworkException | UnknownObtainContactsException | ObtainContactsBddException ignored) {
+        } catch (InvalidCacheException | ObtainBddContactException | ContactsNetworkException | UnknownObtainContactsException | ObtainContactsBddException ignored) {
         }
 
         contactsRepository = new ContactsRepositoryImp(mockContactsNetworkDataSource, mockContactsBddDataSource, contactCachingStrategy, listCachingStrategy);
@@ -53,10 +54,11 @@ public class ContactRepositoryTest {
 
     @Test
     public void testObtainContacts() {
+        List<Contact> contacts = null;
         try {
-            List<Contact> contacts = contactsRepository.obtainContacts();
+            contacts = contactsRepository.obtainContacts();
             Assert.assertTrue(contacts != null && contacts.size() == 3);
-        } catch (CantRetrieveContactsException ignored) {
+        } catch (RetrieveContactsException ignored) {
         }
     }
 
