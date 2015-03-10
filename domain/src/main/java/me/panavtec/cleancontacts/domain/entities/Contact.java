@@ -19,6 +19,7 @@ public class Contact {
   public String SSN;
   public Picture picture;
   public String version;
+  public long persistedTime;
 
   public String getGender() {
     return gender;
@@ -154,5 +155,9 @@ public class Contact {
 
   public void setVersion(String version) {
     this.version = version;
+  }
+
+  public long getPersistedTime() {
+    return persistedTime;
   }
 }

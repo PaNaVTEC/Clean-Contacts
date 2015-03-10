@@ -1,6 +1,7 @@
 package me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.mobandme.android.transformer.Transformer;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entiti
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.persistors.Persistor;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
+import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.DeleteContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainBddContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainContactsBddException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.PersistContactsBddException;
@@ -48,6 +50,7 @@ public class ContactsBddDataSourceImp implements ContactsBddDataSource {
     try {
       for (Contact contact : contacts) {
         BddContact bddContact = transformer.transform(contact, BddContact.class);
+        bddContact.setPersistedTime(System.currentTimeMillis());
         persistor.persist(bddContact);
       }
     } catch (SQLException e) {
@@ -58,13 +61,28 @@ public class ContactsBddDataSourceImp implements ContactsBddDataSource {
   }
 
   @Override public Contact obtain(String md5) throws ObtainBddContactException {
-
     try {
       BddContact bddContact =
           daoContacts.queryBuilder().where().eq(BddContact.FIELD_MD5, md5).queryForFirst();
       return transformer.transform(bddContact, Contact.class);
     } catch (Throwable e) {
       throw new ObtainBddContactException();
+    }
+  }
+
+  @Override public void delete(List<Contact> purgue) throws DeleteContactException {
+    if (purgue != null && purgue.size() > 0) {
+      try {
+        List<String> deleteMd5s = new ArrayList<>();
+        for (Contact purgueContact : purgue) {
+          deleteMd5s.add(purgueContact.getMd5());
+        }
+        DeleteBuilder<BddContact, Integer> deleteBuilder = daoContacts.deleteBuilder();
+        deleteBuilder.where().in(BddContact.FIELD_MD5, deleteMd5s);
+        deleteBuilder.delete();
+      } catch (Throwable e) {
+        throw new DeleteContactException();
+      }
     }
   }
 }

@@ -2,6 +2,7 @@ package me.panavtec.cleancontacts.repository.contacts.datasources;
 
 import java.util.List;
 import me.panavtec.cleancontacts.domain.entities.Contact;
+import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.DeleteContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainBddContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainContactsBddException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.PersistContactsBddException;
@@ -16,4 +17,6 @@ public interface ContactsBddDataSource {
       throws PersistContactsBddException, UnknownPersistContactsException;
 
   Contact obtain(String md5) throws ObtainBddContactException;
+
+  void delete(List<Contact> purgue) throws DeleteContactException;
 }
