@@ -1,4 +1,4 @@
-package me.panavtec.cleancontacts.repository;
+package me.panavtec.cleancontacts.repository.contacts;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,11 +7,10 @@ import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CannotObtainContactException;
 import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.RetrieveContactsException;
 import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
-import me.panavtec.cleancontacts.repository.caching.exception.InvalidCacheException;
-import me.panavtec.cleancontacts.repository.contacts.ContactsRepositoryImp;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsNetworkDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ContactsNetworkException;
+import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.InvalidCacheException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainBddContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainContactsBddException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.UnknownObtainContactsException;

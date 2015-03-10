@@ -8,14 +8,14 @@ import javax.inject.Singleton;
 import me.panavtec.cleancontacts.BuildConfig;
 import me.panavtec.cleancontacts.data.DatabaseHelper;
 import me.panavtec.cleancontacts.data.DatabaseName;
+import me.panavtec.cleancontacts.data.repository.caching.strategy.CachingStrategy;
+import me.panavtec.cleancontacts.data.repository.caching.strategy.list.ListCachingStrategy;
+import me.panavtec.cleancontacts.data.repository.caching.strategy.nullsafe.NotNullCachingStrategy;
+import me.panavtec.cleancontacts.data.repository.caching.strategy.ttl.TtlCachingStrategy;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.ContactsBddDataSourceImp;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entities.BddContact;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.persistors.ContactPersistor;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.persistors.Persistor;
-import me.panavtec.cleancontacts.repository.caching.strategy.CachingStrategy;
-import me.panavtec.cleancontacts.repository.caching.strategy.list.ListCachingStrategy;
-import me.panavtec.cleancontacts.repository.caching.strategy.nullsafe.NotNullCachingStrategy;
-import me.panavtec.cleancontacts.repository.caching.strategy.ttl.TtlCachingStrategy;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
 
 @Module(
