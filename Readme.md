@@ -26,6 +26,9 @@ You can find a [repository](http://martinfowler.com/eaaCatalog/repository.html) 
 ###Use of abstractions
 You can find some examples like ImageLoader or ErrorManager interfaces that are implemented by PicassoImageLoader and SnackBarErrorManager, this will allow to change the implementations in the future to use different ways to show images / show errors. Allways you can do it, use an Abstractions instead of a concrete implementation.
 
+###Caching Strategy
+In the BDD data source you can find a Caching Strategy (CS). The CS is a common logic to all data "CachingDataSources" and is a configuration of the data source so I added a constructor parameter with this collaborator to configure externally. Currently I added 2 implementations of CS, TTL (Time To Live) and NullSafe (just for check if is null) so the datasource requests data and checks if the objects are valid. If the objects are not valid the datasource throws a "InvalidCacheException" and repo handles the Exception and requests data to the next data source if needed.
+
 ###Material transitions and picasso loading
 In the contact list you, when you tap a contact you will navigate to Detail. In the contact list you have a thumbnail of the contact pic. When navigating to DetailActivity the image is a shared element that will move/scale to the Detail position that will later load a large picture.
 
@@ -33,5 +36,10 @@ In the contact list you, when you tap a contact you will navigate to Detail. In 
 
 [Coordinator](http://panavtec.me/presentando-coodinator-o-como-evitar-flags/) is a simple class utility that will help you to avoid flags, you will see in action in DetailActivity, it needs to coordinate the transition of the Main > Detail and the load from the BDD to show the contact.
 
-### Assisted injection
+###Assisted injection
 This repo contains implementation for Android > 5 and < 5 (that just do nothing), For resolve this in Dagger I followed the tip of [Jesse Wilson](https://groups.google.com/forum/#!topic/dagger-discuss/QgnvmZ-dH9c/discussion) you can see the implementation in ActivityModule.
+
+###Desktop app sharing common modules
+I created a sample desktop app using JavaFX sharing presentation, domain/entities and repository modules. Just re-implementing the data sources and the UI module wich are implementation details. You can find the desktop app in the folder "desktop". If you are using IntelliJ and you want to run the sample, you will need this configuration:
+
+![IntelliJ config](art/intellij_config.png)
