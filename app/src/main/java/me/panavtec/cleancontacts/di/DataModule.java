@@ -13,7 +13,11 @@ import me.panavtec.cleancontacts.data.UserAgent;
 import me.panavtec.cleancontacts.domain.BusImp;
 import me.panavtec.cleancontacts.domain.InteractorInvokerImp;
 import me.panavtec.cleancontacts.domain.abstractions.Bus;
+import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
+import me.panavtec.cleancontacts.presentation.model.PresentationContact;
+import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
+import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
 import me.panavtec.cleancontacts.ui.imageloader.PicassoImageLoader;
 import retrofit.Endpoint;
@@ -59,5 +63,14 @@ public class DataModule {
 
   @Provides @Singleton ImageLoader provideImageLoader(Picasso picasso) {
     return new PicassoImageLoader(picasso);
+  }
+
+  @Provides @Singleton PresentationContactMapper providePresentationContactMapper() {
+    return new PresentationContactMapper();
+  }
+
+  @Provides @Singleton ListMapper<Contact, PresentationContact> providePresentationContactMapper(
+      PresentationContactMapper presentationContactMapper) {
+    return new ListMapper<>(presentationContactMapper);
   }
 }

@@ -7,7 +7,7 @@ import me.panavtec.cleancontacts.domain.abstractions.Bus;
 import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.presentation.detail.DetailPresenter;
-import me.panavtec.cleancontacts.ui.Coordinator;
+import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
 import me.panavtec.cleancontacts.ui.transitions.WindowTransitionListener;
 
 @Module(
@@ -17,22 +17,17 @@ import me.panavtec.cleancontacts.ui.transitions.WindowTransitionListener;
 public class DetailModule {
 
   private DetailActivity detailActivity;
-  private String[] coordinatorActions;
 
-  public DetailModule(DetailActivity detailActivity, String[] coordinatorActions) {
+  public DetailModule(DetailActivity detailActivity) {
     this.detailActivity = detailActivity;
-    this.coordinatorActions = coordinatorActions;
   }
 
   @Provides DetailPresenter providePresenter(Bus bus, InteractorInvoker interactorInvoker,
-      GetContactInteractor getContactInteractor) {
-    return new DetailPresenter(bus, interactorInvoker, getContactInteractor, detailActivity);
+      GetContactInteractor getContactInteractor, PresentationContactMapper contactMapper) {
+    return new DetailPresenter(bus, interactorInvoker, getContactInteractor, detailActivity,
+        contactMapper);
   }
 
-  @Provides Coordinator provideCoordinator() {
-    return new Coordinator(detailActivity, coordinatorActions);
-  }
-  
   @Provides WindowTransitionListener.WindowTransitionEndListener provideEndListener() {
     return detailActivity;
   }

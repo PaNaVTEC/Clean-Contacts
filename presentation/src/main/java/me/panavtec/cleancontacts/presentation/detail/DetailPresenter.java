@@ -5,6 +5,7 @@ import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.domain.interactors.contacts.events.GetContactEvent;
 import me.panavtec.cleancontacts.presentation.Presenter;
+import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
 
 public class DetailPresenter extends Presenter {
 
@@ -12,13 +13,15 @@ public class DetailPresenter extends Presenter {
   private final InteractorInvoker interactorInvoker;
   private final GetContactInteractor getContactInteractor;
   private final DetailView detailView;
+  private final PresentationContactMapper presentationContactMapper;
 
   public DetailPresenter(Bus bus, InteractorInvoker interactorInvoker,
-      GetContactInteractor getContactInteractor, DetailView detailView) {
+      GetContactInteractor getContactInteractor, DetailView detailView, PresentationContactMapper presentationContactMapper) {
     this.bus = bus;
     this.interactorInvoker = interactorInvoker;
     this.getContactInteractor = getContactInteractor;
     this.detailView = detailView;
+    this.presentationContactMapper = presentationContactMapper;
   }
 
   @Override public void onResume() {
@@ -36,7 +39,7 @@ public class DetailPresenter extends Presenter {
 
   public void onEvent(GetContactEvent event) {
     if (event.getError() == null) {
-      detailView.showContactData(event.getContact());
+      detailView.showContactData(presentationContactMapper.modelToData(event.getContact()));
     } else {
       detailView.showGetContactError();
     }
