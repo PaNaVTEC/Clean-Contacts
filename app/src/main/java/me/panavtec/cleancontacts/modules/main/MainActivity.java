@@ -15,11 +15,11 @@ import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import me.panavtec.cleancontacts.R;
-import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.modules.detail.DetailActionCommand;
 import me.panavtec.cleancontacts.modules.main.adapters.ContactViewHolderFactory;
 import me.panavtec.cleancontacts.presentation.main.MainPresenter;
 import me.panavtec.cleancontacts.presentation.main.MainView;
+import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.ui.BaseActivity;
 import me.panavtec.cleancontacts.ui.elevation.ElevationHandler;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity
     ContactViewHolderFactory contactViewHolderFactory =
         new ContactViewHolderFactory(this, imageLoader);
     EasyRecyclerAdapter adapter =
-        new EasyRecyclerAdapter(contactViewHolderFactory, Contact.class, ContactViewHolder.class);
+        new EasyRecyclerAdapter(contactViewHolderFactory, PresentationContact.class, ContactViewHolder.class);
     recyclerViewManager =
         new EasyRecyclerViewManager.Builder(recyclerView, adapter).emptyLoadingListTextView(
             emptyList)
@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity
     presenter.onPause();
   }
 
-  @Override public void refreshContactsList(List<Contact> contacts) {
+  @Override public void refreshContactsList(List<PresentationContact> contacts) {
     recyclerViewManager.addAll(contacts);
     swipeRefreshLayout.setRefreshing(false);
   }
@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity
   }
 
   @Override public void onItemClick(int position, View view) {
-    Contact contact = (Contact) recyclerViewManager.getItem(position);
+    PresentationContact contact = (PresentationContact) recyclerViewManager.getItem(position);
     DetailActionCommand detailActionCommand =
         new DetailActionCommand(this, contact.getMd5(), contact.getPicture().getThumbnail(),
             (ImageView) view.findViewById(R.id.imageView),
