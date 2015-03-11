@@ -1,11 +1,9 @@
 buildscript {
   dependencies {
-    //classpath parent.ext.classPathAndroidApt
   }
 }
 
 apply plugin: 'com.android.application'
-//apply plugin: 'com.neenbedankt.android-apt'
 
 def STRING = "String"
 def BOOLEAN = "boolean"
@@ -59,8 +57,6 @@ dependencies {
   compile parent.ext.libPicasso
   compile parent.ext.libRecyclerAdapters
   compile parent.ext.libFAB
-  //    compile parent.ext.libMappers
-  //    provided parent.ext.libMappersCompiler
 
   compile project(':domain')
   compile project(':presentation')
