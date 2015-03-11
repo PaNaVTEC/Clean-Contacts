@@ -10,10 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import me.panavtec.cleancontacts.R;
-import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.domain.entities.Location;
 import me.panavtec.cleancontacts.presentation.detail.DetailPresenter;
 import me.panavtec.cleancontacts.presentation.detail.DetailView;
+import me.panavtec.cleancontacts.presentation.model.PresentationContact;
+import me.panavtec.cleancontacts.presentation.model.PresentationLocation;
 import me.panavtec.cleancontacts.ui.BaseActivity;
 import me.panavtec.cleancontacts.ui.Coordinator;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
@@ -33,23 +33,24 @@ public class DetailActivity extends BaseActivity
   @Inject DetailPresenter presenter;
   @Inject ImageLoader imageLoader;
   @Inject ErrorManager errorManager;
-  @Inject Coordinator coordinator;
   @Inject WindowTransitionListener windowTransitionListener;
-
   @InjectView(R.id.contactImage) ImageView contactImageView;
+
   @InjectView(R.id.toolbar) Toolbar toolbar;
   @InjectView(R.id.nameTextView) TextView nameTextView;
   @InjectView(R.id.phoneInfoView) ContactInfoView phoneInfoView;
   @InjectView(R.id.cellInfoView) ContactInfoView cellInfoView;
   @InjectView(R.id.emailInfoView) ContactInfoView emailInfoView;
   @InjectView(R.id.addressInfoView) ContactInfoView addressInfoView;
-
-  private Contact contact;
+  
+  private PresentationContact contact;
+  private Coordinator coordinator;
   private String contactMd5;
   private String thumbnail;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    coordinator = new Coordinator(this, COORDINATE_END_TRANSITION, COORDINATE_SHOW_CONTACT);
     parseArguments();
     initTransitionElements();
     initUi();
@@ -92,7 +93,7 @@ public class DetailActivity extends BaseActivity
     presenter.onPause();
   }
 
-  @Override public void showContactData(Contact contact) {
+  @Override public void showContactData(PresentationContact contact) {
     this.contact = contact;
     coordinator.completeAction(COORDINATE_SHOW_CONTACT);
     showContactName();
@@ -107,7 +108,7 @@ public class DetailActivity extends BaseActivity
   }
 
   private void showContactName() {
-    nameTextView.setText(contact.getName().getFullName());
+    nameTextView.setText(contact.getFirstName() + " " + contact.getLastName());
   }
 
   private void showContactMobilePhone() {
@@ -123,7 +124,7 @@ public class DetailActivity extends BaseActivity
   }
 
   private void showAddress() {
-    Location location = contact.getLocation();
+    PresentationLocation location = contact.getLocation();
     String address = location.getStreet()
         + ", "
         + location.getCity()
@@ -167,8 +168,6 @@ public class DetailActivity extends BaseActivity
   }
 
   protected List<Object> getModules() {
-    return Arrays.<Object>asList(new DetailModule(this, new String[] {
-        COORDINATE_END_TRANSITION, COORDINATE_SHOW_CONTACT
-    }));
+    return Arrays.<Object>asList(new DetailModule(this));
   }
 }

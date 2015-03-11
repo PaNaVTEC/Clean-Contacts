@@ -11,11 +11,10 @@ import butterknife.InjectView;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
 import java.util.Locale;
 import me.panavtec.cleancontacts.R;
-import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.domain.entities.Name;
+import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
 
-public class ContactViewHolder extends EasyViewHolder<Contact> {
+public class ContactViewHolder extends EasyViewHolder<PresentationContact> {
 
   @InjectView(R.id.imageView) ImageView imageView;
   @InjectView(R.id.nameTextView) TextView nameTextView;
@@ -39,9 +38,8 @@ public class ContactViewHolder extends EasyViewHolder<Contact> {
     placeholder.setColorFilter(accentColor, PorterDuff.Mode.SRC_IN);
   }
 
-  @Override public void bindTo(Contact contact) {
-    Name name = contact.getName();
-    nameTextView.setText(String.format(Locale.getDefault(), "%s, %s %s", name.getTitle(), name.getFirst(), name.getLast()));
+  @Override public void bindTo(PresentationContact contact) {
+    nameTextView.setText(String.format(Locale.getDefault(), "%s, %s %s", contact.getTitle(), contact.getFirstName(), contact.getLastName()));
     imageLoader.load(contact.getPicture().getThumbnail(), imageView, placeholder);
     phoneTextView.setText(contact.getPhone());
   }
