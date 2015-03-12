@@ -1,9 +1,10 @@
 package me.panavtec.cleancontacts.desktop.domain;
 
-import java.util.concurrent.ExecutorService;
 import me.panavtec.cleancontacts.domain.interactors.Interactor;
 import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.InteractorPriority;
+
+import java.util.concurrent.ExecutorService;
 
 public class InteractorInvokerImp implements InteractorInvoker {
 
@@ -13,7 +14,7 @@ public class InteractorInvokerImp implements InteractorInvoker {
     this.executor = executor;
   }
 
-  @Override public void invoke(final Interactor interactor) {
+  @Override public void execute(final Interactor interactor) {
     executor.execute(new Runnable() {
       @Override public void run() {
         interactor.execute();
@@ -21,7 +22,7 @@ public class InteractorInvokerImp implements InteractorInvoker {
     });
   }
 
-  @Override public void invoke(Interactor interactor, InteractorPriority priority) {
-    invoke(interactor);
+  @Override public void execute(Interactor interactor, InteractorPriority priority) {
+    execute(interactor);
   }
 }
