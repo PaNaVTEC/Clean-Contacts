@@ -1,0 +1,15 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+version = '1.0'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile group: 'com.squareup.dagger', name: 'dagger', version: '1.2.2'
+  compile group: 'com.squareup.dagger', name: 'dagger-compiler', version: '1.2.2'
+  compile project(':presentation')
+  compile project(':data')
+}

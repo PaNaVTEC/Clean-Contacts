@@ -1,16 +1,23 @@
 package me.panavtec.cleancontacts.repository.contacts.datasources;
 
+import java.util.List;
 import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.CannotObtainBddContactException;
+import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.DeleteContactException;
+import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.InvalidCacheException;
+import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainBddContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainContactsBddException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.PersistContactsBddException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.UnknownObtainContactsException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.UnknownPersistContactsException;
 
-import java.util.List;
-
 public interface ContactsBddDataSource {
-    public List<Contact> obtainContacts() throws ObtainContactsBddException, UnknownObtainContactsException;
-    void persist(List<Contact> contacts) throws PersistContactsBddException, UnknownPersistContactsException;
-    Contact obtain(String md5) throws CannotObtainBddContactException;
+  List<Contact> obtainContacts()
+      throws ObtainContactsBddException, InvalidCacheException, UnknownObtainContactsException;
+
+  void persist(List<Contact> contacts)
+      throws PersistContactsBddException, UnknownPersistContactsException;
+
+  Contact obtain(String md5) throws InvalidCacheException, ObtainBddContactException;
+
+  void delete(List<Contact> deleted) throws DeleteContactException;
 }

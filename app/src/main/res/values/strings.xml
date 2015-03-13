@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Clean Contacts</string>
-    <string name="err_getting_contacts">Error getting contacts</string>
+  <string name="app_name">Clean Contacts</string>
+  <string name="err_getting_contacts">Error getting contact</string>
+  <string name="detail">Detail</string>
+  <string name="mobile">Mobile</string>
+  <string name="phone">Phone</string>
+  <string name="email">Email</string>
+  <string name="address">Address</string>
+  <string name="just_a_sample">Just a sample</string>
 
 </resources>

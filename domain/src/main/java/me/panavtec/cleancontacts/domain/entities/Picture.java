@@ -2,31 +2,31 @@ package me.panavtec.cleancontacts.domain.entities;
 
 public class Picture {
 
-    public String large;
-    public String medium;
-    public String thumbnail;
+  public String large;
+  public String medium;
+  public String thumbnail;
 
-    public String getLarge() {
-        return large;
-    }
+  public String getLarge() {
+    return large;
+  }
 
-    public void setLarge(String large) {
-        this.large = large;
-    }
+  public void setLarge(String large) {
+    this.large = large;
+  }
 
-    public String getMedium() {
-        return medium;
-    }
+  public String getMedium() {
+    return medium;
+  }
 
-    public void setMedium(String medium) {
-        this.medium = medium;
-    }
+  public void setMedium(String medium) {
+    this.medium = medium;
+  }
 
-    public String getThumbnail() {
-        return thumbnail;
-    }
+  public String getThumbnail() {
+    return thumbnail;
+  }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
+  public void setThumbnail(String thumbnail) {
+    this.thumbnail = thumbnail;
+  }
 }

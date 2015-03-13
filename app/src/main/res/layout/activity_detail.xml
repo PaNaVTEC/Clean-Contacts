@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+      <ImageView
+          android:id="@+id/contactImage"
+          android:layout_width="match_parent"
+          android:layout_height="228dp"
+          android:transitionName="@string/anim_picture"
+          android:scaleType="centerCrop"
+          tools:background="@color/primary"
+          />
+
+      <TextView
+          android:id="@+id/nameTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="32dp"
+          android:gravity="center"
+          android:layout_alignBottom="@+id/contactImage"
+          android:fontFamily="sans-serif"
+          android:textColor="@android:color/white"
+          android:textSize="32sp"
+          android:transitionName="name"
+          tools:text="eufrasio pelete"
+          />
+
+      <com.melnykov.fab.FloatingActionButton
+          android:id="@+id/button_floating_action"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="200dp"
+          android:layout_marginRight="16dp"
+          android:layout_alignParentRight="true"
+          android:src="@drawable/ic_star"
+          app:fab_colorNormal="?attr/colorAccent"
+          app:fab_shadow="true"
+          app:fab_colorPressed="?attr/colorPrimary"
+          />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:layout_below="@+id/contactImage"
+          android:layout_marginTop="26dp"
+          >
+
+        <me.panavtec.cleancontacts.modules.detail.ContactInfoView
+            android:id="@+id/cellInfoView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:ci_info_label="@string/mobile"
+            app:ci_info_icon="@drawable/ic_mobile"
+            />
+
+        <me.panavtec.cleancontacts.modules.detail.ContactInfoView
+            android:id="@+id/phoneInfoView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:ci_info_label="@string/phone"
+            app:ci_info_icon="@drawable/ic_phone"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="64dp"
+            android:background="@android:color/darker_gray"
+            />
+
+        <me.panavtec.cleancontacts.modules.detail.ContactInfoView
+            android:id="@+id/emailInfoView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:ci_info_label="@string/email"
+            app:ci_info_icon="@drawable/ic_email"
+            />
+
+        <me.panavtec.cleancontacts.modules.detail.ContactInfoView
+            android:id="@+id/addressInfoView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:ci_info_label="@string/address"
+            app:ci_info_icon="@drawable/ic_location"
+            />
+
+      </LinearLayout>
+
+    </RelativeLayout>
+
+  </ScrollView>
+
+  <include layout="@layout/transparent_toolbar"/>
+
+</FrameLayout>
