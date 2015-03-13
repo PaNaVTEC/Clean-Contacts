@@ -1,7 +1,7 @@
-package me.panavtec.cleancontacts.repository.caching.strategy.ttl;
+package me.panavtec.cleancontacts.data.repository.caching.strategy.ttl;
 
 import java.util.concurrent.TimeUnit;
-import me.panavtec.cleancontacts.repository.caching.strategy.CachingStrategy;
+import me.panavtec.cleancontacts.data.repository.caching.strategy.CachingStrategy;
 
 public class TtlCachingStrategy<T extends TtlCachingObject> implements CachingStrategy<T> {
 

@@ -4,7 +4,7 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:1.1.0'
+    classpath 'com.android.tools.build:gradle:1.1.0-rc1'
     classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
     classpath 'com.github.dcendents:android-maven-plugin:1.2'
   }
@@ -40,6 +40,8 @@ allprojects {
     libRecyclerAdapters = 'com.github.cmc00022:easyrecycleradapters:1.0.2'
     libPicasso = 'com.squareup.picasso:picasso:2.5.0'
     libFAB = 'com.melnykov:floatingactionbutton:1.2.0'
+    libMockito = 'org.mockito:mockito-all:2.0.2-beta'
+
   }
 
   repositories {
