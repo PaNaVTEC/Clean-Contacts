@@ -3,8 +3,8 @@ package me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entit
 import com.j256.ormlite.field.DatabaseField;
 import com.mobandme.android.transformer.compiler.Mappable;
 import com.mobandme.android.transformer.compiler.Mapped;
+import me.panavtec.cleancontacts.data.repository.caching.strategy.ttl.TtlCachingObject;
 import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.repository.caching.strategy.ttl.TtlCachingObject;
 
 @Mappable(with = Contact.class)
 public class BddContact implements TtlCachingObject {
