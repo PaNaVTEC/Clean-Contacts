@@ -5,22 +5,22 @@ import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.entiti
 
 public class ApiContactResult {
 
-    @Expose private ApiContact user;
-    @Expose private String seed;
+  @Expose private ApiContact user;
+  @Expose private String seed;
 
-    public ApiContact getUser() {
-        return user;
-    }
+  public ApiContact getUser() {
+    return user;
+  }
 
-    public void setUser(ApiContact user) {
-        this.user = user;
-    }
+  public void setUser(ApiContact user) {
+    this.user = user;
+  }
 
-    public String getSeed() {
-        return seed;
-    }
+  public String getSeed() {
+    return seed;
+  }
 
-    public void setSeed(String seed) {
-        this.seed = seed;
-    }
+  public void setSeed(String seed) {
+    this.seed = seed;
+  }
 }

@@ -1,19 +1,18 @@
 package me.panavtec.cleancontacts.domain.interactors.contacts.events;
 
-import me.panavtec.cleancontacts.domain.interactors.BaseEvent;
-import me.panavtec.cleancontacts.domain.entities.Contact;
-
 import java.util.List;
+import me.panavtec.cleancontacts.domain.entities.Contact;
+import me.panavtec.cleancontacts.domain.interactors.BaseEvent;
 
 public class GetContactsEvent extends BaseEvent {
 
-    private List<Contact> contacts;
+  private List<Contact> contacts;
 
-    public List<Contact> getContacts() {
-        return contacts;
-    }
+  public List<Contact> getContacts() {
+    return contacts;
+  }
 
-    public void setContacts(List<Contact> contacts) {
-        this.contacts = contacts;
-    }
+  public void setContacts(List<Contact> contacts) {
+    this.contacts = contacts;
+  }
 }

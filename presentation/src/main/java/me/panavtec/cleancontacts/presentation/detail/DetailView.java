@@ -1,5 +1,9 @@
 package me.panavtec.cleancontacts.presentation.detail;
 
-public interface DetailView {
+import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 
+public interface DetailView {
+  void showContactData(PresentationContact contact);
+
+  void showGetContactError();
 }

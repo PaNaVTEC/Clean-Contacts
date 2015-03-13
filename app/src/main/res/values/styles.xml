@@ -1,16 +1,19 @@
 <resources>
 
-    <style name="BaseAppTheme" parent="Theme.AppCompat">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/primary</item>
-    </style>
+  <style name="BaseAppTheme"
+      parent="@style/Theme.AppCompat.Light">
+    <item name="android:actionMenuTextColor">@android:color/white</item>
+    <item name="colorPrimary">@color/primary</item>
+    <item name="colorPrimaryDark">@color/primary_dark</item>
+    <item name="colorAccent">@color/accent</item>
+    <item name="colorControlHighlight">@color/accent</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="windowActionBar">false</item>
+  </style>
 
-    <style name="AppTheme" parent="BaseAppTheme">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
-        <item name="windowActionBar">false</item>
-        <item name="actionMenuTextColor">@android:color/white</item>
-    </style>
-    
+  <style name="AppTheme"
+      parent="BaseAppTheme">
+
+  </style>
+
 </resources>

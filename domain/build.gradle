@@ -1,12 +1,1 @@
 apply plugin: 'java'
-apply from: '../j2objc.gradle'
-
-j2objcConfig {
-    j2objcHome parent.ext.j2objcPath
-    destDir iOsProjectPath + 'Domain'
-    testExecutedCheck false
-}
-
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-}
