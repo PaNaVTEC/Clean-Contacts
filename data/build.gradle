@@ -6,6 +6,10 @@ android {
   defaultConfig {
     minSdkVersion parent.ext.androidMinSdkVersion
   }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_7
+    targetCompatibility JavaVersion.VERSION_1_7
+  }
 }
 
 dependencies {
