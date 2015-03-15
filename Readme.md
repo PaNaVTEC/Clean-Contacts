@@ -1,4 +1,4 @@
-#CleanContacts
+#CleanContacts [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CleanContacts-brightgreen.svg?style=flat)](http://android-arsenal.com/details/3/1649)
 
 Clean contacts is a sample repository to illustrate Clean architecture in Android. It has also many other details that hopefully will be useful too.
 
