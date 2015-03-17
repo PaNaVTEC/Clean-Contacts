@@ -2,6 +2,12 @@
 
 Clean contacts is a sample repository to illustrate Clean architecture in Android. It has also many other details that hopefully will be useful too.
 
+##Speak
+I gave a talk in Salamanca (Spain) about this implementation, here is the video: [Spanish] (https://www.youtube.com/watch?v=Co8bJq_zbSQ&t=46m42s)
+
+Slides:
+[Spanish] (http://es.slideshare.net/ChristianPanadero/my-way-to-clean-android-android-day-salamanca-edition), [English] (http://es.slideshare.net/ChristianPanadero/my-way-to-clean-android-android-day-salamanca-edition-45930288)
+
 ##How to start with this repository
 The project is divided in 5 modules:
 
