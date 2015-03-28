@@ -3,6 +3,7 @@ package me.panavtec.cleancontacts.modules.detail;
 import dagger.Module;
 import dagger.Provides;
 import me.panavtec.cleancontacts.di.ActivityModule;
+import me.panavtec.cleancontacts.di.qualifiers.MainThread;
 import me.panavtec.cleancontacts.domain.interactors.base.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.base.ThreadSpec;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
@@ -25,7 +26,8 @@ public class DetailModule {
   }
 
   @Provides DetailPresenter providePresenter(InteractorInvoker interactorInvoker,
-      GetContactInteractor getContactInteractor, PresentationContactMapper contactMapper, ThreadSpec mainThread) {
+      GetContactInteractor getContactInteractor, PresentationContactMapper contactMapper,
+      @MainThread ThreadSpec mainThread) {
     return new DetailPresenter(contactMd5, interactorInvoker, getContactInteractor, detailActivity,
         contactMapper, mainThread);
   }

@@ -10,8 +10,11 @@ import javax.inject.Singleton;
 import me.panavtec.cleancontacts.BuildConfig;
 import me.panavtec.cleancontacts.data.RetrofitLog;
 import me.panavtec.cleancontacts.data.UserAgent;
+import me.panavtec.cleancontacts.di.qualifiers.MainThread;
+import me.panavtec.cleancontacts.di.qualifiers.SameThread;
 import me.panavtec.cleancontacts.domain.InteractorInvokerImp;
 import me.panavtec.cleancontacts.domain.MainThreadSpec;
+import me.panavtec.cleancontacts.domain.SameThreadSpec;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.base.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.base.ThreadSpec;
@@ -70,12 +73,12 @@ public class DataModule {
     return new ListMapper<>(presentationContactMapper);
   }
 
-  @Provides @Singleton ThreadSpec provideMainThread() {
+  @Provides @Singleton @MainThread ThreadSpec provideMainThread() {
     return new MainThreadSpec();
   }
 
-  //@Provides @Singleton BackThreadSpec provideBackThread() {
-  //  return new BackThreadSpec();
-  //}
+  @Provides @Singleton @SameThread ThreadSpec provideBackThread() {
+    return new SameThreadSpec();
+  }
   
 }
