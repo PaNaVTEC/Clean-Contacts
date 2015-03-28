@@ -10,17 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 import me.panavtec.cleancontacts.CleanContactsApp;
 import me.panavtec.cleancontacts.di.ActivityModule;
+import me.panavtec.cleancontacts.ui.configuration.ConfigurationKeeper;
+import me.panavtec.cleancontacts.ui.configuration.DestroyListener;
 
 public abstract class BaseActivity<T> extends ActionBarActivity
-    implements ConfigurationHandler.ConfigurationHandlerListener {
+    implements DestroyListener {
 
   private ObjectGraph activityGraph;
   private T diModule;
 
-  ConfigurationHandler configurationHandler = new ConfigurationHandler(this);
+  ConfigurationKeeper configurationKeeper = new ConfigurationKeeper(this);
 
   @Override public void destroyThemAll() {
     activityGraph = null;
+    configurationKeeper = null;
   }
   
   @DebugLog @Override protected void onStart() {
@@ -35,7 +38,7 @@ public abstract class BaseActivity<T> extends ActionBarActivity
     createActivityModule();
     super.onCreate(savedInstanceState);
     injectView();
-    configurationHandler.create();
+    configurationKeeper.create();
   }
 
   @DebugLog @Override protected void onResume() {
@@ -59,7 +62,7 @@ public abstract class BaseActivity<T> extends ActionBarActivity
   }
 
   @DebugLog @Override protected void onDestroy() {
-    configurationHandler.destroy();
+    configurationKeeper.destroy();
     super.onDestroy();
   }
 
