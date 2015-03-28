@@ -11,7 +11,6 @@ import butterknife.InjectView;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
 import com.carlosdelachica.easyrecycleradapters.recycler_view_manager.EasyRecyclerViewManager;
-import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import me.panavtec.cleancontacts.R;
@@ -26,7 +25,7 @@ import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
 import me.panavtec.cleancontacts.ui.items.ContactViewHolder;
 
-public class MainActivity extends BaseActivity
+public class MainActivity extends BaseActivity<MainModule>
     implements MainView, SwipeRefreshLayout.OnRefreshListener, EasyViewHolder.OnItemClickListener {
 
   @Inject MainPresenter presenter;
@@ -43,11 +42,10 @@ public class MainActivity extends BaseActivity
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    initUi();
-    presenter.onCreate();
+    presenter.onCreate(this);
   }
 
-  private void initUi() {
+  @Override public void initUi() {
     initToolbar();
     initRecyclerView();
     initRefreshLayout();
@@ -122,8 +120,9 @@ public class MainActivity extends BaseActivity
     swipeRefreshLayout.setRefreshing(true);
   }
 
-  @Override protected List<Object> getModules() {
-    return Arrays.<Object>asList(new MainModule(this));
+
+  @Override protected MainModule newDiModule() {
+    return new MainModule(this);
   }
 
   @Override public void onItemClick(int position, View view) {
@@ -134,4 +133,5 @@ public class MainActivity extends BaseActivity
             (TextView) view.findViewById(R.id.nameTextView));
     detailActionCommand.execute();
   }
+
 }

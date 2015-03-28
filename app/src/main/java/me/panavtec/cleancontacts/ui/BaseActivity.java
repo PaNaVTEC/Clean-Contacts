@@ -2,21 +2,51 @@ package me.panavtec.cleancontacts.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import butterknife.ButterKnife;
 import dagger.ObjectGraph;
+import hugo.weaving.DebugLog;
 import java.util.ArrayList;
 import java.util.List;
 import me.panavtec.cleancontacts.CleanContactsApp;
 import me.panavtec.cleancontacts.di.ActivityModule;
 
-public class BaseActivity extends ActionBarActivity {
+public abstract class BaseActivity<T> extends ActionBarActivity
+    implements ConfigurationHandler.ConfigurationHandlerListener {
 
   private ObjectGraph activityGraph;
+  private T diModule;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    activityGraph = new ActivityInjector(this).createGraph(getModules());
+  ConfigurationHandler configurationHandler = new ConfigurationHandler(this);
+
+  @Override public void destroyThemAll() {
+    activityGraph = null;
+  }
+  
+  @DebugLog @Override protected void onStart() {
+    super.onStart();
+  }
+
+  @DebugLog @Override protected void onStop() {
+    super.onStop();
+  }
+
+  @DebugLog @Override protected void onCreate(Bundle savedInstanceState) {
+    createActivityModule();
     super.onCreate(savedInstanceState);
+    injectView();
+    configurationHandler.create();
+  }
 
+  @DebugLog @Override protected void onResume() {
+    super.onResume();
+  }
+
+  @DebugLog @Override protected void onPause() {
+    super.onPause();
+  }
+
+  private void injectView() {
     int layoutId = onCreateViewId();
     if (layoutId != 0) {
       setContentView(layoutId);
@@ -28,8 +58,8 @@ public class BaseActivity extends ActionBarActivity {
     return 0;
   }
 
-  @Override protected void onDestroy() {
-    activityGraph = null;
+  @DebugLog @Override protected void onDestroy() {
+    configurationHandler.destroy();
     super.onDestroy();
   }
 
@@ -37,15 +67,23 @@ public class BaseActivity extends ActionBarActivity {
     return activityGraph;
   }
 
-  public void inject(Object obj) {
-    if (activityGraph != null) {
-      activityGraph.inject(obj);
+  private void createActivityModule() {
+    Object savedObjectGraph = getLastCustomNonConfigurationInstance();
+    Log.d("MainActivity", "graph: " + savedObjectGraph);
+    if (savedObjectGraph == null) {
+      diModule = newDiModule();
+      activityGraph = new ActivityInjector(this).createGraph(diModule);
+    } else {
+      activityGraph = (ObjectGraph) savedObjectGraph;
+      activityGraph.inject(this);
     }
   }
 
-  protected List<Object> getModules() {
-    return new ArrayList<>();
+  @Override public Object onRetainCustomNonConfigurationInstance() {
+    return activityGraph;
   }
+
+  protected abstract T newDiModule();
 
   static class ActivityInjector {
 
@@ -55,8 +93,10 @@ public class BaseActivity extends ActionBarActivity {
       this.activity = activity;
     }
 
-    public ObjectGraph createGraph() {
-      return createGraph(new ArrayList<>());
+    public ObjectGraph createGraph(Object module) {
+      ArrayList<Object> modules = new ArrayList<>();
+      modules.add(module);
+      return createGraph(modules);
     }
 
     public ObjectGraph createGraph(List<Object> modules) {

@@ -12,8 +12,8 @@ public class DetailPresenter extends Presenter {
   private final Bus bus;
   private final InteractorInvoker interactorInvoker;
   private final GetContactInteractor getContactInteractor;
-  private final DetailView detailView;
   private final PresentationContactMapper presentationContactMapper;
+  private DetailView detailView;
 
   public DetailPresenter(Bus bus, InteractorInvoker interactorInvoker,
       GetContactInteractor getContactInteractor, DetailView detailView, PresentationContactMapper presentationContactMapper) {
@@ -24,6 +24,11 @@ public class DetailPresenter extends Presenter {
     this.presentationContactMapper = presentationContactMapper;
   }
 
+  public void onCreate(DetailView detailView) {
+    this.detailView = detailView;
+    detailView.initUi();
+  }
+
   @Override public void onResume() {
     bus.register(this);
   }
@@ -32,7 +37,7 @@ public class DetailPresenter extends Presenter {
     bus.unregister(this);
   }
 
-  public void onCreate(String contactMd5) {
+  public void obtainContact(String contactMd5) {
     getContactInteractor.setData(contactMd5);
     interactorInvoker.execute(getContactInteractor);
   }

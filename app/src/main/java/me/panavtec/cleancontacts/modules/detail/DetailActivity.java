@@ -6,8 +6,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import java.util.Arrays;
-import java.util.List;
 import javax.inject.Inject;
 import me.panavtec.cleancontacts.R;
 import me.panavtec.cleancontacts.presentation.detail.DetailPresenter;
@@ -50,14 +48,28 @@ public class DetailActivity extends BaseActivity
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    coordinator = new Coordinator(this, COORDINATE_END_TRANSITION, COORDINATE_SHOW_CONTACT);
-    parseArguments();
     initTransitionElements();
-    initUi();
-    presenter.onCreate(contactMd5);
+    parseArguments();
+    presenter.onCreate(this);
+  }
+
+  @Override public int onCreateViewId() {
+    return R.layout.activity_detail;
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+    presenter.onResume();
+    presenter.obtainContact(contactMd5);
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+    presenter.onPause();
   }
 
   private void initTransitionElements() {
+    coordinator = new Coordinator(this, COORDINATE_END_TRANSITION, COORDINATE_SHOW_CONTACT);
     windowTransitionListener.setupListener(this);
     imageLoader.loadWithoutEffects(thumbnail, contactImageView);
     windowTransitionListener.start();
@@ -68,7 +80,7 @@ public class DetailActivity extends BaseActivity
     thumbnail = getIntent().getStringExtra(CONTACT_THUMBNAIL_EXTRA);
   }
 
-  private void initUi() {
+  @Override public void initUi() {
     initToolbar();
   }
 
@@ -77,20 +89,6 @@ public class DetailActivity extends BaseActivity
       setSupportActionBar(toolbar);
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-  }
-
-  @Override public int onCreateViewId() {
-    return R.layout.activity_detail;
-  }
-
-  @Override protected void onResume() {
-    super.onResume();
-    presenter.onResume();
-  }
-
-  @Override protected void onPause() {
-    super.onPause();
-    presenter.onPause();
   }
 
   @Override public void showContactData(PresentationContact contact) {
@@ -167,7 +165,7 @@ public class DetailActivity extends BaseActivity
     coordinator.completeAction(COORDINATE_END_TRANSITION);
   }
 
-  protected List<Object> getModules() {
-    return Arrays.<Object>asList(new DetailModule(this));
+  @Override protected Object newDiModule() {
+    return new DetailModule(this);
   }
 }

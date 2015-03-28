@@ -14,8 +14,8 @@ public class MainPresenter extends Presenter {
   private final Bus bus;
   private final InteractorInvoker interactorInvoker;
   private final GetContactsInteractor getContactsInteractor;
-  private final MainView mainView;
   private final ListMapper<Contact, PresentationContact> listMapper;
+  private MainView mainView;
 
   public MainPresenter(Bus bus, InteractorInvoker interactorInvoker,
       GetContactsInteractor getContactsInteractor, MainView mainView,
@@ -25,14 +25,18 @@ public class MainPresenter extends Presenter {
     this.getContactsInteractor = getContactsInteractor;
     this.mainView = mainView;
     this.listMapper = listMapper;
+    System.out.println("MainActivity - Create Presenter");
   }
 
-  public void onCreate() {
-    interactorInvoker.execute(getContactsInteractor);
+  public void onCreate(MainView mainView) {
+    this.mainView = mainView;
+    mainView.initUi();
   }
 
   @Override public void onResume() {
     bus.register(this);
+    interactorInvoker.execute(getContactsInteractor);
+    System.out.println("MainActivity - Presenter - onResume");
   }
 
   @Override public void onPause() {
@@ -40,7 +44,9 @@ public class MainPresenter extends Presenter {
   }
 
   public void onEvent(GetContactsEvent event) {
+    System.out.println("MainActivity - Presenter - onEvent");
     if (event.getError() == null) {
+      System.out.println("MainActivity - Presenter - onEvent - NoError");
       mainView.refreshContactsList(listMapper.modelToData(event.getContacts()));
     } else {
       mainView.showGetContactsError();
