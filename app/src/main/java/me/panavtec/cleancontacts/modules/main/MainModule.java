@@ -4,9 +4,9 @@ import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
 import me.panavtec.cleancontacts.di.ActivityModule;
-import me.panavtec.cleancontacts.domain.abstractions.Bus;
 import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
+import me.panavtec.cleancontacts.domain.interactors.base.InteractorInvoker;
+import me.panavtec.cleancontacts.domain.interactors.base.ThreadSpec;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
 import me.panavtec.cleancontacts.presentation.main.MainPresenter;
 import me.panavtec.cleancontacts.presentation.main.MainView;
@@ -24,9 +24,10 @@ public class MainModule {
     this.mainView = mainView;
   }
 
-  @Provides @Singleton MainPresenter provideMainPresenter(Bus bus,
-      InteractorInvoker interactorInvoker, GetContactsInteractor getContactsInteractor,
-      ListMapper<Contact, PresentationContact> listMapper) {
-    return new MainPresenter(bus, interactorInvoker, getContactsInteractor, mainView, listMapper);
+  @Provides @Singleton MainPresenter provideMainPresenter(InteractorInvoker interactorInvoker,
+      GetContactsInteractor getContactsInteractor,
+      ListMapper<Contact, PresentationContact> listMapper, ThreadSpec mainThreadSpec) {
+    return new MainPresenter(interactorInvoker, getContactsInteractor, mainView, listMapper,
+        mainThreadSpec);
   }
 }

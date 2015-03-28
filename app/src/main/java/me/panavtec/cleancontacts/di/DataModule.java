@@ -10,11 +10,11 @@ import javax.inject.Singleton;
 import me.panavtec.cleancontacts.BuildConfig;
 import me.panavtec.cleancontacts.data.RetrofitLog;
 import me.panavtec.cleancontacts.data.UserAgent;
-import me.panavtec.cleancontacts.domain.BusImp;
 import me.panavtec.cleancontacts.domain.InteractorInvokerImp;
-import me.panavtec.cleancontacts.domain.abstractions.Bus;
+import me.panavtec.cleancontacts.domain.MainThreadSpec;
 import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
+import me.panavtec.cleancontacts.domain.interactors.base.InteractorInvoker;
+import me.panavtec.cleancontacts.domain.interactors.base.ThreadSpec;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
@@ -45,15 +45,11 @@ public class DataModule {
         Build.VERSION.RELEASE, BuildConfig.VERSION_CODE);
   }
 
-  @Provides @Singleton Bus provideEventbus() {
-    return new BusImp();
-  }
-
   @Provides @Singleton JobManager provideJobManager(Application app) {
     return new JobManager(app);
   }
 
-  @Provides @Singleton InteractorInvoker provideInteractorInvoker(JobManager jobManager, Bus bus) {
+  @Provides @Singleton InteractorInvoker provideInteractorInvoker(JobManager jobManager) {
     return new InteractorInvokerImp(jobManager);
   }
 
@@ -73,4 +69,13 @@ public class DataModule {
       PresentationContactMapper presentationContactMapper) {
     return new ListMapper<>(presentationContactMapper);
   }
+
+  @Provides @Singleton ThreadSpec provideMainThread() {
+    return new MainThreadSpec();
+  }
+
+  //@Provides @Singleton BackThreadSpec provideBackThread() {
+  //  return new BackThreadSpec();
+  //}
+  
 }

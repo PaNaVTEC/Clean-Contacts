@@ -1,4 +1,4 @@
-package me.panavtec.cleancontacts.domain.interactors;
+package me.panavtec.cleancontacts.domain.interactors.base;
 
 public enum InteractorPriority {
   LOW(1),

@@ -43,13 +43,10 @@ public class DetailActivity extends BaseActivity
   
   private PresentationContact contact;
   private Coordinator coordinator;
-  private String contactMd5;
-  private String thumbnail;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     initTransitionElements();
-    parseArguments();
     presenter.onCreate(this);
   }
 
@@ -60,7 +57,6 @@ public class DetailActivity extends BaseActivity
   @Override protected void onResume() {
     super.onResume();
     presenter.onResume();
-    presenter.obtainContact(contactMd5);
   }
 
   @Override protected void onPause() {
@@ -71,13 +67,8 @@ public class DetailActivity extends BaseActivity
   private void initTransitionElements() {
     coordinator = new Coordinator(this, COORDINATE_END_TRANSITION, COORDINATE_SHOW_CONTACT);
     windowTransitionListener.setupListener(this);
-    imageLoader.loadWithoutEffects(thumbnail, contactImageView);
+    imageLoader.loadWithoutEffects(getIntent().getStringExtra(CONTACT_THUMBNAIL_EXTRA), contactImageView);
     windowTransitionListener.start();
-  }
-
-  private void parseArguments() {
-    contactMd5 = getIntent().getStringExtra(CONTACT_MD5_EXTRA);
-    thumbnail = getIntent().getStringExtra(CONTACT_THUMBNAIL_EXTRA);
   }
 
   @Override public void initUi() {
@@ -166,6 +157,6 @@ public class DetailActivity extends BaseActivity
   }
 
   @Override protected Object newDiModule() {
-    return new DetailModule(this);
+    return new DetailModule(this, getIntent().getStringExtra(CONTACT_MD5_EXTRA));
   }
 }

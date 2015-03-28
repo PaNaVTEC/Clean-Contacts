@@ -63,7 +63,8 @@ public class MainActivity extends BaseActivity<MainModule>
     ContactViewHolderFactory contactViewHolderFactory =
         new ContactViewHolderFactory(this, imageLoader);
     EasyRecyclerAdapter adapter =
-        new EasyRecyclerAdapter(contactViewHolderFactory, PresentationContact.class, ContactViewHolder.class);
+        new EasyRecyclerAdapter(contactViewHolderFactory, PresentationContact.class,
+            ContactViewHolder.class);
     recyclerViewManager =
         new EasyRecyclerViewManager.Builder(recyclerView, adapter).emptyLoadingListTextView(
             emptyList)
@@ -102,7 +103,7 @@ public class MainActivity extends BaseActivity<MainModule>
     presenter.onPause();
   }
 
-  @Override public void refreshContactsList(List<PresentationContact> contacts) {
+  @Override public void refreshContactsList(final List<PresentationContact> contacts) {
     recyclerViewManager.addAll(contacts);
     swipeRefreshLayout.setRefreshing(false);
   }
@@ -120,7 +121,6 @@ public class MainActivity extends BaseActivity<MainModule>
     swipeRefreshLayout.setRefreshing(true);
   }
 
-
   @Override protected MainModule newDiModule() {
     return new MainModule(this);
   }
@@ -133,5 +133,4 @@ public class MainActivity extends BaseActivity<MainModule>
             (TextView) view.findViewById(R.id.nameTextView));
     detailActionCommand.execute();
   }
-
 }
