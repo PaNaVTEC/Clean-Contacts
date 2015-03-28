@@ -2,12 +2,12 @@ package me.panavtec.cleancontacts.domain.interactors.base;
 
 public class InteractorOutput<T, E extends Exception> {
 
-  private final Action action;
-  private final Action actionError;
+  private final Action<T> action;
+  private final Action<E> actionError;
   private final ThreadSpec actionThread;
   private final ThreadSpec actionErrorThread;
 
-  private InteractorOutput(Action action, Action actionError, ThreadSpec actionThread,
+  private InteractorOutput(Action<T> action, Action<E> actionError, ThreadSpec actionThread,
       ThreadSpec actionErrorThread) {
     this.action = action;
     this.actionError = actionError;

@@ -29,7 +29,7 @@ public class DetailPresenter extends Presenter {
     this.detailView = detailView;
     this.presentationContactMapper = presentationContactMapper;
     this.mainThreadSpec = mainThreadSpec;
-    
+
     getContactOutput = new InteractorOutput.Builder<Contact, CannotObtainContactException>(
         mainThreadSpec).onResult(new Action<Contact>() {
       @Override public void onAction(Contact data) {
