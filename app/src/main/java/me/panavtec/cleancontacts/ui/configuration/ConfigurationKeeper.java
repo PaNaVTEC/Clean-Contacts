@@ -8,12 +8,12 @@ public class ConfigurationKeeper extends Handler {
 
   private static final int MSG_REALLY_DESTROYED = 1;
   
-  private DestroyListener destroyListener;
+  private ConfigurationKeeperListener configurationKeeperListener;
   private boolean mStopped;
   private boolean mReallyStopped;
 
-  public ConfigurationKeeper(DestroyListener destroyListener) {
-    this.destroyListener = destroyListener;
+  public ConfigurationKeeper(ConfigurationKeeperListener configurationKeeperListener) {
+    this.configurationKeeperListener = configurationKeeperListener;
   }
 
   @DebugLog @Override public void handleMessage(Message msg) {
@@ -41,7 +41,7 @@ public class ConfigurationKeeper extends Handler {
     if (!mReallyStopped) {
       mReallyStopped = true;
       removeMessages(MSG_REALLY_DESTROYED);
-      destroyListener.destroyThemAll();
+      configurationKeeperListener.onDestroyConfigurationKeeper();
     }
   }
 

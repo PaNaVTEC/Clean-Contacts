@@ -2,36 +2,21 @@ package me.panavtec.cleancontacts.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import butterknife.ButterKnife;
 import dagger.ObjectGraph;
 import hugo.weaving.DebugLog;
-import java.util.ArrayList;
-import java.util.List;
-import me.panavtec.cleancontacts.CleanContactsApp;
-import me.panavtec.cleancontacts.di.ActivityModule;
 import me.panavtec.cleancontacts.ui.configuration.ConfigurationKeeper;
-import me.panavtec.cleancontacts.ui.configuration.DestroyListener;
+import me.panavtec.cleancontacts.ui.configuration.ConfigurationKeeperListener;
 
 public abstract class BaseActivity<T> extends ActionBarActivity
-    implements DestroyListener {
+    implements ConfigurationKeeperListener {
 
   private ObjectGraph activityGraph;
-  private T diModule;
-
   ConfigurationKeeper configurationKeeper = new ConfigurationKeeper(this);
 
-  @Override public void destroyThemAll() {
+  @Override public void onDestroyConfigurationKeeper() {
     activityGraph = null;
     configurationKeeper = null;
-  }
-  
-  @DebugLog @Override protected void onStart() {
-    super.onStart();
-  }
-
-  @DebugLog @Override protected void onStop() {
-    super.onStop();
   }
 
   @DebugLog @Override protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +24,6 @@ public abstract class BaseActivity<T> extends ActionBarActivity
     super.onCreate(savedInstanceState);
     injectView();
     configurationKeeper.create();
-  }
-
-  @DebugLog @Override protected void onResume() {
-    super.onResume();
-  }
-
-  @DebugLog @Override protected void onPause() {
-    super.onPause();
   }
 
   private void injectView() {
@@ -66,20 +43,12 @@ public abstract class BaseActivity<T> extends ActionBarActivity
     super.onDestroy();
   }
 
-  public ObjectGraph getActivityGraph() {
-    return activityGraph;
-  }
-
   private void createActivityModule() {
-    Object savedObjectGraph = getLastCustomNonConfigurationInstance();
-    Log.d("MainActivity", "graph: " + savedObjectGraph);
-    if (savedObjectGraph == null) {
-      diModule = newDiModule();
-      activityGraph = new ActivityInjector(this).createGraph(diModule);
-    } else {
-      activityGraph = (ObjectGraph) savedObjectGraph;
-      activityGraph.inject(this);
+    activityGraph = (ObjectGraph) getLastCustomNonConfigurationInstance();
+    if (activityGraph == null) {
+      activityGraph = new ActivityInjector(this).createGraph(newDiModule());
     }
+    activityGraph.inject(this);
   }
 
   @Override public Object onRetainCustomNonConfigurationInstance() {
@@ -88,31 +57,4 @@ public abstract class BaseActivity<T> extends ActionBarActivity
 
   protected abstract T newDiModule();
 
-  static class ActivityInjector {
-
-    private ActionBarActivity activity;
-
-    public ActivityInjector(ActionBarActivity activity) {
-      this.activity = activity;
-    }
-
-    public ObjectGraph createGraph(Object module) {
-      ArrayList<Object> modules = new ArrayList<>();
-      modules.add(module);
-      return createGraph(modules);
-    }
-
-    public ObjectGraph createGraph(List<Object> modules) {
-      CleanContactsApp app = CleanContactsApp.get(activity);
-      ObjectGraph graph = app.getObjectGraph().plus(getCombinedModules(modules).toArray());
-      graph.inject(activity);
-      return graph;
-    }
-
-    private List<Object> getCombinedModules(List<Object> modules) {
-      List<Object> combined = new ArrayList<>(modules);
-      combined.add(new ActivityModule(activity));
-      return combined;
-    }
-  }
 }
