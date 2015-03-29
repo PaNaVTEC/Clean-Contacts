@@ -19,7 +19,7 @@ import me.panavtec.cleancontacts.modules.main.adapters.ContactViewHolderFactory;
 import me.panavtec.cleancontacts.presentation.main.MainPresenter;
 import me.panavtec.cleancontacts.presentation.main.MainView;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
-import me.panavtec.cleancontacts.ui.BaseActivity;
+import me.panavtec.cleancontacts.ui.activity.BaseActivity;
 import me.panavtec.cleancontacts.ui.elevation.ElevationHandler;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;

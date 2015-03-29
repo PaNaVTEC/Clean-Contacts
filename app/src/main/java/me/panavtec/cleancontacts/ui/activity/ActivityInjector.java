@@ -1,4 +1,4 @@
-package me.panavtec.cleancontacts.ui;
+package me.panavtec.cleancontacts.ui.activity;
 
 import android.support.v7.app.ActionBarActivity;
 import dagger.ObjectGraph;
@@ -9,27 +9,27 @@ import me.panavtec.cleancontacts.di.ActivityModule;
 
 public class ActivityInjector {
 
-  private ActionBarActivity activity;
-
-  public ActivityInjector(ActionBarActivity activity) {
-    this.activity = activity;
-  }
-
-  public ObjectGraph createGraph(Object module) {
+  ObjectGraph objectGraph;
+  
+  public void createGraph(ActionBarActivity activity, Object module) {
     ArrayList<Object> modules = new ArrayList<>();
     modules.add(module);
-    return createGraph(modules);
+    createGraph(activity, modules);
   }
 
-  public ObjectGraph createGraph(List<Object> modules) {
+  public void createGraph(ActionBarActivity activity, List<Object> modules) {
     CleanContactsApp app = CleanContactsApp.get(activity);
-    return app.getObjectGraph().plus(getCombinedModules(modules).toArray());
+    objectGraph = app.getObjectGraph().plus(getCombinedModules(activity, modules).toArray());
   }
 
-  private List<Object> getCombinedModules(List<Object> modules) {
+  private List<Object> getCombinedModules(ActionBarActivity activity, List<Object> modules) {
     List<Object> combined = new ArrayList<>(modules);
     combined.add(new ActivityModule(activity));
     return combined;
+  }
+  
+  public void inject(Object object) {
+    objectGraph.inject(object);
   }
   
 }

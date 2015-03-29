@@ -1,9 +1,8 @@
-package me.panavtec.cleancontacts.ui;
+package me.panavtec.cleancontacts.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import butterknife.ButterKnife;
-import dagger.ObjectGraph;
 import hugo.weaving.DebugLog;
 import me.panavtec.cleancontacts.ui.configuration.ConfigurationKeeper;
 import me.panavtec.cleancontacts.ui.configuration.ConfigurationKeeperListener;
@@ -11,13 +10,8 @@ import me.panavtec.cleancontacts.ui.configuration.ConfigurationKeeperListener;
 public abstract class BaseActivity<T> extends ActionBarActivity
     implements ConfigurationKeeperListener {
 
-  private ObjectGraph activityGraph;
-  ConfigurationKeeper configurationKeeper = new ConfigurationKeeper(this);
-
-  @Override public void onDestroyConfigurationKeeper() {
-    activityGraph = null;
-    configurationKeeper = null;
-  }
+  private ActivityInjector activityInjector;
+  private ConfigurationKeeper configurationKeeper = new ConfigurationKeeper(this);
 
   @DebugLog @Override protected void onCreate(Bundle savedInstanceState) {
     createActivityModule();
@@ -43,18 +37,23 @@ public abstract class BaseActivity<T> extends ActionBarActivity
     super.onDestroy();
   }
 
+  @Override public void onDestroyConfigurationKeeper() {
+    activityInjector = null;
+    configurationKeeper = null;
+  }
+
   private void createActivityModule() {
-    activityGraph = (ObjectGraph) getLastCustomNonConfigurationInstance();
-    if (activityGraph == null) {
-      activityGraph = new ActivityInjector(this).createGraph(newDiModule());
+    activityInjector = (ActivityInjector) getLastCustomNonConfigurationInstance();
+    if (activityInjector == null) {
+      activityInjector = new ActivityInjector();
+      activityInjector.createGraph(this, newDiModule());
     }
-    activityGraph.inject(this);
+    activityInjector.inject(this);
   }
 
   @Override public Object onRetainCustomNonConfigurationInstance() {
-    return activityGraph;
+    return activityInjector;
   }
 
   protected abstract T newDiModule();
-
 }

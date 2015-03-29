@@ -12,7 +12,7 @@ import me.panavtec.cleancontacts.presentation.detail.DetailPresenter;
 import me.panavtec.cleancontacts.presentation.detail.DetailView;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.PresentationLocation;
-import me.panavtec.cleancontacts.ui.BaseActivity;
+import me.panavtec.cleancontacts.ui.activity.BaseActivity;
 import me.panavtec.cleancontacts.ui.Coordinator;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
