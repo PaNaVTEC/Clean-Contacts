@@ -39,11 +39,16 @@ In the BDD data source you can find a Caching Strategy (CS). The CS is a common 
 In the contact list you, when you tap a contact you will navigate to Detail. In the contact list you have a thumbnail of the contact pic. When navigating to DetailActivity the image is a shared element that will move/scale to the Detail position that will later load a large picture.
 
 ###Coordinator to avoid flags
+[Coordinator](http://panavtec.me/coordinator-as-a-library/) is a library that will help you to avoid flags, you will see in action on DetailActivity, it needs to coordinate the transition of the Main > Detail and the load from the BDD to show the contact.
 
-[Coordinator](http://panavtec.me/presentando-coodinator-o-como-evitar-flags/) is a simple class utility that will help you to avoid flags, you will see in action in DetailActivity, it needs to coordinate the transition of the Main > Detail and the load from the BDD to show the contact.
+###Dagger injection representing abstraction layers
+You can find a dagger configuration that fits the abstraction layer in the app/di/ package 
 
 ###Assisted injection
 This repo contains implementation for Android > 5 and < 5 (that just do nothing), For resolve this in Dagger I followed the tip of [Jesse Wilson](https://groups.google.com/forum/#!topic/dagger-discuss/QgnvmZ-dH9c/discussion) you can see the implementation in ActivityModule.
+
+###No more buses to handle configuration changes
+Reading the AOSP LoaderManager code gave me an idea of how to handle configuration cahnges without needing a bus. So I implemented the approach, you can see it [at this commit](https://github.com/PaNaVTEC/Clean-Contacts/commit/487b3db666df4db36df3ff667319958e4a6d70a5) and in [my blog there is a explanation](http://panavtec.me/clean-android-without-bus/). So now the interactor works with a tunned Callbacks to manage the returns threads.
 
 ###Desktop app sharing common modules
 I created a sample desktop app using JavaFX sharing presentation, domain/entities and repository modules. Just re-implementing the data sources and the UI module wich are implementation details. You can find the desktop app in the folder "desktop". If you are using IntelliJ and you want to run the sample, you will need this configuration:
