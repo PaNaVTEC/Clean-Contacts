@@ -1,10 +1,10 @@
 package me.panavtec.cleancontacts.desktop.domain;
 
-import me.panavtec.cleancontacts.domain.interactors.Interactor;
-import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
-import me.panavtec.cleancontacts.domain.interactors.InteractorPriority;
-
 import java.util.concurrent.ExecutorService;
+import me.panavtec.cleancontacts.domain.interactors.base.Interactor;
+import me.panavtec.cleancontacts.domain.interactors.base.InteractorInvoker;
+import me.panavtec.cleancontacts.domain.interactors.base.InteractorOutput;
+import me.panavtec.cleancontacts.domain.interactors.base.InteractorPriority;
 
 public class InteractorInvokerImp implements InteractorInvoker {
 
@@ -14,15 +14,17 @@ public class InteractorInvokerImp implements InteractorInvoker {
     this.executor = executor;
   }
 
-  @Override public void execute(final Interactor interactor) {
-    executor.execute(new Runnable() {
-      @Override public void run() {
-        interactor.execute();
-      }
-    });
+  @Override public <T, E extends Exception> void execute(final Interactor<T, E> interactor,
+      final InteractorOutput<T, E> output) {
+    execute(interactor, output, InteractorPriority.MEDIUM);
   }
 
-  @Override public void execute(Interactor interactor, InteractorPriority priority) {
-    execute(interactor);
+  @Override public <T, E extends Exception> void execute(final Interactor<T, E> interactor,
+      final InteractorOutput<T, E> output, InteractorPriority priority) {
+    executor.execute(new Runnable() {
+      @Override public void run() {
+        interactor.execute(output);
+      }
+    });
   }
 }

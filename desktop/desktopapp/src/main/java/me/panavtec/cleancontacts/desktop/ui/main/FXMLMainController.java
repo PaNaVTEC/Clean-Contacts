@@ -22,7 +22,7 @@ public class FXMLMainController implements Initializable, MainView {
 
   @Override public void initialize(URL url, ResourceBundle rb) {
     ObjectGraph.create(new AppModule(), new MainModule(this)).inject(this);
-    presenter.onCreate();
+    presenter.onCreate(this);
     presenter.onResume();
   }
 
@@ -40,4 +40,8 @@ public class FXMLMainController implements Initializable, MainView {
 
   @Override public void refreshUi() {
   }
+
+  @Override public void initUi() {
+  }
+
 }
