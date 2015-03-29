@@ -2,7 +2,6 @@ package me.panavtec.cleancontacts.ui.configuration;
 
 import android.os.Handler;
 import android.os.Message;
-import hugo.weaving.DebugLog;
 
 public class ConfigurationKeeper extends Handler {
 
@@ -16,7 +15,7 @@ public class ConfigurationKeeper extends Handler {
     this.configurationKeeperListener = configurationKeeperListener;
   }
 
-  @DebugLog @Override public void handleMessage(Message msg) {
+  @Override public void handleMessage(Message msg) {
     switch (msg.what) {
       case MSG_REALLY_DESTROYED:
         if (mStopped) {

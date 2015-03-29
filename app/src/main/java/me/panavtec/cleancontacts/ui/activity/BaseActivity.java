@@ -2,8 +2,6 @@ package me.panavtec.cleancontacts.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import butterknife.ButterKnife;
-import hugo.weaving.DebugLog;
 import me.panavtec.cleancontacts.ui.configuration.ConfigurationKeeper;
 import me.panavtec.cleancontacts.ui.configuration.ConfigurationKeeperListener;
 
@@ -11,28 +9,21 @@ public abstract class BaseActivity<T> extends ActionBarActivity
     implements ConfigurationKeeperListener {
 
   private ActivityInjector activityInjector;
+  private ActivityViewInjector viewInjector = new ActivityViewInjector();
   private ConfigurationKeeper configurationKeeper = new ConfigurationKeeper(this);
 
-  @DebugLog @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override protected void onCreate(Bundle savedInstanceState) {
     createActivityModule();
     super.onCreate(savedInstanceState);
-    injectView();
+    viewInjector.inject(this, onCreateViewId());
     configurationKeeper.create();
-  }
-
-  private void injectView() {
-    int layoutId = onCreateViewId();
-    if (layoutId != 0) {
-      setContentView(layoutId);
-      ButterKnife.inject(this);
-    }
   }
 
   public int onCreateViewId() {
     return 0;
   }
 
-  @DebugLog @Override protected void onDestroy() {
+  @Override protected void onDestroy() {
     configurationKeeper.destroy();
     super.onDestroy();
   }

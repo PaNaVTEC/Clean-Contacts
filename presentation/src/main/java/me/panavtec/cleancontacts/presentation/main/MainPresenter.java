@@ -48,7 +48,6 @@ public class MainPresenter extends Presenter {
 
   @Override public void onResume() {
     refreshContactList();
-    System.out.println("MainActivity - Presenter - onResume");
   }
 
   private void refreshContactList() {
