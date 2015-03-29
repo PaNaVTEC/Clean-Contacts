@@ -61,6 +61,8 @@ dependencies {
   compile parent.ext.libPicasso
   compile parent.ext.libRecyclerAdapters
   compile parent.ext.libFAB
+  compile parent.ext.libCoordinator
+  provided parent.ext.libCoordinatorCompiler
 
   compile project(':domain')
   compile project(':presentation')

@@ -13,20 +13,21 @@ import me.panavtec.cleancontacts.presentation.detail.DetailView;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.PresentationLocation;
 import me.panavtec.cleancontacts.ui.activity.BaseActivity;
-import me.panavtec.cleancontacts.ui.Coordinator;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
 import me.panavtec.cleancontacts.ui.transitions.WindowTransitionListener;
+import me.panavtec.coordinator.Coordinator;
+import me.panavtec.coordinator.compiler.qualifiers.Actions;
+import me.panavtec.coordinator.compiler.qualifiers.CoordinatorComplete;
 
 public class DetailActivity extends BaseActivity
-    implements DetailView, Coordinator.CoordinatorCompleteAction,
-    WindowTransitionListener.WindowTransitionEndListener {
+    implements DetailView, WindowTransitionListener.WindowTransitionEndListener {
 
   public static final String CONTACT_MD5_EXTRA = "ContactExtra";
   public static final String CONTACT_THUMBNAIL_EXTRA = "ContactThumbnailExtra";
 
-  private static final String COORDINATE_END_TRANSITION = "COORDINATE_END_TRANSITION";
-  private static final String COORDINATE_SHOW_CONTACT = "COORDINATE_SHOW_CONTACT";
+  private static final int COORDINATE_END_TRANSITION = 1;
+  private static final int COORDINATE_SHOW_CONTACT = 2;
 
   @Inject DetailPresenter presenter;
   @Inject ImageLoader imageLoader;
@@ -40,9 +41,9 @@ public class DetailActivity extends BaseActivity
   @InjectView(R.id.cellInfoView) ContactInfoView cellInfoView;
   @InjectView(R.id.emailInfoView) ContactInfoView emailInfoView;
   @InjectView(R.id.addressInfoView) ContactInfoView addressInfoView;
-  
+
+  @Actions({ COORDINATE_END_TRANSITION, COORDINATE_SHOW_CONTACT }) Coordinator coordinator;
   private PresentationContact contact;
-  private Coordinator coordinator;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -65,9 +66,10 @@ public class DetailActivity extends BaseActivity
   }
 
   private void initTransitionElements() {
-    coordinator = new Coordinator(this, COORDINATE_END_TRANSITION, COORDINATE_SHOW_CONTACT);
+    Coordinator.inject(this);
     windowTransitionListener.setupListener(this);
-    imageLoader.loadWithoutEffects(getIntent().getStringExtra(CONTACT_THUMBNAIL_EXTRA), contactImageView);
+    imageLoader.loadWithoutEffects(getIntent().getStringExtra(CONTACT_THUMBNAIL_EXTRA),
+        contactImageView);
     windowTransitionListener.start();
   }
 
@@ -124,7 +126,7 @@ public class DetailActivity extends BaseActivity
     addressInfoView.setInfoValue(address);
   }
 
-  @Override public void onCoordinatorComplete() {
+  @CoordinatorComplete public void onCoordinatorComplete() {
     showFullImage();
   }
 
