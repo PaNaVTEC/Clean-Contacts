@@ -28,7 +28,7 @@ public class MainPresenter extends Presenter {
     this.mainView = mainView;
     this.listMapper = listMapper;
     this.mainThreadSpec = mainThreadSpec;
-    
+
     getContactsListOutput = new InteractorOutput.Builder<List<Contact>, RetrieveContactsException>(
         mainThreadSpec).onResult(new Action<List<Contact>>() {
       @Override public void onAction(List<Contact> data) {
@@ -50,15 +50,15 @@ public class MainPresenter extends Presenter {
     refreshContactList();
   }
 
-  private void refreshContactList() {
-    interactorInvoker.execute(getContactsInteractor, getContactsListOutput);
-  }
-
   @Override public void onPause() {
   }
 
   public void onRefresh() {
     mainView.refreshUi();
     refreshContactList();
+  }
+
+  private void refreshContactList() {
+    interactorInvoker.execute(getContactsInteractor, getContactsListOutput);
   }
 }
