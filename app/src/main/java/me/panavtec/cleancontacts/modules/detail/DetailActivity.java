@@ -6,15 +6,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import java.util.Arrays;
-import java.util.List;
 import javax.inject.Inject;
 import me.panavtec.cleancontacts.R;
 import me.panavtec.cleancontacts.presentation.detail.DetailPresenter;
 import me.panavtec.cleancontacts.presentation.detail.DetailView;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.PresentationLocation;
-import me.panavtec.cleancontacts.ui.BaseActivity;
+import me.panavtec.cleancontacts.ui.activity.BaseActivity;
 import me.panavtec.cleancontacts.ui.Coordinator;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
@@ -45,38 +43,11 @@ public class DetailActivity extends BaseActivity
   
   private PresentationContact contact;
   private Coordinator coordinator;
-  private String contactMd5;
-  private String thumbnail;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    coordinator = new Coordinator(this, COORDINATE_END_TRANSITION, COORDINATE_SHOW_CONTACT);
-    parseArguments();
     initTransitionElements();
-    initUi();
-    presenter.onCreate(contactMd5);
-  }
-
-  private void initTransitionElements() {
-    windowTransitionListener.setupListener(this);
-    imageLoader.loadWithoutEffects(thumbnail, contactImageView);
-    windowTransitionListener.start();
-  }
-
-  private void parseArguments() {
-    contactMd5 = getIntent().getStringExtra(CONTACT_MD5_EXTRA);
-    thumbnail = getIntent().getStringExtra(CONTACT_THUMBNAIL_EXTRA);
-  }
-
-  private void initUi() {
-    initToolbar();
-  }
-
-  private void initToolbar() {
-    if (toolbar != null) {
-      setSupportActionBar(toolbar);
-      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
+    presenter.onCreate(this);
   }
 
   @Override public int onCreateViewId() {
@@ -91,6 +62,24 @@ public class DetailActivity extends BaseActivity
   @Override protected void onPause() {
     super.onPause();
     presenter.onPause();
+  }
+
+  private void initTransitionElements() {
+    coordinator = new Coordinator(this, COORDINATE_END_TRANSITION, COORDINATE_SHOW_CONTACT);
+    windowTransitionListener.setupListener(this);
+    imageLoader.loadWithoutEffects(getIntent().getStringExtra(CONTACT_THUMBNAIL_EXTRA), contactImageView);
+    windowTransitionListener.start();
+  }
+
+  @Override public void initUi() {
+    initToolbar();
+  }
+
+  private void initToolbar() {
+    if (toolbar != null) {
+      setSupportActionBar(toolbar);
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
   }
 
   @Override public void showContactData(PresentationContact contact) {
@@ -167,7 +156,7 @@ public class DetailActivity extends BaseActivity
     coordinator.completeAction(COORDINATE_END_TRANSITION);
   }
 
-  protected List<Object> getModules() {
-    return Arrays.<Object>asList(new DetailModule(this));
+  @Override protected Object newDiModule() {
+    return new DetailModule(this, getIntent().getStringExtra(CONTACT_MD5_EXTRA));
   }
 }

@@ -6,4 +6,6 @@ public interface DetailView {
   void showContactData(PresentationContact contact);
 
   void showGetContactError();
+
+  void initUi();
 }

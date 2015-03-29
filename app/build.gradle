@@ -1,5 +1,10 @@
 buildscript {
+  repositories {
+    mavenCentral()
+  }
+  
   dependencies {
+    classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
   }
 }
 
@@ -51,7 +56,6 @@ dependencies {
   compile parent.ext.libDagger
   provided parent.ext.libDaggerCompiler
   compile parent.ext.libButterknife
-  compile parent.ext.libEventBus
   compile parent.ext.libSnackBars
   compile parent.ext.libRecyclerView
   compile parent.ext.libPicasso

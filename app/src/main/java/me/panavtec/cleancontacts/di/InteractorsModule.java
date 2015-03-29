@@ -3,7 +3,6 @@ package me.panavtec.cleancontacts.di;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
-import me.panavtec.cleancontacts.domain.abstractions.Bus;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
 import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
@@ -14,13 +13,13 @@ import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
 )
 public class InteractorsModule {
 
-  @Provides @Singleton GetContactsInteractor provideGetContactsInteractor(Bus bus,
+  @Provides @Singleton GetContactsInteractor provideGetContactsInteractor(
       ContactsRepository repository) {
-    return new GetContactsInteractor(bus, repository);
+    return new GetContactsInteractor(repository);
   }
 
-  @Provides @Singleton GetContactInteractor provideGetContactInteractor(Bus bus,
+  @Provides @Singleton GetContactInteractor provideGetContactInteractor(
       ContactsRepository repository) {
-    return new GetContactInteractor(bus, repository);
+    return new GetContactInteractor(repository);
   }
 }

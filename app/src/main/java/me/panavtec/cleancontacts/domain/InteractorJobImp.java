@@ -2,14 +2,18 @@ package me.panavtec.cleancontacts.domain;
 
 import com.path.android.jobqueue.Job;
 import com.path.android.jobqueue.Params;
-import me.panavtec.cleancontacts.domain.interactors.Interactor;
+import me.panavtec.cleancontacts.domain.interactors.base.Interactor;
+import me.panavtec.cleancontacts.domain.interactors.base.InteractorOutput;
 
-public class InteractorJobImp extends Job {
+public class InteractorJobImp<T, E extends Exception> extends Job {
 
-  private Interactor interactor;
+  private final InteractorOutput<T, E> output;
+  private final Interactor<T, E> interactor;
 
-  public InteractorJobImp(Params params, Interactor interactor) {
+  public InteractorJobImp(Params params, InteractorOutput<T, E> output,
+      Interactor<T, E> interactor) {
     super(params);
+    this.output = output;
     this.interactor = interactor;
   }
 
@@ -17,7 +21,7 @@ public class InteractorJobImp extends Job {
   }
 
   @Override public void onRun() throws Throwable {
-    interactor.execute();
+    interactor.execute(output);
   }
 
   @Override protected void onCancel() {

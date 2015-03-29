@@ -3,8 +3,9 @@ package me.panavtec.cleancontacts.modules.detail;
 import dagger.Module;
 import dagger.Provides;
 import me.panavtec.cleancontacts.di.ActivityModule;
-import me.panavtec.cleancontacts.domain.abstractions.Bus;
-import me.panavtec.cleancontacts.domain.interactors.InteractorInvoker;
+import me.panavtec.cleancontacts.di.qualifiers.MainThread;
+import me.panavtec.cleancontacts.domain.interactors.base.InteractorInvoker;
+import me.panavtec.cleancontacts.domain.interactors.base.ThreadSpec;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.presentation.detail.DetailPresenter;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
@@ -17,15 +18,18 @@ import me.panavtec.cleancontacts.ui.transitions.WindowTransitionListener;
 public class DetailModule {
 
   private DetailActivity detailActivity;
+  private String contactMd5;
 
-  public DetailModule(DetailActivity detailActivity) {
+  public DetailModule(DetailActivity detailActivity, String contactMd5) {
     this.detailActivity = detailActivity;
+    this.contactMd5 = contactMd5;
   }
 
-  @Provides DetailPresenter providePresenter(Bus bus, InteractorInvoker interactorInvoker,
-      GetContactInteractor getContactInteractor, PresentationContactMapper contactMapper) {
-    return new DetailPresenter(bus, interactorInvoker, getContactInteractor, detailActivity,
-        contactMapper);
+  @Provides DetailPresenter providePresenter(InteractorInvoker interactorInvoker,
+      GetContactInteractor getContactInteractor, PresentationContactMapper contactMapper,
+      @MainThread ThreadSpec mainThread) {
+    return new DetailPresenter(contactMd5, interactorInvoker, getContactInteractor, detailActivity,
+        contactMapper, mainThread);
   }
 
   @Provides WindowTransitionListener.WindowTransitionEndListener provideEndListener() {
