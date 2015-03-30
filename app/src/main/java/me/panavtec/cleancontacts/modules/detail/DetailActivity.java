@@ -65,6 +65,11 @@ public class DetailActivity extends BaseActivity
     presenter.onPause();
   }
 
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    presenter.onDestroy();
+  }
+
   private void initTransitionElements() {
     Coordinator.inject(this);
     windowTransitionListener.setupListener(this);
@@ -159,6 +164,6 @@ public class DetailActivity extends BaseActivity
   }
 
   @Override protected Object newDiModule() {
-    return new DetailModule(this, getIntent().getStringExtra(CONTACT_MD5_EXTRA));
+    return new DetailModule(getIntent().getStringExtra(CONTACT_MD5_EXTRA));
   }
 }
