@@ -12,7 +12,7 @@ import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
 
-public class MainPresenter extends Presenter {
+public class MainPresenter implements Presenter<MainView> {
   private final InteractorInvoker interactorInvoker;
   private final GetContactsInteractor getContactsInteractor;
   private final ListMapper<Contact, PresentationContact> listMapper;
@@ -21,27 +21,26 @@ public class MainPresenter extends Presenter {
   private MainView mainView;
 
   public MainPresenter(InteractorInvoker interactorInvoker,
-      GetContactsInteractor getContactsInteractor, MainView mainView,
+      GetContactsInteractor getContactsInteractor,
       final ListMapper<Contact, PresentationContact> listMapper, ThreadSpec mainThreadSpec) {
     this.interactorInvoker = interactorInvoker;
     this.getContactsInteractor = getContactsInteractor;
-    this.mainView = mainView;
     this.listMapper = listMapper;
     this.mainThreadSpec = mainThreadSpec;
 
     getContactsListOutput = new InteractorOutput.Builder<List<Contact>, RetrieveContactsException>(
         mainThreadSpec).onResult(new Action<List<Contact>>() {
       @Override public void onAction(List<Contact> data) {
-        MainPresenter.this.mainView.refreshContactsList(listMapper.modelToData(data));
+        mainView.refreshContactsList(listMapper.modelToData(data));
       }
     }).onError(new Action<RetrieveContactsException>() {
       @Override public void onAction(RetrieveContactsException data) {
-        MainPresenter.this.mainView.showGetContactsError();
+        mainView.showGetContactsError();
       }
     }).build();
   }
 
-  public void onCreate(MainView mainView) {
+  @Override public void onCreate(MainView mainView) {
     this.mainView = mainView;
     this.mainView.initUi();
   }
@@ -51,6 +50,10 @@ public class MainPresenter extends Presenter {
   }
 
   @Override public void onPause() {
+  }
+
+  @Override public void onDestroy() {
+    this.mainView = null;
   }
 
   public void onRefresh() {

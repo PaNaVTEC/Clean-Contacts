@@ -103,6 +103,11 @@ public class MainActivity extends BaseActivity<MainModule>
     presenter.onPause();
   }
 
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    presenter.onDestroy();
+  }
+
   @Override public void refreshContactsList(final List<PresentationContact> contacts) {
     recyclerViewManager.addAll(contacts);
     swipeRefreshLayout.setRefreshing(false);
@@ -122,7 +127,7 @@ public class MainActivity extends BaseActivity<MainModule>
   }
 
   @Override protected MainModule newDiModule() {
-    return new MainModule(this);
+    return new MainModule();
   }
 
   @Override public void onItemClick(int position, View view) {
