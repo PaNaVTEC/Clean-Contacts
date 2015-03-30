@@ -10,6 +10,11 @@ public class ConfigurationKeeper extends Handler {
   private ConfigurationKeeperListener configurationKeeperListener;
   private boolean mStopped;
   private boolean mReallyStopped;
+  private final Runnable sendEmptyMessage = new Runnable() {
+    @Override public void run() {
+      sendEmptyMessage(MSG_REALLY_DESTROYED);
+    }
+  };
 
   public ConfigurationKeeper(ConfigurationKeeperListener configurationKeeperListener) {
     this.configurationKeeperListener = configurationKeeperListener;
@@ -33,7 +38,7 @@ public class ConfigurationKeeper extends Handler {
 
   public void destroy() {
     mStopped = true;
-    sendEmptyMessage(MSG_REALLY_DESTROYED);
+    post(sendEmptyMessage);
   }
 
   void doReallyDestroy() {

@@ -13,10 +13,10 @@ public abstract class BaseActivity<T> extends ActionBarActivity
   private ConfigurationKeeper configurationKeeper = new ConfigurationKeeper(this);
 
   @Override protected void onCreate(Bundle savedInstanceState) {
+    configurationKeeper.create();
     createActivityModule();
     super.onCreate(savedInstanceState);
     viewInjector.inject(this, onCreateViewId());
-    configurationKeeper.create();
   }
 
   public int onCreateViewId() {
