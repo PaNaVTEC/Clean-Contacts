@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity<MainModule>
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    presenter.onCreate(this);
+    presenter.attachView(this);
   }
 
   @Override public void initUi() {
@@ -98,14 +98,9 @@ public class MainActivity extends BaseActivity<MainModule>
     presenter.onResume();
   }
 
-  @Override protected void onPause() {
-    super.onPause();
-    presenter.onPause();
-  }
-
   @Override protected void onDestroy() {
     super.onDestroy();
-    presenter.onDestroy();
+    presenter.detachView();
   }
 
   @Override public void refreshContactsList(final List<PresentationContact> contacts) {

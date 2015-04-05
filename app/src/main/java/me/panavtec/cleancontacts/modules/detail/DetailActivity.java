@@ -48,7 +48,7 @@ public class DetailActivity extends BaseActivity
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     initTransitionElements();
-    presenter.onCreate(this);
+    presenter.attachView(this);
   }
 
   @Override public int onCreateViewId() {
@@ -60,14 +60,9 @@ public class DetailActivity extends BaseActivity
     presenter.onResume();
   }
 
-  @Override protected void onPause() {
-    super.onPause();
-    presenter.onPause();
-  }
-
   @Override protected void onDestroy() {
     super.onDestroy();
-    presenter.onDestroy();
+    presenter.detachView();
   }
 
   private void initTransitionElements() {

@@ -1,12 +1,14 @@
 package me.panavtec.cleancontacts.presentation;
 
-public interface Presenter<V extends PresenterView> {
+public abstract class Presenter<V extends PresenterView> {
 
-  public void onCreate(V view);
+  protected V view;
 
-  public void onResume();
+  public void attachView(V view) {
+    this.view = view;
+  }
 
-  public void onPause();
-
-  public void onDestroy();
+  public void detachView() {
+    this.view = null;
+  }
 }
