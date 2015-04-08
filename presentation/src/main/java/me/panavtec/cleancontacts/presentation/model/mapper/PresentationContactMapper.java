@@ -46,9 +46,9 @@ public class PresentationContactMapper implements Mapper<Contact, PresentationCo
     contact.setEmail(data.getEmail());
     contact.setGender(data.getGender());
     Name name = new Name();
-    name.setFirst(name.getFirst());
-    name.setLast(name.getLast());
-    name.setTitle(name.getTitle());
+    name.setFirst(data.getFirstName());
+    name.setLast(data.getLastName());
+    name.setTitle(data.getTitle());
     contact.setName(name);
     contact.setPhone(data.getPhone());
     contact.setPassword(data.getPassword());
