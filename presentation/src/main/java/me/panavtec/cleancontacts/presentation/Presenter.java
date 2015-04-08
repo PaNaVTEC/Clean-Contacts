@@ -1,7 +1,14 @@
 package me.panavtec.cleancontacts.presentation;
 
-public abstract class Presenter {
-  public abstract void onResume();
+public abstract class Presenter<V extends PresenterView> {
 
-  public abstract void onPause();
+  protected V view;
+
+  public void attachView(V view) {
+    this.view = view;
+  }
+
+  public void detachView() {
+    this.view = null;
+  }
 }

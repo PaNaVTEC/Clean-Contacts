@@ -1,9 +1,10 @@
 package me.panavtec.cleancontacts.presentation.main;
 
 import java.util.List;
+import me.panavtec.cleancontacts.presentation.PresenterView;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 
-public interface MainView {
+public interface MainView extends PresenterView {
   void showGetContactsError();
 
   void refreshContactsList(List<PresentationContact> contacts);

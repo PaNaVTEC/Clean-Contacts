@@ -12,49 +12,43 @@ import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
 
-public class MainPresenter extends Presenter {
+public class MainPresenter extends Presenter<MainView> {
   private final InteractorInvoker interactorInvoker;
   private final GetContactsInteractor getContactsInteractor;
   private final ListMapper<Contact, PresentationContact> listMapper;
   private final ThreadSpec mainThreadSpec;
   private final InteractorOutput<List<Contact>, RetrieveContactsException> getContactsListOutput;
-  private MainView mainView;
 
   public MainPresenter(InteractorInvoker interactorInvoker,
-      GetContactsInteractor getContactsInteractor, MainView mainView,
+      GetContactsInteractor getContactsInteractor,
       final ListMapper<Contact, PresentationContact> listMapper, ThreadSpec mainThreadSpec) {
     this.interactorInvoker = interactorInvoker;
     this.getContactsInteractor = getContactsInteractor;
-    this.mainView = mainView;
     this.listMapper = listMapper;
     this.mainThreadSpec = mainThreadSpec;
 
     getContactsListOutput = new InteractorOutput.Builder<List<Contact>, RetrieveContactsException>(
         mainThreadSpec).onResult(new Action<List<Contact>>() {
       @Override public void onAction(List<Contact> data) {
-        MainPresenter.this.mainView.refreshContactsList(listMapper.modelToData(data));
+        view.refreshContactsList(listMapper.modelToData(data));
       }
     }).onError(new Action<RetrieveContactsException>() {
       @Override public void onAction(RetrieveContactsException data) {
-        MainPresenter.this.mainView.showGetContactsError();
+        view.showGetContactsError();
       }
     }).build();
   }
 
-  public void onCreate(MainView mainView) {
-    this.mainView = mainView;
-    this.mainView.initUi();
+  @Override public void attachView(MainView view) {
+    super.attachView(view);
+    this.view.initUi();
   }
 
-  @Override public void onResume() {
-    refreshContactList();
-  }
-
-  @Override public void onPause() {
+  public void onResume() {
   }
 
   public void onRefresh() {
-    mainView.refreshUi();
+    view.refreshUi();
     refreshContactList();
   }
 

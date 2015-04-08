@@ -10,7 +10,6 @@ import me.panavtec.cleancontacts.domain.interactors.base.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.base.ThreadSpec;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
 import me.panavtec.cleancontacts.presentation.main.MainPresenter;
-import me.panavtec.cleancontacts.presentation.main.MainView;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
 
@@ -19,16 +18,9 @@ import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
     injects = MainActivity.class)
 public class MainModule {
 
-  private MainView mainView;
-
-  public MainModule(MainView mainView) {
-    this.mainView = mainView;
-  }
-
   @Provides @Singleton MainPresenter provideMainPresenter(InteractorInvoker interactorInvoker,
       GetContactsInteractor getContactsInteractor,
       ListMapper<Contact, PresentationContact> listMapper, @MainThread ThreadSpec mainThreadSpec) {
-    return new MainPresenter(interactorInvoker, getContactsInteractor, mainView, listMapper,
-        mainThreadSpec);
+    return new MainPresenter(interactorInvoker, getContactsInteractor, listMapper, mainThreadSpec);
   }
 }
