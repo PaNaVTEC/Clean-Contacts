@@ -45,6 +45,7 @@ public class MainPresenter extends Presenter<MainView> {
   }
 
   public void onResume() {
+    refreshContactList();
   }
 
   public void onRefresh() {
