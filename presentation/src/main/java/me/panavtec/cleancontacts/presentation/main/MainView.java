@@ -10,6 +10,4 @@ public interface MainView extends PresenterView {
   void refreshContactsList(List<PresentationContact> contacts);
 
   void refreshUi();
-
-  void initUi();
 }

@@ -7,6 +7,4 @@ public interface DetailView extends PresenterView {
   void showContactData(PresentationContact contact);
 
   void showGetContactError();
-
-  void initUi();
 }

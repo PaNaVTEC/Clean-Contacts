@@ -5,4 +5,7 @@ targetCompatibility = JavaVersion.VERSION_1_7
 
 dependencies {
   compile project(':domain')
+  
+  testCompile parent.ext.libJunit
+  testCompile parent.ext.libMockito
 }

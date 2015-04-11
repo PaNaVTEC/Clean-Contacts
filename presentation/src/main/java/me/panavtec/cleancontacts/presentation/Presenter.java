@@ -2,7 +2,7 @@ package me.panavtec.cleancontacts.presentation;
 
 public abstract class Presenter<V extends PresenterView> {
 
-  protected V view;
+  private V view;
 
   public void attachView(V view) {
     this.view = view;
@@ -10,5 +10,9 @@ public abstract class Presenter<V extends PresenterView> {
 
   public void detachView() {
     this.view = null;
+  }
+
+  public V getView() {
+    return view;
   }
 }

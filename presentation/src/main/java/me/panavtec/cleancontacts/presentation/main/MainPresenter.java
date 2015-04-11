@@ -30,18 +30,18 @@ public class MainPresenter extends Presenter<MainView> {
     getContactsListOutput = new InteractorOutput.Builder<List<Contact>, RetrieveContactsException>(
         mainThreadSpec).onResult(new Action<List<Contact>>() {
       @Override public void onAction(List<Contact> data) {
-        view.refreshContactsList(listMapper.modelToData(data));
+        getView().refreshContactsList(listMapper.modelToData(data));
       }
     }).onError(new Action<RetrieveContactsException>() {
       @Override public void onAction(RetrieveContactsException data) {
-        view.showGetContactsError();
+        getView().showGetContactsError();
       }
     }).build();
   }
 
   @Override public void attachView(MainView view) {
     super.attachView(view);
-    this.view.initUi();
+    getView().initUi();
   }
 
   public void onResume() {
@@ -49,7 +49,7 @@ public class MainPresenter extends Presenter<MainView> {
   }
 
   public void onRefresh() {
-    view.refreshUi();
+    getView().refreshUi();
     refreshContactList();
   }
 

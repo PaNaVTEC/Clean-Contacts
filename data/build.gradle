@@ -13,8 +13,6 @@ android {
 }
 
 dependencies {
-  testCompile group: 'junit', name: 'junit', version: '4.6'
-  testCompile parent.ext.libMockito
   compile project(':repository')
   compile parent.ext.libRetrofit
   compile parent.ext.libGson
@@ -22,4 +20,7 @@ dependencies {
   compile parent.ext.libOrmlite
   compile parent.ext.libMappers
   provided parent.ext.libMappersCompiler
+
+  testCompile parent.ext.libJunit
+  testCompile parent.ext.libMockito
 }

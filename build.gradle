@@ -43,6 +43,8 @@ allprojects {
     libMockito = 'org.mockito:mockito-all:2.0.2-beta'
     libCoordinator = 'me.panavtec:coordinator:1.0.0'
     libCoordinatorCompiler = 'me.panavtec:coordinator-compiler:1.0.0'
+
+    libJunit = 'junit:junit:4.12'
   }
 
   repositories {

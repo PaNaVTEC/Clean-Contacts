@@ -31,18 +31,18 @@ public class DetailPresenter extends Presenter<DetailView> {
     getContactOutput = new InteractorOutput.Builder<Contact, CannotObtainContactException>(
         mainThreadSpec).onResult(new Action<Contact>() {
       @Override public void onAction(Contact data) {
-        view.showContactData(presentationContactMapper.modelToData(data));
+        getView().showContactData(presentationContactMapper.modelToData(data));
       }
     }).onError(new Action<CannotObtainContactException>() {
       @Override public void onAction(CannotObtainContactException data) {
-        view.showGetContactError();
+        getView().showGetContactError();
       }
     }).build();
   }
 
   @Override public void attachView(DetailView view) {
     super.attachView(view);
-    this.view.initUi();
+    getView().initUi();
   }
 
   public void onResume() {
