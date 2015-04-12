@@ -10,7 +10,7 @@ import me.panavtec.cleancontacts.data.repository.caching.strategy.CachingStrateg
 import me.panavtec.cleancontacts.data.repository.caching.strategy.list.ListCachingStrategy;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entities.BddContact;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.persistors.Persistor;
-import me.panavtec.cleancontacts.domain.entities.Contact;
+import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.DeleteContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.InvalidCacheException;

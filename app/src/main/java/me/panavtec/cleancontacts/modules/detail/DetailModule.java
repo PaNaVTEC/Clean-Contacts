@@ -4,11 +4,11 @@ import dagger.Module;
 import dagger.Provides;
 import me.panavtec.cleancontacts.di.ActivityModule;
 import me.panavtec.cleancontacts.di.qualifiers.MainThread;
-import me.panavtec.cleancontacts.domain.interactors.base.InteractorInvoker;
-import me.panavtec.cleancontacts.domain.interactors.base.ThreadSpec;
-import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
-import me.panavtec.cleancontacts.presentation.detail.DetailPresenter;
+import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
+import me.panavtec.cleancontacts.presentation.modules.detail.DetailPresenter;
+import me.panavtec.cleancontacts.presentation.outputs.ThreadSpec;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactInteractor;
 
 @Module(
     addsTo = ActivityModule.class,

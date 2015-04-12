@@ -2,7 +2,7 @@ package me.panavtec.cleancontacts.data.api.mappers;
 
 import me.panavtec.cleancontacts.data.api.entities.ApiName;
 import me.panavtec.cleancontacts.data.mappers.Mapper;
-import me.panavtec.cleancontacts.domain.entities.Name;
+import me.panavtec.cleancontacts.presentation.outputs.entities.Name;
 
 public class ApiNameMapper implements Mapper<Name, ApiName> {
 

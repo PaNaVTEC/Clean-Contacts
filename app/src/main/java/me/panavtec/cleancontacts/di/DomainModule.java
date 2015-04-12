@@ -8,12 +8,12 @@ import javax.inject.Singleton;
 import me.panavtec.cleancontacts.di.qualifiers.BackThread;
 import me.panavtec.cleancontacts.di.qualifiers.MainThread;
 import me.panavtec.cleancontacts.di.qualifiers.SameThread;
-import me.panavtec.cleancontacts.domain.BackThreadSpec;
-import me.panavtec.cleancontacts.domain.InteractorInvokerImp;
-import me.panavtec.cleancontacts.domain.MainThreadSpec;
-import me.panavtec.cleancontacts.domain.SameThreadSpec;
-import me.panavtec.cleancontacts.domain.interactors.base.InteractorInvoker;
-import me.panavtec.cleancontacts.domain.interactors.base.ThreadSpec;
+import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
+import me.panavtec.cleancontacts.presentation.invoker.InteractorInvokerImp;
+import me.panavtec.cleancontacts.presentation.outputs.BackThreadSpec;
+import me.panavtec.cleancontacts.presentation.outputs.MainThreadSpec;
+import me.panavtec.cleancontacts.presentation.outputs.SameThreadSpec;
+import me.panavtec.cleancontacts.presentation.outputs.ThreadSpec;
 
 @Module(
     includes = {

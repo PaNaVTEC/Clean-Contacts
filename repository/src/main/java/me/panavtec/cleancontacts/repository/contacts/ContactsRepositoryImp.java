@@ -1,10 +1,10 @@
 package me.panavtec.cleancontacts.repository.contacts;
 
 import java.util.List;
-import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CannotObtainContactException;
-import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.RetrieveContactsException;
-import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
+import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.CannotObtainContactException;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.RetrieveContactsException;
+import me.panavtec.cleancontacts.presentation.outputs.repository.ContactsRepository;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsNetworkDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ContactsNetworkException;

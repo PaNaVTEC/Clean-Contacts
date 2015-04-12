@@ -1,8 +1,8 @@
 package me.panavtec.cleancontacts.presentation.model.mapper;
 
-import me.panavtec.cleancontacts.domain.entities.Location;
 import me.panavtec.cleancontacts.presentation.model.PresentationLocation;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.Mapper;
+import me.panavtec.cleancontacts.presentation.outputs.entities.Location;
 
 public class PresentationLocationMapper implements Mapper<Location, PresentationLocation> {
   @Override public PresentationLocation modelToData(Location model) {

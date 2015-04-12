@@ -1,10 +1,10 @@
 package me.panavtec.cleancontacts.desktop.domain;
 
 import java.util.concurrent.ExecutorService;
-import me.panavtec.cleancontacts.domain.interactors.base.Interactor;
-import me.panavtec.cleancontacts.domain.interactors.base.InteractorInvoker;
-import me.panavtec.cleancontacts.domain.interactors.base.InteractorOutput;
-import me.panavtec.cleancontacts.domain.interactors.base.InteractorPriority;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.base.Interactor;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.base.InteractorInvoker;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.base.InteractorOutput;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.base.InteractorPriority;
 
 public class InteractorInvokerImp implements InteractorInvoker {
 

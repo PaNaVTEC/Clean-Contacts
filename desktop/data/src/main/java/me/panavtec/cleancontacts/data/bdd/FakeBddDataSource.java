@@ -1,7 +1,7 @@
 package me.panavtec.cleancontacts.data.bdd;
 
 import java.util.List;
-import me.panavtec.cleancontacts.domain.entities.Contact;
+import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.DeleteContactException;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.InvalidCacheException;
