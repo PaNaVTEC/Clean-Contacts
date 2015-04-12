@@ -1,32 +1,31 @@
 package me.panavtec.cleancontacts.presentation.invoker;
 
-import com.path.android.jobqueue.Job;
-import com.path.android.jobqueue.JobManager;
-import com.path.android.jobqueue.Params;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.Interactor;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.InteractorOutput;
+import me.panavtec.presentation.common.InteractorOutput;
 
 public class InteractorInvokerImp implements InteractorInvoker {
 
-  private JobManager jobManager;
+  private ExecutorService executor;
 
-  public InteractorInvokerImp(JobManager jobManager) {
-    this.jobManager = jobManager;
+  public InteractorInvokerImp(ExecutorService executor) {
+    this.executor = executor;
   }
 
-  @Override public <T, E extends Exception> void execute(Interactor<T, E> interactor,
-      InteractorOutput<T, E> output) {
-    execute(interactor, output, InteractorPriorityImp.MEDIUM.getPriorityValue());
+  @Override public <T, E extends ExecutionException> Future<T> execute(
+      Interactor<T, E> interactor) {
+    return executor.submit(interactor);
   }
 
-  @Override public <T, E extends Exception> void execute(Interactor<T, E> interactor,
-      InteractorOutput<T, E> output, int priority) {
-    jobManager.addJob(interactorToJob(interactor, output, priority));
+  @Override public <T, E extends ExecutionException> Future<T> execute(Interactor<T, E> interactor,
+      InteractorOutput<T> output) {
+    return execute(interactor, output, 0);
   }
 
-  private <T, E extends Exception> Job interactorToJob(Interactor<T, E> interactor,
-      InteractorOutput<T, E> output, int priority) {
-    Params params = new Params(priority);
-    return new InteractorJobImp<>(params, output, interactor);
+  @Override public <T, E extends ExecutionException> Future<T> execute(Interactor<T, E> interactor,
+      InteractorOutput<T> output, int priority) {
+    return (Future<T>) executor.submit(new InteractorOutputTask<>(interactor, output));
   }
 }

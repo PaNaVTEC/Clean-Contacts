@@ -1,6 +1,7 @@
 package me.panavtec.cleancontacts.presentation.outputs.interactors;
 
 import java.util.List;
+import me.panavtec.presentation.common.InteractorOutput;
 import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactsInteractor;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.RetrieveContactsException;

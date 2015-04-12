@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import junit.framework.Assert;
 import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.CannotObtainContactException;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.ObtainContactException;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.RetrieveContactsException;
 import me.panavtec.cleancontacts.presentation.outputs.repository.ContactsRepository;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
@@ -64,7 +64,7 @@ public class ContactRepositoryTest {
       when(mockContactsBddDataSource.obtain(FAKE_CONTACT_MD5)).thenReturn(new Contact());
       Contact contact = contactsRepository.obtain(FAKE_CONTACT_MD5);
       Assert.assertTrue(contact != null);
-    } catch (InvalidCacheException | ObtainBddContactException | CannotObtainContactException ignored) {
+    } catch (InvalidCacheException | ObtainBddContactException | ObtainContactException ignored) {
     }
   }
 }

@@ -1,5 +1,8 @@
 package me.panavtec.cleancontacts.presentation.outputs.interactors;
 
-public interface Interactor<T, E extends Exception> {
-  public void execute(InteractorOutput<T, E> output);
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+
+public interface Interactor<T, E extends ExecutionException> extends Callable<T> {
+  @Override T call() throws E;
 }

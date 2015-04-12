@@ -4,8 +4,8 @@ import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.PresenterTest;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
-import me.panavtec.cleancontacts.presentation.outputs.InteractorOutputImp;
-import me.panavtec.cleancontacts.presentation.outputs.ThreadSpec;
+import me.panavtec.presentation.common.DecoratedInteractorOutput;
+import me.panavtec.presentation.common.ThreadSpec;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.GetContactFailinteractor;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.GetContactSuccessInteractor;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.base.TestInteractorInvoker;
@@ -43,7 +43,7 @@ public class DetailPresenterTest extends PresenterTest<DetailView> {
     DetailPresenter presenter = initializePresenter(getContactInteractor);
     presenter.onResume();
     Mockito.verify(interactorInvoker)
-        .execute(Mockito.eq(getContactInteractor), Mockito.any(InteractorOutputImp.class));
+        .execute(Mockito.eq(getContactInteractor), Mockito.any(DecoratedInteractorOutput.class));
   }
 
   @Test public void onResumeGetContactSuccess() {

@@ -2,7 +2,7 @@ package me.panavtec.cleancontacts.repository.contacts;
 
 import java.util.List;
 import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.CannotObtainContactException;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.ObtainContactException;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.RetrieveContactsException;
 import me.panavtec.cleancontacts.presentation.outputs.repository.ContactsRepository;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
@@ -43,11 +43,11 @@ public class ContactsRepositoryImp implements ContactsRepository {
     return contacts;
   }
 
-  @Override public Contact obtain(String md5) throws CannotObtainContactException {
+  @Override public Contact obtain(String md5) throws ObtainContactException {
     try {
       return bddDataSource.obtain(md5);
     } catch (InvalidCacheException | ObtainBddContactException e) {
-      throw new CannotObtainContactException();
+      throw new ObtainContactException();
     }
   }
 }

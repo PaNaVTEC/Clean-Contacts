@@ -1,8 +1,9 @@
 package me.panavtec.cleancontacts.presentation.outputs.interactors;
 
+import me.panavtec.presentation.common.InteractorOutput;
 import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactInteractor;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.CannotObtainContactException;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.ObtainContactException;
 
 public class GetContactSuccessInteractor extends GetContactInteractor {
   
@@ -17,7 +18,7 @@ public class GetContactSuccessInteractor extends GetContactInteractor {
     this.contactMd5 = contactMd5;
   }
 
-  @Override public void execute(InteractorOutput<Contact, CannotObtainContactException> output) {
+  @Override public void execute(InteractorOutput<Contact, ObtainContactException> output) {
     Contact contact = new Contact();
     contact.setMd5(contactMd5);
     output.onResult(contact);

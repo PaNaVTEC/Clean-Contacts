@@ -1,42 +1,36 @@
 package me.panavtec.cleancontacts.presentation.modules.main;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
-import me.panavtec.cleancontacts.presentation.outputs.Action;
-import me.panavtec.cleancontacts.presentation.outputs.InteractorOutputImp;
-import me.panavtec.cleancontacts.presentation.outputs.ThreadSpec;
 import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactsInteractor;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.RetrieveContactsException;
+import me.panavtec.presentation.common.InteractorOutput;
+import me.panavtec.presentation.common.InteractorOutputInjector;
+import me.panavtec.presentation.common.ThreadSpec;
+import me.panavtec.presentation.common.qualifiers.OnError;
+import me.panavtec.presentation.common.qualifiers.OnResult;
+import me.panavtec.presentation.common.qualifiers.Output;
 
 public class MainPresenter extends Presenter<MainView> {
   private final InteractorInvoker interactorInvoker;
   private final GetContactsInteractor getContactsInteractor;
   private final ListMapper<Contact, PresentationContact> listMapper;
   private final ThreadSpec mainThreadSpec;
-  private final InteractorOutputImp<List<Contact>, RetrieveContactsException> getContactsListOutput;
+  @Output InteractorOutput<List<Contact>> output;
 
   public MainPresenter(InteractorInvoker interactorInvoker,
       GetContactsInteractor getContactsInteractor,
       final ListMapper<Contact, PresentationContact> listMapper, ThreadSpec mainThreadSpec) {
+    //super(mainThreadSpec);
     this.interactorInvoker = interactorInvoker;
     this.getContactsInteractor = getContactsInteractor;
     this.listMapper = listMapper;
     this.mainThreadSpec = mainThreadSpec;
-
-    getContactsListOutput = new InteractorOutputImp.Builder<List<Contact>, RetrieveContactsException>(
-        mainThreadSpec).onResult(new Action<List<Contact>>() {
-      @Override public void onAction(List<Contact> data) {
-        getView().refreshContactsList(listMapper.modelToData(data));
-      }
-    }).onError(new Action<RetrieveContactsException>() {
-      @Override public void onAction(RetrieveContactsException data) {
-        getView().showGetContactsError();
-      }
-    }).build();
+    InteractorOutputInjector.inject(this);
   }
 
   @Override public void attachView(MainView view) {
@@ -54,6 +48,15 @@ public class MainPresenter extends Presenter<MainView> {
   }
 
   private void refreshContactList() {
-    interactorInvoker.execute(getContactsInteractor, getContactsListOutput);
+    interactorInvoker.execute(getContactsInteractor, output);
+  }
+
+  @OnResult void onContactsInteractor(List<Contact> result) {
+    List<PresentationContact> presentationContacts = listMapper.modelToData(result);
+    getView().refreshContactsList(presentationContacts);
+  }
+
+  @OnError void onContactsInteractorError(ExecutionException data) {
+    getView().showGetContactsError();
   }
 }
