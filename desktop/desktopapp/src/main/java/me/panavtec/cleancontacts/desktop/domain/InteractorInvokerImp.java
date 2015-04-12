@@ -1,10 +1,9 @@
 package me.panavtec.cleancontacts.desktop.domain;
 
 import java.util.concurrent.ExecutorService;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.base.Interactor;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.base.InteractorInvoker;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.base.InteractorOutput;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.base.InteractorPriority;
+import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.Interactor;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.InteractorOutput;
 
 public class InteractorInvokerImp implements InteractorInvoker {
 
@@ -16,11 +15,11 @@ public class InteractorInvokerImp implements InteractorInvoker {
 
   @Override public <T, E extends Exception> void execute(final Interactor<T, E> interactor,
       final InteractorOutput<T, E> output) {
-    execute(interactor, output, InteractorPriority.MEDIUM);
+    execute(interactor, output, 100);
   }
 
   @Override public <T, E extends Exception> void execute(final Interactor<T, E> interactor,
-      final InteractorOutput<T, E> output, InteractorPriority priority) {
+      final InteractorOutput<T, E> output, int priority) {
     executor.execute(new Runnable() {
       @Override public void run() {
         interactor.execute(output);

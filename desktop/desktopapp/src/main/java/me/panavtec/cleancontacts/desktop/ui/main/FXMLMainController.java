@@ -21,7 +21,7 @@ public class FXMLMainController implements Initializable, MainView {
 
   @Override public void initialize(URL url, ResourceBundle rb) {
     ObjectGraph.create(new AppModule(), new MainModule(this)).inject(this);
-    presenter.onCreate(this);
+    presenter.attachView(this);
     presenter.onResume();
   }
 

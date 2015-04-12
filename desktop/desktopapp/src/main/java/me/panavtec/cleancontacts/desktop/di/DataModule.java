@@ -9,12 +9,12 @@ import me.panavtec.cleancontacts.desktop.data.RetrofitLog;
 import me.panavtec.cleancontacts.desktop.data.UserAgent;
 import me.panavtec.cleancontacts.desktop.domain.InteractorInvokerImp;
 import me.panavtec.cleancontacts.desktop.domain.SameThreadSpec;
+import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
+import me.panavtec.cleancontacts.presentation.outputs.ThreadSpec;
 import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.base.InteractorInvoker;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.base.ThreadSpec;
 import retrofit.Endpoint;
 import retrofit.Endpoints;
 
