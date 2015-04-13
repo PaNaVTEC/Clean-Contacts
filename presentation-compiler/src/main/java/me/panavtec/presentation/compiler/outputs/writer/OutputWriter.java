@@ -1,4 +1,4 @@
-package me.panavtec.presentation.compiler.writer;
+package me.panavtec.presentation.compiler.outputs.writer;
 
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
@@ -14,9 +14,9 @@ import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import me.panavtec.presentation.common.Action;
 import me.panavtec.presentation.common.DecoratedInteractorOutput;
-import me.panavtec.presentation.compiler.model.ActionModel;
-import me.panavtec.presentation.compiler.model.EnclosingOutput;
-import me.panavtec.presentation.compiler.model.OutputModel;
+import me.panavtec.presentation.compiler.outputs.model.ActionModel;
+import me.panavtec.presentation.compiler.outputs.model.EnclosingOutput;
+import me.panavtec.presentation.compiler.outputs.model.OutputModel;
 
 public class OutputWriter {
 

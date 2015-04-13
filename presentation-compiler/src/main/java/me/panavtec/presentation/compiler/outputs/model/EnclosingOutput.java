@@ -1,4 +1,4 @@
-package me.panavtec.presentation.compiler.model;
+package me.panavtec.presentation.compiler.outputs.model;
 
 import java.util.ArrayList;
 import java.util.List;

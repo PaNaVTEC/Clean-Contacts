@@ -1,4 +1,5 @@
 package me.panavtec.presentation.compiler.tools;
+
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 
@@ -22,7 +23,8 @@ public class ElementTools {
 
   public String getElementParentClassName(Element e) {
     String parentClassName = getElementParentCompleteClassName(e);
-    return parentClassName.substring(parentClassName.lastIndexOf('.') + 1, parentClassName.length());
+    return parentClassName.substring(parentClassName.lastIndexOf('.') + 1,
+        parentClassName.length());
   }
 
   public String getElementPackagename(Element e) {
@@ -33,5 +35,4 @@ public class ElementTools {
   public String getElementType(Element e) {
     return e.asType().toString();
   }
-
 }

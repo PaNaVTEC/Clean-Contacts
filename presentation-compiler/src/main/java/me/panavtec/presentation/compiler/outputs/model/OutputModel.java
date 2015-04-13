@@ -1,4 +1,4 @@
-package me.panavtec.presentation.compiler.model;
+package me.panavtec.presentation.compiler.outputs.model;
 
 public class OutputModel {
   private String parentClassName;

@@ -1,4 +1,4 @@
-package me.panavtec.presentation.compiler.model;
+package me.panavtec.presentation.compiler.outputs.model;
 
 import javax.lang.model.type.TypeMirror;
 

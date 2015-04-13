@@ -6,7 +6,7 @@ import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
 import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactInteractor;
-import me.panavtec.presentation.common.DecoratedInteractorOutput;
+import me.panavtec.presentation.common.InteractorOutput;
 import me.panavtec.presentation.common.InteractorOutputInjector;
 import me.panavtec.presentation.common.ThreadSpec;
 import me.panavtec.presentation.common.qualifiers.OnError;
@@ -19,7 +19,7 @@ public class DetailPresenter extends Presenter<DetailView> {
   private final InteractorInvoker interactorInvoker;
   private final GetContactInteractor getContactInteractor;
   private final PresentationContactMapper presentationContactMapper;
-  @Output DecoratedInteractorOutput<Contact> getContactOutput;
+  @Output InteractorOutput<Contact> getContactOutput;
 
   public DetailPresenter(String contactMd5, InteractorInvoker interactorInvoker,
       GetContactInteractor getContactInteractor,

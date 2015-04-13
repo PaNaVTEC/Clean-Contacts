@@ -1,4 +1,4 @@
-package me.panavtec.presentation.compiler;
+package me.panavtec.presentation.compiler.outputs;
 
 import java.lang.annotation.Annotation;
 import java.util.Collection;
@@ -20,11 +20,11 @@ import me.panavtec.presentation.common.qualifiers.OnCancel;
 import me.panavtec.presentation.common.qualifiers.OnError;
 import me.panavtec.presentation.common.qualifiers.OnResult;
 import me.panavtec.presentation.common.qualifiers.Output;
-import me.panavtec.presentation.compiler.model.ActionModel;
-import me.panavtec.presentation.compiler.model.EnclosingOutput;
-import me.panavtec.presentation.compiler.model.OutputModel;
 import me.panavtec.presentation.compiler.tools.ElementTools;
-import me.panavtec.presentation.compiler.writer.OutputWriter;
+import me.panavtec.presentation.compiler.outputs.model.ActionModel;
+import me.panavtec.presentation.compiler.outputs.model.EnclosingOutput;
+import me.panavtec.presentation.compiler.outputs.model.OutputModel;
+import me.panavtec.presentation.compiler.outputs.writer.OutputWriter;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class OutputAnnotationProcessor extends AbstractProcessor {
