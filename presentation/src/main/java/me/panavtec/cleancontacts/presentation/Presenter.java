@@ -22,14 +22,10 @@ public abstract class Presenter<V extends PresenterView> {
 
   private <V> V proxyView(final V view) {
     Class<?>[] interfaces = view.getClass().getInterfaces();
-    for (Class<?> interf : interfaces) {
-      if (interf.getSuperclass().equals(PresenterView.class)) {
-        proxyCreate = new Invoka<>(view, mainThreadSpec);
-        return (V) Proxy.newProxyInstance(interf.getClassLoader(), new Class[] { interf },
-            proxyCreate);
-      }
-    }
-    return null;
+    Class<?> viewInterface = interfaces[0];
+    proxyCreate = new Invoka<>(view, mainThreadSpec);
+    return (V) Proxy.newProxyInstance(viewInterface.getClassLoader(), new Class[] { viewInterface },
+        proxyCreate);
   }
 
   public void detachView() {
@@ -42,6 +38,7 @@ public abstract class Presenter<V extends PresenterView> {
   }
 
   static class Invoka<V> implements InvocationHandler {
+
     private V view;
     private ThreadSpec threadSpec;
 
@@ -63,5 +60,6 @@ public abstract class Presenter<V extends PresenterView> {
       });
       return null;
     }
+
   }
 }
