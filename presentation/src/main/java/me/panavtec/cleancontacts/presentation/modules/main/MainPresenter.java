@@ -1,13 +1,13 @@
 package me.panavtec.cleancontacts.presentation.modules.main;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
 import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactsInteractor;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.RetrieveContactsException;
 import me.panavtec.presentation.common.InteractorOutput;
 import me.panavtec.presentation.common.InteractorOutputInjector;
 import me.panavtec.presentation.common.ThreadSpec;
@@ -19,7 +19,7 @@ public class MainPresenter extends Presenter<MainView> {
   private final InteractorInvoker interactorInvoker;
   private final GetContactsInteractor getContactsInteractor;
   private final ListMapper<Contact, PresentationContact> listMapper;
-  @Output InteractorOutput<List<Contact>> output;
+  @Output InteractorOutput<List<Contact>, RetrieveContactsException> output;
 
   public MainPresenter(InteractorInvoker interactorInvoker,
       GetContactsInteractor getContactsInteractor,
@@ -54,7 +54,7 @@ public class MainPresenter extends Presenter<MainView> {
     getView().refreshContactsList(presentationContacts);
   }
 
-  @OnError void onContactsInteractorError(ExecutionException data) {
+  @OnError void onContactsInteractorError(RetrieveContactsException data) {
     getView().showGetContactsError();
   }
 }

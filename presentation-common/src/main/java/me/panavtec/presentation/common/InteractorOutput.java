@@ -1,11 +1,9 @@
 package me.panavtec.presentation.common;
 
-import java.util.concurrent.ExecutionException;
-
-public interface InteractorOutput<T> {
+public interface InteractorOutput<T, E extends Exception> {
   void onResult(T result);
 
-  void onError(ExecutionException exception);
+  void onError(E exception);
 
   void onCancel();
 }

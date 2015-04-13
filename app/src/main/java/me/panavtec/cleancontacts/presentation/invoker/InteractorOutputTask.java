@@ -5,11 +5,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import me.panavtec.presentation.common.InteractorOutput;
 
-public class InteractorOutputTask<T> extends FutureTask<T> {
+public class InteractorOutputTask<T, E extends Exception> extends FutureTask<T> {
 
-  private InteractorOutput<T> output;
+  private InteractorOutput<T, E> output;
 
-  public InteractorOutputTask(Callable<T> callable, InteractorOutput<T> output) {
+  public InteractorOutputTask(Callable<T> callable, InteractorOutput<T, E> output) {
     super(callable);
     this.output = output;
   }
@@ -21,7 +21,7 @@ public class InteractorOutputTask<T> extends FutureTask<T> {
     } catch (InterruptedException e) {
       output.onCancel();
     } catch (ExecutionException e) {
-      output.onError(e);
+      output.onError((E) e.getCause());
     }
   }
 }

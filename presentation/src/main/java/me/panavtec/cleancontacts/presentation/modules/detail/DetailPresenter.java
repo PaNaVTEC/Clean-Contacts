@@ -1,11 +1,11 @@
 package me.panavtec.cleancontacts.presentation.modules.detail;
 
-import java.util.concurrent.ExecutionException;
 import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
 import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactInteractor;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.ObtainContactException;
 import me.panavtec.presentation.common.InteractorOutput;
 import me.panavtec.presentation.common.InteractorOutputInjector;
 import me.panavtec.presentation.common.ThreadSpec;
@@ -19,7 +19,7 @@ public class DetailPresenter extends Presenter<DetailView> {
   private final InteractorInvoker interactorInvoker;
   private final GetContactInteractor getContactInteractor;
   private final PresentationContactMapper presentationContactMapper;
-  @Output InteractorOutput<Contact> getContactOutput;
+  @Output InteractorOutput<Contact, ObtainContactException> getContactOutput;
 
   public DetailPresenter(String contactMd5, InteractorInvoker interactorInvoker,
       GetContactInteractor getContactInteractor,
@@ -50,7 +50,7 @@ public class DetailPresenter extends Presenter<DetailView> {
     getView().showContactData(presentationContactMapper.modelToData(data));
   }
 
-  @OnError void onContactInteractorError(ExecutionException e) {
+  @OnError void onContactInteractorError(ObtainContactException e) {
     getView().showGetContactError();
   }
 }

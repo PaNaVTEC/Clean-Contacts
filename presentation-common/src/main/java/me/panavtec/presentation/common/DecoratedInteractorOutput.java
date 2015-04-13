@@ -1,14 +1,12 @@
 package me.panavtec.presentation.common;
 
-import java.util.concurrent.ExecutionException;
-
-public class DecoratedInteractorOutput<T> implements InteractorOutput<T> {
+public class DecoratedInteractorOutput<T, E extends Exception> implements InteractorOutput<T, E> {
 
   private final Action<T> action;
-  private final Action<ExecutionException> actionError;
+  private final Action<E> actionError;
   private final Action<Void> actionCancel;
 
-  private DecoratedInteractorOutput(Action<T> action, Action<ExecutionException> actionError,
+  private DecoratedInteractorOutput(Action<T> action, Action<E> actionError,
       Action<Void> actionCancel) {
     this.action = action;
     this.actionError = actionError;
@@ -19,7 +17,7 @@ public class DecoratedInteractorOutput<T> implements InteractorOutput<T> {
     action.onAction(result);
   }
 
-  @Override public void onError(ExecutionException e) {
+  @Override public void onError(E e) {
     if (actionError != null) {
       actionError.onAction(e);
     }
@@ -31,31 +29,31 @@ public class DecoratedInteractorOutput<T> implements InteractorOutput<T> {
     }
   }
 
-  public static class Builder<T> {
+  public static class Builder<T, E extends Exception> {
 
     private Action<T> action;
-    private Action<ExecutionException> actionError;
+    private Action<E> actionError;
     private Action<Void> actionCancel;
 
     public Builder() {
     }
 
-    public Builder<T> onResult(Action<T> action) {
+    public Builder<T, E> onResult(Action<T> action) {
       this.action = action;
       return this;
     }
 
-    public Builder<T> onError(Action<ExecutionException> actionError) {
+    public Builder<T, E> onError(Action<E> actionError) {
       this.actionError = actionError;
       return this;
     }
 
-    public Builder<T> onCancel(Action<Void> actionCancel) {
+    public Builder<T, E> onCancel(Action<Void> actionCancel) {
       this.actionCancel = actionCancel;
       return this;
     }
 
-    public DecoratedInteractorOutput<T> build() {
+    public DecoratedInteractorOutput<T, E> build() {
       if (action == null) {
         throw new RuntimeException("Action cannot be null");
       }

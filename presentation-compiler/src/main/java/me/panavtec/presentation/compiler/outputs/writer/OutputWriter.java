@@ -47,10 +47,12 @@ public class OutputWriter {
   }
 
   private void addNewCoordinatorStatement(MethodSpec.Builder methodBuilder, OutputModel output) {
-    methodBuilder.addStatement(TARGET + ".$L = new $T<$T>().onResult($L).onError($L).onCancel($L).build()",
+    methodBuilder.addStatement(
+        TARGET + ".$L = new $T<$T, $T>().onResult($L).onError($L).onCancel($L).build()",
         output.getFieldName(), DecoratedInteractorOutput.Builder.class,
-        ClassName.get(output.getOnResult().getType()), createAction(output.getOnResult()),
-        createAction(output.getOnError()), createAction(output.getOnCancel()));
+        ClassName.get(output.getOnResult().getType()), ClassName.get(output.getOnError().getType()),
+        createAction(output.getOnResult()), createAction(output.getOnError()),
+        createAction(output.getOnCancel()));
   }
 
   private TypeSpec createAction(ActionModel actionModel) {
