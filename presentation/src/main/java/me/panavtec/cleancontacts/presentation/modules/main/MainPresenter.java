@@ -8,12 +8,12 @@ import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
 import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactsInteractor;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.RetrieveContactsException;
-import me.panavtec.presentation.common.InteractorOutput;
-import me.panavtec.presentation.common.InteractorOutputInjector;
+import me.panavtec.presentation.common.outputs.InteractorOutput;
+import me.panavtec.presentation.common.outputs.InteractorOutputInjector;
 import me.panavtec.presentation.common.ThreadSpec;
-import me.panavtec.presentation.common.qualifiers.OnError;
-import me.panavtec.presentation.common.qualifiers.OnResult;
-import me.panavtec.presentation.common.qualifiers.Output;
+import me.panavtec.presentation.common.outputs.qualifiers.OnError;
+import me.panavtec.presentation.common.outputs.qualifiers.OnResult;
+import me.panavtec.presentation.common.outputs.qualifiers.Output;
 
 public class MainPresenter extends Presenter<MainView> {
   private final InteractorInvoker interactorInvoker;
@@ -29,6 +29,11 @@ public class MainPresenter extends Presenter<MainView> {
     this.getContactsInteractor = getContactsInteractor;
     this.listMapper = listMapper;
     InteractorOutputInjector.inject(this);
+    mainThreadSpec.execute(new Runnable() {
+      @Override public void run() {
+
+      }
+    });
   }
 
   @Override public void attachView(final MainView view) {

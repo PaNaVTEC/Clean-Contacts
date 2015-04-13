@@ -16,15 +16,15 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import me.panavtec.presentation.common.qualifiers.OnCancel;
-import me.panavtec.presentation.common.qualifiers.OnError;
-import me.panavtec.presentation.common.qualifiers.OnResult;
-import me.panavtec.presentation.common.qualifiers.Output;
-import me.panavtec.presentation.compiler.tools.ElementTools;
+import me.panavtec.presentation.common.outputs.qualifiers.OnCancel;
+import me.panavtec.presentation.common.outputs.qualifiers.OnError;
+import me.panavtec.presentation.common.outputs.qualifiers.OnResult;
+import me.panavtec.presentation.common.outputs.qualifiers.Output;
 import me.panavtec.presentation.compiler.outputs.model.ActionModel;
 import me.panavtec.presentation.compiler.outputs.model.EnclosingOutput;
 import me.panavtec.presentation.compiler.outputs.model.OutputModel;
 import me.panavtec.presentation.compiler.outputs.writer.OutputWriter;
+import me.panavtec.presentation.compiler.tools.ElementTools;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class OutputAnnotationProcessor extends AbstractProcessor {
@@ -40,7 +40,9 @@ public class OutputAnnotationProcessor extends AbstractProcessor {
 
   @Override public boolean process(Set<? extends TypeElement> annotations,
       RoundEnvironment roundEnv) {
+    System.out.println("#########################");
     System.out.println("Starting Output Processor");
+    System.out.println("#########################");
     if (!firstProcessing) {
       return false;
     }
@@ -68,8 +70,8 @@ public class OutputAnnotationProcessor extends AbstractProcessor {
   private EnclosingOutput createParent(Element e) {
     EnclosingOutput parent = new EnclosingOutput();
     parent.setCompleteName(elementTools.getElementParentCompleteClassName(e));
-    parent.setPackageName(elementTools.getElementPackagename(e));
-    parent.setClassName(elementTools.getElementParentClassName(e));
+    parent.setPackageName(elementTools.getParentElementPackagename(e));
+    parent.setClassName(elementTools.getParentElementClassName(e));
 
     return parent;
   }
@@ -78,8 +80,8 @@ public class OutputAnnotationProcessor extends AbstractProcessor {
     OutputModel outputModel = new OutputModel();
     if (elementTools.isField(e)) {
       System.out.println("Processing element : " + elementTools.getFieldName(e));
-      System.out.println("Parent class name : " + elementTools.getElementParentClassName(e));
-      outputModel.setParentClassName(elementTools.getElementParentClassName(e));
+      System.out.println("Parent class name : " + elementTools.getParentElementClassName(e));
+      outputModel.setParentClassName(elementTools.getParentElementClassName(e));
       outputModel.setFieldName(elementTools.getFieldName(e));
       List<? extends Element> enclosedElements = e.getEnclosingElement().getEnclosedElements();
       for (Element parentElement : enclosedElements) {

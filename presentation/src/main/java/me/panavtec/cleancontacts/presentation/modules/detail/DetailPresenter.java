@@ -6,12 +6,12 @@ import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMa
 import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.ObtainContactException;
-import me.panavtec.presentation.common.InteractorOutput;
-import me.panavtec.presentation.common.InteractorOutputInjector;
+import me.panavtec.presentation.common.outputs.InteractorOutput;
+import me.panavtec.presentation.common.outputs.InteractorOutputInjector;
 import me.panavtec.presentation.common.ThreadSpec;
-import me.panavtec.presentation.common.qualifiers.OnError;
-import me.panavtec.presentation.common.qualifiers.OnResult;
-import me.panavtec.presentation.common.qualifiers.Output;
+import me.panavtec.presentation.common.outputs.qualifiers.OnError;
+import me.panavtec.presentation.common.outputs.qualifiers.OnResult;
+import me.panavtec.presentation.common.outputs.qualifiers.Output;
 
 public class DetailPresenter extends Presenter<DetailView> {
 

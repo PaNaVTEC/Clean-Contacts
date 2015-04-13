@@ -3,24 +3,30 @@ package me.panavtec.presentation.common;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class InteractorOutputInjector {
+public final class DefaultInjector {
 
-  private static final String INJECTOR_SUFFIX = "_OutputInjector";
+  private String classSuffix;
+  private String methodName;
 
-  public static <T> void inject(T source) {
+  public DefaultInjector(String classSuffix, String methodName) {
+    this.classSuffix = classSuffix;
+    this.methodName = methodName;
+  }
+
+  public <T> void inject(T source) {
     try {
       Class<?> container = getInjectorContainerClass(source.getClass());
-      Class<?> injector = Class.forName(container.getCanonicalName() + INJECTOR_SUFFIX);
-      Method inject = injector.getMethod("injectOutputs", container);
+      Class<?> injector = Class.forName(container.getCanonicalName() + classSuffix);
+      Method inject = injector.getMethod(methodName, container);
       inject.invoke(null, source);
     } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
       e.printStackTrace();
     }
   }
 
-  private static Class<?> getInjectorContainerClass(Class<?> sourceClass) {
+  private Class<?> getInjectorContainerClass(Class<?> sourceClass) {
     try {
-      Class.forName(sourceClass.getName() + INJECTOR_SUFFIX);
+      Class.forName(sourceClass.getName() + classSuffix);
       return Class.forName(sourceClass.getName());
     } catch (ClassNotFoundException e) {
       return getInjectorContainerClass(sourceClass.getSuperclass());

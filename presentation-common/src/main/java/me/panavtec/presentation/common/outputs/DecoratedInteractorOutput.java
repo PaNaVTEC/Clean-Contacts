@@ -1,4 +1,4 @@
-package me.panavtec.presentation.common;
+package me.panavtec.presentation.common.outputs;
 
 public class DecoratedInteractorOutput<T, E extends Exception> implements InteractorOutput<T, E> {
 

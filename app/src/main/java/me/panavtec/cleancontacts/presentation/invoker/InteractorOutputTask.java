@@ -3,7 +3,7 @@ package me.panavtec.cleancontacts.presentation.invoker;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
-import me.panavtec.presentation.common.InteractorOutput;
+import me.panavtec.presentation.common.outputs.InteractorOutput;
 
 public class InteractorOutputTask<T, E extends Exception> extends FutureTask<T> {
 

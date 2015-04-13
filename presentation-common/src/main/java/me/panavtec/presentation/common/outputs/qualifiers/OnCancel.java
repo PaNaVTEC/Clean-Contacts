@@ -1,4 +1,4 @@
-package me.panavtec.presentation.common.qualifiers;
+package me.panavtec.presentation.common.outputs.qualifiers;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,5 +6,5 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD) @Retention(RetentionPolicy.SOURCE)
-public @interface OnError {
+public @interface OnCancel {
 }

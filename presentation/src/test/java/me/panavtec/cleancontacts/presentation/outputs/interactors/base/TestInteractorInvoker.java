@@ -2,7 +2,7 @@ package me.panavtec.cleancontacts.presentation.outputs.interactors.base;
 
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.Interactor;
-import me.panavtec.presentation.common.InteractorOutput;
+import me.panavtec.presentation.common.outputs.InteractorOutput;
 
 public class TestInteractorInvoker implements InteractorInvoker {
 

@@ -4,7 +4,7 @@ import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.PresenterTest;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
-import me.panavtec.presentation.common.DecoratedInteractorOutput;
+import me.panavtec.presentation.common.outputs.DecoratedInteractorOutput;
 import me.panavtec.presentation.common.ThreadSpec;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.GetContactFailinteractor;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.GetContactSuccessInteractor;

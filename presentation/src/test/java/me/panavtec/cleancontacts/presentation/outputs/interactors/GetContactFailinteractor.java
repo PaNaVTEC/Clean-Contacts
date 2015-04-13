@@ -1,6 +1,6 @@
 package me.panavtec.cleancontacts.presentation.outputs.interactors;
 
-import me.panavtec.presentation.common.InteractorOutput;
+import me.panavtec.presentation.common.outputs.InteractorOutput;
 import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.ObtainContactException;

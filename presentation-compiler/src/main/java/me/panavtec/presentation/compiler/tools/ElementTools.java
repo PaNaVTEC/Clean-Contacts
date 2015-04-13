@@ -21,15 +21,26 @@ public class ElementTools {
     return e.getEnclosingElement().toString();
   }
 
-  public String getElementParentClassName(Element e) {
+  public String getParentElementClassName(Element e) {
     String parentClassName = getElementParentCompleteClassName(e);
     return parentClassName.substring(parentClassName.lastIndexOf('.') + 1,
         parentClassName.length());
   }
 
-  public String getElementPackagename(Element e) {
+  public String getElementClassName(Element e) {
+    String parentClassName = e.toString();
+    return parentClassName.substring(parentClassName.lastIndexOf('.') + 1,
+        parentClassName.length());
+  }
+
+  public String getParentElementPackagename(Element e) {
     String parentClassName = getElementParentCompleteClassName(e);
     return parentClassName.substring(0, parentClassName.lastIndexOf('.'));
+  }
+  
+  public String getElementPackagename(Element e) {
+    String className = e.toString();
+    return className.substring(0, className.lastIndexOf('.'));
   }
 
   public String getElementType(Element e) {
