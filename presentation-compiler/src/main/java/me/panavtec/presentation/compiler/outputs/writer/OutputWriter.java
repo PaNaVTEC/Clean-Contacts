@@ -25,6 +25,10 @@ public class OutputWriter {
   private static final String TARGET = "target";
   private static final String WEAK_PRESENTER = "weakPresenter";
   private static final String INJECT_METHOD = "injectOutputs";
+  public static final String ON_ACTION = "onAction";
+  public static final String ON_RESULT = "onResult";
+  public static final String ON_ERROR = "onError";
+  public static final String ON_CANCEL = "onCancel";
 
   public void write(Collection<EnclosingOutput> outputs, Filer filer) {
     for (EnclosingOutput output : outputs) {
@@ -59,10 +63,11 @@ public class OutputWriter {
   private void addNewCoordinatorStatement(EnclosingOutput parent, MethodSpec.Builder methodBuilder,
       OutputModel output) {
     methodBuilder.addStatement(
-        TARGET + ".$L = new $T<$T, $T>().onResult($L).onError($L).onCancel($L).build()",
+        "$L.$L = new $T<$T, $T>().\n" + "$L($L).\n" + "$L($L).\n" + "$L($L).\n" + "build()", TARGET,
         output.getFieldName(), DecoratedInteractorOutput.Builder.class,
         ClassName.get(output.getOnResult().getType()), ClassName.get(output.getOnError().getType()),
-        createAction(parent, output.getOnResult()), createAction(parent, output.getOnError()),
+        ON_RESULT, createAction(parent, output.getOnResult()), ON_ERROR,
+        createAction(parent, output.getOnError()), ON_CANCEL,
         createAction(parent, output.getOnCancel()));
   }
 
@@ -76,7 +81,7 @@ public class OutputWriter {
     String parameterVar = "data";
     TypeSpec.Builder builder = TypeSpec.anonymousClassBuilder("")
         .addSuperinterface(ParameterizedTypeName.get(ClassName.get(Action.class), actionType))
-        .addMethod(MethodSpec.methodBuilder("onAction")
+        .addMethod(MethodSpec.methodBuilder(ON_ACTION)
             .addParameter(ParameterSpec.builder(actionType, parameterVar).build())
             .addAnnotation(Override.class)
             .addModifiers(Modifier.PUBLIC)
