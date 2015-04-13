@@ -19,17 +19,16 @@ public class DetailPresenter extends Presenter<DetailView> {
   private final InteractorInvoker interactorInvoker;
   private final GetContactInteractor getContactInteractor;
   private final PresentationContactMapper presentationContactMapper;
-  private final ThreadSpec mainThreadSpec;
   @Output DecoratedInteractorOutput<Contact> getContactOutput;
 
   public DetailPresenter(String contactMd5, InteractorInvoker interactorInvoker,
       GetContactInteractor getContactInteractor,
       final PresentationContactMapper presentationContactMapper, ThreadSpec mainThreadSpec) {
+    super(mainThreadSpec);
     this.contactMd5 = contactMd5;
     this.interactorInvoker = interactorInvoker;
     this.getContactInteractor = getContactInteractor;
     this.presentationContactMapper = presentationContactMapper;
-    this.mainThreadSpec = mainThreadSpec;
     InteractorOutputInjector.inject(this);
   }
 

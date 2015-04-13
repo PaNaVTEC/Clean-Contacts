@@ -19,21 +19,19 @@ public class MainPresenter extends Presenter<MainView> {
   private final InteractorInvoker interactorInvoker;
   private final GetContactsInteractor getContactsInteractor;
   private final ListMapper<Contact, PresentationContact> listMapper;
-  private final ThreadSpec mainThreadSpec;
   @Output InteractorOutput<List<Contact>> output;
 
   public MainPresenter(InteractorInvoker interactorInvoker,
       GetContactsInteractor getContactsInteractor,
       final ListMapper<Contact, PresentationContact> listMapper, ThreadSpec mainThreadSpec) {
-    //super(mainThreadSpec);
+    super(mainThreadSpec);
     this.interactorInvoker = interactorInvoker;
     this.getContactsInteractor = getContactsInteractor;
     this.listMapper = listMapper;
-    this.mainThreadSpec = mainThreadSpec;
     InteractorOutputInjector.inject(this);
   }
 
-  @Override public void attachView(MainView view) {
+  @Override public void attachView(final MainView view) {
     super.attachView(view);
     getView().initUi();
   }
