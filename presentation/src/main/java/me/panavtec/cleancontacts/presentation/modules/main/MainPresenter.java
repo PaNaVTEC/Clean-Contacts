@@ -29,11 +29,6 @@ public class MainPresenter extends Presenter<MainView> {
     this.getContactsInteractor = getContactsInteractor;
     this.listMapper = listMapper;
     InteractorOutputInjector.inject(this);
-    mainThreadSpec.execute(new Runnable() {
-      @Override public void run() {
-
-      }
-    });
   }
 
   @Override public void attachView(final MainView view) {
