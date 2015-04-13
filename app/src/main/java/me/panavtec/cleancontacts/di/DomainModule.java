@@ -4,12 +4,14 @@ import dagger.Module;
 import dagger.Provides;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import javax.inject.Singleton;
 import me.panavtec.cleancontacts.di.qualifiers.BackThread;
 import me.panavtec.cleancontacts.di.qualifiers.SameThread;
 import me.panavtec.cleancontacts.di.qualifiers.UiThread;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvokerImp;
+import me.panavtec.cleancontacts.presentation.invoker.InteractorOutputThreadFactory;
 import me.panavtec.cleancontacts.presentation.outputs.BackThreadSpec;
 import me.panavtec.cleancontacts.presentation.outputs.MainThreadSpec;
 import me.panavtec.cleancontacts.presentation.outputs.SameThreadSpec;
@@ -39,7 +41,11 @@ public class DomainModule {
     return new InteractorInvokerImp(executor);
   }
 
-  @Provides @Singleton ExecutorService provideExecutor() {
-    return Executors.newFixedThreadPool(3);
+  @Provides @Singleton ExecutorService provideExecutor(ThreadFactory threadFactory) {
+    return Executors.newFixedThreadPool(3, threadFactory);
+  }
+
+  @Provides @Singleton ThreadFactory provideThreadFactory() {
+    return new InteractorOutputThreadFactory();
   }
 }

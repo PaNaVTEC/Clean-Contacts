@@ -23,7 +23,6 @@ allprojects {
 
     // Libraries
     libAndroidSupportv7 = 'com.android.support:appcompat-v7:21.0.+'
-    libPathQueue = 'com.path:android-priority-jobqueue:1.1.2'
     libRecyclerView = 'com.android.support:recyclerview-v7:21.0.+'
     libDagger = 'com.squareup.dagger:dagger:1.2.2'
     libDaggerCompiler = 'com.squareup.dagger:dagger-compiler:1.2.2'
@@ -34,7 +33,6 @@ allprojects {
     libOkhttp = 'com.squareup.okhttp:okhttp:2.2.0'
     libMappers = 'com.mobandme:android-transformer:1.1.1'
     libMappersCompiler = 'com.mobandme:android-transformer-compiler:1.1.1'
-    libEventBus = 'de.greenrobot:eventbus:2.4.0'
     libSnackBars = 'com.nispok:snackbar:2.7.5'
     libRecyclerAdapters = 'com.github.cmc00022:easyrecycleradapters:1.0.2'
     libPicasso = 'com.squareup.picasso:picasso:2.5.0'

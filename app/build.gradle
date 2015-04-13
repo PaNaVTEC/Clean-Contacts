@@ -43,7 +43,6 @@ android {
 
 dependencies {
   compile parent.ext.libAndroidSupportv7
-  compile parent.ext.libPathQueue
   compile parent.ext.libDagger
   apt parent.ext.libDaggerCompiler
   compile parent.ext.libButterknife

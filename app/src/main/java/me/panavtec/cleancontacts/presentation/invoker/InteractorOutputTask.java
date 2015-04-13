@@ -8,10 +8,12 @@ import me.panavtec.presentation.common.InteractorOutput;
 public class InteractorOutputTask<T, E extends Exception> extends FutureTask<T> {
 
   private InteractorOutput<T, E> output;
+  private int priority;
 
-  public InteractorOutputTask(Callable<T> callable, InteractorOutput<T, E> output) {
+  public InteractorOutputTask(Callable<T> callable, int priority, InteractorOutput<T, E> output) {
     super(callable);
     this.output = output;
+    this.priority = priority;
   }
 
   @Override protected void done() {
@@ -23,5 +25,9 @@ public class InteractorOutputTask<T, E extends Exception> extends FutureTask<T> 
     } catch (ExecutionException e) {
       output.onError((E) e.getCause());
     }
+  }
+
+  public int getPriority() {
+    return priority;
   }
 }
