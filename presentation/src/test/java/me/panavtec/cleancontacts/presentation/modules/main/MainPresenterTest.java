@@ -1,68 +1,79 @@
 package me.panavtec.cleancontacts.presentation.modules.main;
 
+import java.util.List;
 import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.PresenterTest;
+import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
-import me.panavtec.presentation.common.outputs.DecoratedInteractorOutput;
-import me.panavtec.presentation.common.ThreadSpec;
 import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.GetContactsFailInteractor;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.GetContactsSuccessInteractor;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.base.TestInteractorInvoker;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.base.TestThreadSpec;
 import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactsInteractor;
+import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.exceptions.RetrieveContactsException;
+import me.panavtec.presentation.common.ThreadSpec;
+import me.panavtec.presentation.common.outputs.InteractorOutput;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Matchers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import static org.mockito.Mockito.anyListOf;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 public class MainPresenterTest extends PresenterTest<MainView> {
 
   @Mock ListMapper<Contact, PresentationContact> listMapper;
-  private TestInteractorInvoker interactorInvoker;
+  private InteractorInvoker interactorInvoker;
   private ThreadSpec threadSpec;
   private MainPresenterFactory presenterFactory;
 
   @Before public void setUp() {
     presenterFactory = new MainPresenterFactory();
     threadSpec = new TestThreadSpec();
-    interactorInvoker = Mockito.spy(new TestInteractorInvoker());
+    interactorInvoker = spy(new TestInteractorInvoker());
     MockitoAnnotations.initMocks(this);
   }
 
   @Test public void onResume() {
-    GetContactsInteractor getContactsInteractor = Mockito.mock(GetContactsInteractor.class);
-    MainPresenter presenter = initializePresenter(getContactsInteractor);
+    GetContactsInteractor getContactsInteractor = mock(GetContactsInteractor.class);
+    MainPresenter presenter = initializePresenter(getView(), getContactsInteractor);
     presenter.onResume();
-    Mockito.verify(interactorInvoker)
-        .execute(Mockito.eq(getContactsInteractor), Mockito.any(DecoratedInteractorOutput.class));
+    verify(interactorInvoker).execute(eq(getContactsInteractor),
+        Matchers.<InteractorOutput<List<Contact>, RetrieveContactsException>>any());
   }
 
   @Test public void onResumeRefreshViewWithContactsSuccess() {
     GetContactsSuccessInteractor getContactsSuccessInteractor = new GetContactsSuccessInteractor();
-    MainPresenter presenter = initializePresenter(getContactsSuccessInteractor);
+    MainView view = getView();
+    MainPresenter presenter = initializePresenter(view, getContactsSuccessInteractor);
     presenter.onResume();
-    Mockito.verify(presenter.getView())
-        .refreshContactsList(Mockito.anyListOf(PresentationContact.class));
+    verify(view).refreshContactsList(anyListOf(PresentationContact.class));
   }
 
   @Test public void onResumeRefreshViewWithContactsFail() {
     GetContactsFailInteractor getContactsFailInteractor = new GetContactsFailInteractor();
-    MainPresenter presenter = initializePresenter(getContactsFailInteractor);
+    MainView view = getView();
+    MainPresenter presenter = initializePresenter(view, getContactsFailInteractor);
     presenter.onResume();
-    Mockito.verify(presenter.getView()).showGetContactsError();
+    verify(view).showGetContactsError();
   }
 
-  private MainPresenter initializePresenter(GetContactsInteractor getContactsInteractor) {
+  private MainPresenter initializePresenter(MainView mainView,
+      GetContactsInteractor getContactsInteractor) {
     MainPresenter presenter = presenterFactory.get(getContactsInteractor);
-    presenter.attachView(getView());
+    presenter.attachView(mainView);
     return presenter;
   }
 
   @Override protected MainView getView() {
-    return Mockito.mock(MainView.class);
+    return mock(MainView.class);
   }
 
   @Override protected Presenter<MainView> getPresenter() {

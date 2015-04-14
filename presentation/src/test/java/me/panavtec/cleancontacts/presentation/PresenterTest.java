@@ -8,10 +8,11 @@ public abstract class PresenterTest<V extends PresenterView> {
 
   @Test public void attachView() {
     Presenter<V> presenter = getPresenter();
-    presenter.attachView(getView());
-    Mockito.verify(presenter.getView()).initUi();
+    V view = getView();
+    presenter.attachView(view);
+    Mockito.verify(view).initUi();
   }
-
+  
   @Test public void detachView() {
     Presenter<V> presenter = getPresenter();
     presenter.detachView();
