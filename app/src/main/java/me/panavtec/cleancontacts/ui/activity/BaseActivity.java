@@ -3,7 +3,7 @@ package me.panavtec.cleancontacts.ui.activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
-public abstract class BaseActivity<T> extends ActionBarActivity {
+public abstract class BaseActivity extends ActionBarActivity {
 
   private ActivityInjector activityInjector;
   private ActivityViewInjector viewInjector = new ActivityViewInjector();
@@ -31,5 +31,5 @@ public abstract class BaseActivity<T> extends ActionBarActivity {
     return activityInjector;
   }
 
-  protected abstract T newDiModule();
+  protected abstract Object newDiModule();
 }
