@@ -10,9 +10,9 @@ import javafx.scene.control.TableView;
 import javax.inject.Inject;
 import me.panavtec.cleancontacts.desktop.di.AppModule;
 import me.panavtec.cleancontacts.desktop.ui.MainModule;
-import me.panavtec.cleancontacts.presentation.model.PresentationContact;
-import me.panavtec.cleancontacts.presentation.modules.main.MainPresenter;
-import me.panavtec.cleancontacts.presentation.modules.main.MainView;
+import me.panavtec.cleancontacts.domain.model.PresentationContact;
+import me.panavtec.cleancontacts.domain.modules.main.MainPresenter;
+import me.panavtec.cleancontacts.domain.modules.main.MainView;
 
 public class FXMLMainController implements Initializable, MainView {
 

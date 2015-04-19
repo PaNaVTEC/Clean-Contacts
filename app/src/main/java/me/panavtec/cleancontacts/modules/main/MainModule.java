@@ -9,8 +9,8 @@ import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
 import me.panavtec.cleancontacts.presentation.modules.main.MainPresenter;
-import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactsInteractor;
+import me.panavtec.cleancontacts.domain.entities.Contact;
+import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
 import me.panavtec.presentation.common.ThreadSpec;
 
 @Module(

@@ -1,7 +1,7 @@
 package me.panavtec.cleancontacts.presentation.invoker;
 
 import java.util.concurrent.Future;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.Interactor;
+import me.panavtec.cleancontacts.domain.interactors.Interactor;
 import me.panavtec.presentation.common.outputs.InteractorOutput;
 
 public interface InteractorInvoker {

@@ -5,14 +5,14 @@ import dagger.Provides;
 import javax.inject.Singleton;
 import me.panavtec.cleancontacts.desktop.di.AppModule;
 import me.panavtec.cleancontacts.desktop.ui.main.FXMLMainController;
-import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
-import me.panavtec.cleancontacts.presentation.model.PresentationContact;
-import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
-import me.panavtec.cleancontacts.presentation.modules.main.MainPresenter;
-import me.panavtec.cleancontacts.presentation.modules.main.MainView;
-import me.panavtec.cleancontacts.presentation.outputs.ThreadSpec;
-import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactsInteractor;
+import me.panavtec.cleancontacts.domain.invoker.InteractorInvoker;
+import me.panavtec.cleancontacts.domain.model.PresentationContact;
+import me.panavtec.cleancontacts.domain.model.mapper.base.ListMapper;
+import me.panavtec.cleancontacts.domain.modules.main.MainPresenter;
+import me.panavtec.cleancontacts.domain.modules.main.MainView;
+import me.panavtec.cleancontacts.domain.outputs.ThreadSpec;
+import me.panavtec.cleancontacts.domain.entities.Contact;
+import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
 
 @Module(
     addsTo = AppModule.class,

@@ -9,10 +9,10 @@ import me.panavtec.cleancontacts.di.qualifiers.UiThread;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
-import me.panavtec.cleancontacts.presentation.outputs.BackThreadSpec;
-import me.panavtec.cleancontacts.presentation.outputs.MainThreadSpec;
-import me.panavtec.cleancontacts.presentation.outputs.SameThreadSpec;
-import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
+import me.panavtec.cleancontacts.domain.outputs.BackThreadSpec;
+import me.panavtec.cleancontacts.domain.outputs.MainThreadSpec;
+import me.panavtec.cleancontacts.domain.outputs.SameThreadSpec;
+import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.presentation.common.ThreadSpec;
 
 @Module(

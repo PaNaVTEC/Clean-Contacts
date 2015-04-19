@@ -7,8 +7,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import javax.inject.Singleton;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
-import me.panavtec.cleancontacts.presentation.invoker.InteractorInvokerImp;
-import me.panavtec.cleancontacts.presentation.invoker.InteractorOutputThreadFactory;
+import me.panavtec.cleancontacts.domain.invoker.InteractorInvokerImp;
+import me.panavtec.cleancontacts.domain.invoker.InteractorOutputThreadFactory;
 
 @Module(
     includes = {
