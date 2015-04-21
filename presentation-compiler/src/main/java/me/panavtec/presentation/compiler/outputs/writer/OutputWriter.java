@@ -1,5 +1,6 @@
 package me.panavtec.presentation.compiler.outputs.writer;
 
+import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.List;
+import javax.annotation.Generated;
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import me.panavtec.presentation.common.outputs.Action;
@@ -18,6 +20,7 @@ import me.panavtec.presentation.common.outputs.DecoratedInteractorOutput;
 import me.panavtec.presentation.compiler.outputs.model.ActionModel;
 import me.panavtec.presentation.compiler.outputs.model.EnclosingOutput;
 import me.panavtec.presentation.compiler.outputs.model.OutputModel;
+import me.panavtec.presentation.compiler.proxyviews.ViewAnnotationProcessor;
 
 public class OutputWriter {
 
@@ -104,6 +107,9 @@ public class OutputWriter {
   private TypeSpec createInjectClass(EnclosingOutput parent, MethodSpec coordinateInject) {
     return TypeSpec.classBuilder(parent.getClassName() + INNER_CLASS_SUFFIX)
         .addModifiers(Modifier.PUBLIC)
+        .addAnnotation(AnnotationSpec.builder(Generated.class)
+            .addMember("value", "$S", ViewAnnotationProcessor.class.getCanonicalName())
+            .build())
         .addMethod(coordinateInject)
         .build();
   }

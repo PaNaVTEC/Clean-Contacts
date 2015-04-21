@@ -1,5 +1,6 @@
 package me.panavtec.presentation.compiler.proxyviews.writer;
 
+import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -9,10 +10,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.annotation.Generated;
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import me.panavtec.presentation.common.ThreadSpec;
+import me.panavtec.presentation.compiler.proxyviews.ViewAnnotationProcessor;
 import me.panavtec.presentation.compiler.proxyviews.model.EnclosingView;
 import me.panavtec.presentation.compiler.proxyviews.model.ViewMethod;
 
@@ -84,7 +87,10 @@ public class ViewWriter {
     ClassName viewType = ClassName.get(view.getPackageName(), view.getClassName());
     TypeSpec.Builder classBuilder = TypeSpec.classBuilder(CLASS_PREFIX + view.getClassName())
         .addModifiers(Modifier.PUBLIC)
-        .addSuperinterface(viewType);
+        .addSuperinterface(viewType)
+        .addAnnotation(AnnotationSpec.builder(Generated.class)
+            .addMember("value", "$S", ViewAnnotationProcessor.class.getCanonicalName())
+            .build());
     addDecoratedViewConsutrctor(classBuilder, viewType);
     addDecoratedViewFields(classBuilder, viewType);
     addDecoratedViewMethods(viewMethods, classBuilder);
