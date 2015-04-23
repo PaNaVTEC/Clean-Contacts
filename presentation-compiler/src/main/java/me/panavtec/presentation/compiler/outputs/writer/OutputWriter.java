@@ -82,7 +82,7 @@ public class OutputWriter {
     TypeName actionType = ClassName.get(actionModel.getType());
     String presenterLocalVar = "presenter";
     String parameterVar = "data";
-    TypeSpec.Builder builder = TypeSpec.anonymousClassBuilder("")
+    return TypeSpec.anonymousClassBuilder("")
         .addSuperinterface(ParameterizedTypeName.get(ClassName.get(Action.class), actionType))
         .addMethod(MethodSpec.methodBuilder(ON_ACTION)
             .addParameter(ParameterSpec.builder(actionType, parameterVar).build())
@@ -92,16 +92,15 @@ public class OutputWriter {
             .beginControlFlow("if ($L != null)", presenterLocalVar)
             .addStatement("$L.$L(data)", presenterLocalVar, actionModel.getMethodName())
             .endControlFlow()
-            .build());
-    return builder.build();
+            .build())
+        .build();
   }
 
   private MethodSpec.Builder createInjectOutputs(EnclosingOutput parent) {
-    MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(INJECT_METHOD);
-    methodBuilder.addModifiers(Modifier.PUBLIC, Modifier.STATIC).
+    return MethodSpec.methodBuilder(INJECT_METHOD).
+        addModifiers(Modifier.PUBLIC, Modifier.STATIC).
         returns(void.class).
         addParameter(ClassName.get(parent.getPackageName(), parent.getClassName()), TARGET);
-    return methodBuilder;
   }
 
   private TypeSpec createInjectClass(EnclosingOutput parent, MethodSpec coordinateInject) {
