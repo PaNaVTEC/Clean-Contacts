@@ -1,14 +1,5 @@
-buildscript {
-  repositories {
-    mavenCentral()
-  }
-  
-  dependencies {
-    classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
-  }
-}
-
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 def STRING = "String"
 def BOOLEAN = "boolean"
@@ -52,9 +43,8 @@ android {
 
 dependencies {
   compile parent.ext.libAndroidSupportv7
-  compile parent.ext.libPathQueue
   compile parent.ext.libDagger
-  provided parent.ext.libDaggerCompiler
+  apt parent.ext.libDaggerCompiler
   compile parent.ext.libButterknife
   compile parent.ext.libSnackBars
   compile parent.ext.libRecyclerView
@@ -62,7 +52,7 @@ dependencies {
   compile parent.ext.libRecyclerAdapters
   compile parent.ext.libFAB
   compile parent.ext.libCoordinator
-  provided parent.ext.libCoordinatorCompiler
+  apt parent.ext.libCoordinatorCompiler
 
   compile project(':domain')
   compile project(':presentation')

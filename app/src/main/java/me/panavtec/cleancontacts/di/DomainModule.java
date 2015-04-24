@@ -1,47 +1,32 @@
 package me.panavtec.cleancontacts.di;
 
-import android.app.Application;
-import com.path.android.jobqueue.JobManager;
 import dagger.Module;
 import dagger.Provides;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import javax.inject.Singleton;
-import me.panavtec.cleancontacts.di.qualifiers.BackThread;
-import me.panavtec.cleancontacts.di.qualifiers.MainThread;
-import me.panavtec.cleancontacts.di.qualifiers.SameThread;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
-import me.panavtec.cleancontacts.presentation.invoker.InteractorInvokerImp;
-import me.panavtec.cleancontacts.presentation.outputs.BackThreadSpec;
-import me.panavtec.cleancontacts.presentation.outputs.MainThreadSpec;
-import me.panavtec.cleancontacts.presentation.outputs.SameThreadSpec;
-import me.panavtec.cleancontacts.presentation.outputs.ThreadSpec;
+import me.panavtec.cleancontacts.domain.invoker.InteractorInvokerImp;
+import me.panavtec.cleancontacts.domain.invoker.InteractorOutputThreadFactory;
 
 @Module(
     includes = {
         InteractorsModule.class, RepositoryModule.class
     },
     complete = false,
-    library = true
-)
+    library = true)
 public class DomainModule {
 
-  @Provides @Singleton @MainThread ThreadSpec provideMainThread() {
-    return new MainThreadSpec();
+  @Provides @Singleton InteractorInvoker provideInteractorInvoker(ExecutorService executor) {
+    return new InteractorInvokerImp(executor);
   }
 
-  @Provides @Singleton @SameThread ThreadSpec provideSameThread() {
-    return new SameThreadSpec();
+  @Provides @Singleton ExecutorService provideExecutor(ThreadFactory threadFactory) {
+    return Executors.newFixedThreadPool(3, threadFactory);
   }
 
-  @Provides @Singleton @BackThread ThreadSpec provideBackThread() {
-    return new BackThreadSpec();
+  @Provides @Singleton ThreadFactory provideThreadFactory() {
+    return new InteractorOutputThreadFactory();
   }
-
-  @Provides @Singleton JobManager provideJobManager(Application app) {
-    return new JobManager(app);
-  }
-
-  @Provides @Singleton InteractorInvoker provideInteractorInvoker(JobManager jobManager) {
-    return new InteractorInvokerImp(jobManager);
-  }
-  
 }

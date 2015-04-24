@@ -3,10 +3,17 @@ package me.panavtec.cleancontacts.di;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
+import me.panavtec.cleancontacts.di.qualifiers.BackThread;
+import me.panavtec.cleancontacts.di.qualifiers.SameThread;
+import me.panavtec.cleancontacts.di.qualifiers.UiThread;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
-import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
+import me.panavtec.cleancontacts.domain.outputs.BackThreadSpec;
+import me.panavtec.cleancontacts.domain.outputs.MainThreadSpec;
+import me.panavtec.cleancontacts.domain.outputs.SameThreadSpec;
+import me.panavtec.cleancontacts.domain.entities.Contact;
+import me.panavtec.presentation.common.ThreadSpec;
 
 @Module(
     complete = false,
@@ -14,6 +21,18 @@ import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
 )
 public class PresentationModule {
 
+  @Provides @Singleton @UiThread ThreadSpec provideMainThread() {
+    return new MainThreadSpec();
+  }
+
+  @Provides @Singleton @SameThread ThreadSpec provideSameThread() {
+    return new SameThreadSpec();
+  }
+
+  @Provides @Singleton @BackThread ThreadSpec provideBackThread() {
+    return new BackThreadSpec();
+  }
+  
   @Provides @Singleton PresentationContactMapper providePresentationContactMapper() {
     return new PresentationContactMapper();
   }

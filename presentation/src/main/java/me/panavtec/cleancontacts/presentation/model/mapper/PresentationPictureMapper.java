@@ -2,7 +2,7 @@ package me.panavtec.cleancontacts.presentation.model.mapper;
 
 import me.panavtec.cleancontacts.presentation.model.PresentationPicture;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.Mapper;
-import me.panavtec.cleancontacts.presentation.outputs.entities.Picture;
+import me.panavtec.cleancontacts.domain.entities.Picture;
 
 public class PresentationPictureMapper implements Mapper<Picture, PresentationPicture> {
   @Override public PresentationPicture modelToData(Picture model) {

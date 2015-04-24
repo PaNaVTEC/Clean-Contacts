@@ -3,9 +3,9 @@ package me.panavtec.cleancontacts.di;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactInteractor;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.contacts.GetContactsInteractor;
-import me.panavtec.cleancontacts.presentation.outputs.repository.ContactsRepository;
+import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
+import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
+import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
 
 @Module(
     complete = false,

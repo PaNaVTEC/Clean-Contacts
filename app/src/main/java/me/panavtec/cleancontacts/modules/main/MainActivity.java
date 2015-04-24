@@ -25,7 +25,7 @@ import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
 import me.panavtec.cleancontacts.ui.items.ContactViewHolder;
 
-public class MainActivity extends BaseActivity<MainModule>
+public class MainActivity extends BaseActivity
     implements MainView, SwipeRefreshLayout.OnRefreshListener, EasyViewHolder.OnItemClickListener {
 
   @Inject MainPresenter presenter;

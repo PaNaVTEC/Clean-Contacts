@@ -1,9 +1,9 @@
 package me.panavtec.cleancontacts.desktop.domain;
 
 import java.util.concurrent.ExecutorService;
-import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.Interactor;
-import me.panavtec.cleancontacts.presentation.outputs.interactors.InteractorOutput;
+import me.panavtec.cleancontacts.domain.invoker.InteractorInvoker;
+import me.panavtec.cleancontacts.domain.interactors.Interactor;
+import me.panavtec.cleancontacts.domain.interactors.InteractorOutput;
 
 public class InteractorInvokerImp implements InteractorInvoker {
 

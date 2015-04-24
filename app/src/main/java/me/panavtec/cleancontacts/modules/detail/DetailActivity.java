@@ -17,8 +17,8 @@ import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
 import me.panavtec.cleancontacts.ui.transitions.WindowTransitionListener;
 import me.panavtec.coordinator.Coordinator;
-import me.panavtec.coordinator.compiler.qualifiers.Actions;
-import me.panavtec.coordinator.compiler.qualifiers.CoordinatorComplete;
+import me.panavtec.coordinator.qualifiers.Actions;
+import me.panavtec.coordinator.qualifiers.CoordinatorComplete;
 
 public class DetailActivity extends BaseActivity
     implements DetailView, WindowTransitionListener.WindowTransitionEndListener {

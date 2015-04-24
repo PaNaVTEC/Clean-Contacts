@@ -5,7 +5,7 @@ import java.util.List;
 import me.panavtec.cleancontacts.data.api.mappers.ApiContactMapper;
 import me.panavtec.cleancontacts.data.api.responses.ApiContactResult;
 import me.panavtec.cleancontacts.data.api.responses.ApiContactsResponse;
-import me.panavtec.cleancontacts.presentation.outputs.entities.Contact;
+import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsNetworkDataSource;
 import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ContactsNetworkException;
 
