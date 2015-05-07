@@ -14,6 +14,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.TypeMirror;
 import me.panavtec.presentation.common.views.qualifiers.ThreadDecoratedView;
 import me.panavtec.presentation.compiler.proxyviews.model.EnclosingView;
 import me.panavtec.presentation.compiler.proxyviews.model.ViewMethod;
@@ -55,12 +56,28 @@ public class ViewAnnotationProcessor extends AbstractProcessor {
     return modelViews;
   }
 
-  private EnclosingView processView(Element view) {
+  private EnclosingView processView(Element elementView) {
     EnclosingView enclosingView = new EnclosingView();
-    enclosingView.setClassName(elementTools.getElementClassName(view));
-    enclosingView.setPackageName(elementTools.getElementPackagename(view));
+    enclosingView.setClassName(elementTools.getElementClassName(elementView));
+    enclosingView.setPackageName(elementTools.getElementPackagename(elementView));
+
+    System.out.println("Processing: " + elementView.toString());
+    processMethodsOfView(enclosingView, elementView);
+
+    List<? extends TypeMirror> extendsViewInterfaces = ((TypeElement) elementView).getInterfaces();
+    for (TypeMirror mirror : extendsViewInterfaces) {
+      if (!mirror.toString().contains("PresenterView")) {
+        processMethodsOfView(enclosingView, processingEnv.getTypeUtils().asElement(mirror));
+      }
+    }
+
+    return enclosingView;
+  }
+
+  private void processMethodsOfView(EnclosingView enclosingView, Element view) {
     List<? extends Element> enclosedElements = view.getEnclosedElements();
     for (Element e : enclosedElements) {
+      System.out.println("Method process: " + e.toString());
       ViewMethod viewMethod = new ViewMethod();
       viewMethod.setMethodName(elementTools.getFieldName(e));
       viewMethod.setReturnType(((ExecutableElement) e).getReturnType());
@@ -70,7 +87,6 @@ public class ViewAnnotationProcessor extends AbstractProcessor {
       }
       enclosingView.getMethods().add(viewMethod);
     }
-    return enclosingView;
   }
 
   @Override public Set<String> getSupportedAnnotationTypes() {

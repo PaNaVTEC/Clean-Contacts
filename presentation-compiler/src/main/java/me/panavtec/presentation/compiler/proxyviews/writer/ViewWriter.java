@@ -72,7 +72,7 @@ public class ViewWriter {
     return methodBuilder.build();
   }
 
-  private TypeSpec createRunnable(String format, String... parameters) {
+  private TypeSpec createRunnable(String format, Object... parameters) {
     return TypeSpec.anonymousClassBuilder("")
         .addSuperinterface(ParameterizedTypeName.get(Runnable.class))
         .addMethod(MethodSpec.methodBuilder("run")
