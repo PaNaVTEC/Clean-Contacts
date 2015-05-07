@@ -16,6 +16,9 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.TypeMirror;
 import me.panavtec.presentation.common.outputs.qualifiers.OnCancel;
 import me.panavtec.presentation.common.outputs.qualifiers.OnError;
 import me.panavtec.presentation.common.outputs.qualifiers.OnResult;
@@ -76,59 +79,75 @@ public class OutputAnnotationProcessor extends AbstractProcessor {
     return parent;
   }
 
-  private OutputModel processOutput(Element e) {
+  private OutputModel processOutput(Element outputElement) {
     OutputModel outputModel = new OutputModel();
-    if (elementTools.isField(e)) {
-      System.out.println("Processing element : " + elementTools.getFieldName(e));
-      System.out.println("Parent class name : " + elementTools.getParentElementClassName(e));
-      outputModel.setParentClassName(elementTools.getParentElementClassName(e));
-      outputModel.setFieldName(elementTools.getFieldName(e));
-      List<? extends Element> enclosedElements = e.getEnclosingElement().getEnclosedElements();
-      for (Element parentElement : enclosedElements) {
-        processOnResult(outputModel, parentElement);
-        processOnError(outputModel, parentElement);
-        processOnCancel(outputModel, parentElement);
+    if (elementTools.isField(outputElement)) {
+      System.out.println("Processing element : " + elementTools.getFieldName(outputElement));
+      System.out.println(
+          "Parent class name : " + elementTools.getParentElementClassName(outputElement));
+      outputModel.setParentClassName(elementTools.getParentElementClassName(outputElement));
+      outputModel.setFieldName(elementTools.getFieldName(outputElement));
+      List<? extends Element> presenterElements =
+          outputElement.getEnclosingElement().getEnclosedElements();
+      for (Element element : presenterElements) {
+        if (element.getKind() == ElementKind.METHOD) {
+          System.out.println("Processing enclosing: " + element);
+          processOnResult(outputModel, outputElement, element);
+          processOnError(outputModel, outputElement, element);
+          processOnCancel(outputModel, outputElement, element);
+        }
       }
     }
     return outputModel;
   }
 
-  private void processOnCancel(OutputModel outputModel, Element parentElement) {
-    ActionModel onResult = processAction(parentElement, OnCancel.class);
+  private void processOnCancel(OutputModel outputModel, Element outputElement,
+      Element parentElement) {
+    ActionModel onResult = processAction(-1, parentElement, outputElement, OnCancel.class);
     if (onResult != null) {
       outputModel.setOnCancel(onResult);
     }
   }
 
-  private void processOnResult(OutputModel outputModel, Element parentElement) {
-    ActionModel onResult = processAction(parentElement, OnResult.class);
+  private void processOnResult(OutputModel outputModel, Element outputElement,
+      Element parentElement) {
+    ActionModel onResult = processAction(0, parentElement, outputElement, OnResult.class);
     if (onResult != null) {
       outputModel.setOnResult(onResult);
     }
   }
 
-  private void processOnError(OutputModel outputModel, Element parentElement) {
-    ActionModel onError = processAction(parentElement, OnError.class);
+  private void processOnError(OutputModel outputModel, Element outputElement,
+      Element parentElement) {
+    ActionModel onError = processAction(1, parentElement, outputElement, OnError.class);
     if (onError != null) {
       outputModel.setOnError(onError);
     }
   }
 
-  private <A extends Annotation> ActionModel processAction(Element element,
-      Class<A> annotationClass) {
+  private <A extends Annotation> ActionModel processAction(int genericPosition, Element element,
+      Element outputElement, Class<A> annotationClass) {
     A annotation = element.getAnnotation(annotationClass);
     if (annotation != null) {
       System.out.println("Element: " + element.getSimpleName());
       if (elementTools.isMethod(element)) {
-        ActionModel actionModel = new ActionModel();
-        actionModel.setMethodName(elementTools.getFieldName(element));
-        actionModel.setType(element.asType());
-        if (element.getKind() == ElementKind.METHOD) {
-          actionModel.setType(((ExecutableElement) element).getParameters().get(0).asType());
-        }
+        TypeMirror outputGeneric =
+            ((DeclaredType) outputElement.asType()).getTypeArguments().get(genericPosition);
+        List<? extends VariableElement> parameters = ((ExecutableElement) element).getParameters();
+        if (parameters.size() == 1 && processingEnv.getTypeUtils()
+            .isSameType(parameters.get(0).asType(), outputGeneric)) {
+          ActionModel actionModel = new ActionModel();
+          actionModel.setMethodName(elementTools.getFieldName(element));
+          actionModel.setType(element.asType());
+          if (element.getKind() == ElementKind.METHOD) {
+            actionModel.setType(((ExecutableElement) element).getParameters().get(0).asType());
+          }
 
-        System.out.println(actionModel);
-        return actionModel;
+          System.out.println("It maches!!!" + actionModel);
+          return actionModel;
+        } else {
+          System.out.println("Does not match");
+        }
       }
     }
     return null;

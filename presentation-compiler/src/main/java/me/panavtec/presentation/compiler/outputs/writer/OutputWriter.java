@@ -48,7 +48,7 @@ public class OutputWriter {
     MethodSpec.Builder methodBuilder = createInjectOutputs(parent);
     createFinalWeakReference(parent, methodBuilder);
     for (OutputModel output : outputs) {
-      addNewCoordinatorStatement(parent, methodBuilder, output);
+      addNewOutputStatement(parent, methodBuilder, output);
     }
     TypeSpec injectorClass = createInjectClass(parent, methodBuilder.build());
     JavaFile.builder(parent.getPackageName(), injectorClass)
@@ -63,7 +63,7 @@ public class OutputWriter {
         presenterClassName, WEAK_PRESENTER, WeakReference.class, TARGET);
   }
 
-  private void addNewCoordinatorStatement(EnclosingOutput parent, MethodSpec.Builder methodBuilder,
+  private void addNewOutputStatement(EnclosingOutput parent, MethodSpec.Builder methodBuilder,
       OutputModel output) {
     methodBuilder.addStatement(
         "$L.$L = new $T<$T, $T>().\n" + "$L($L).\n" + "$L($L).\n" + "$L($L).\n" + "build()", TARGET,
