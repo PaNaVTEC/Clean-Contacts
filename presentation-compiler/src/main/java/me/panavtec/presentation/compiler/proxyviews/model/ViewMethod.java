@@ -9,6 +9,7 @@ public class ViewMethod {
   private TypeMirror returnType;
   private String methodName;
   private List<TypeMirror> parameters = new ArrayList<>();
+  private boolean decorate;
 
   public TypeMirror getReturnType() {
     return returnType;
@@ -32,6 +33,14 @@ public class ViewMethod {
 
   public void setParameters(List<TypeMirror> parameters) {
     this.parameters = parameters;
+  }
+
+  public boolean isDecorate() {
+    return decorate;
+  }
+
+  public void setDecorate(boolean decorate) {
+    this.decorate = decorate;
   }
 
   @Override public String toString() {

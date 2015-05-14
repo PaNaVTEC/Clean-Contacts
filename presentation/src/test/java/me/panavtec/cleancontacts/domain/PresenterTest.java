@@ -1,12 +1,11 @@
 package me.panavtec.cleancontacts.domain;
 
 import me.panavtec.cleancontacts.presentation.Presenter;
-import me.panavtec.cleancontacts.presentation.PresenterView;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public abstract class PresenterTest<V extends PresenterView> {
+public abstract class PresenterTest<V> {
 
   @Test public void attachView() {
     Presenter<V> presenter = getPresenter();

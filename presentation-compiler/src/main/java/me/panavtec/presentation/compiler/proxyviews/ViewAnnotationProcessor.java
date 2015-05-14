@@ -15,6 +15,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
+import me.panavtec.presentation.common.views.qualifiers.NoDecorate;
 import me.panavtec.presentation.common.views.qualifiers.ThreadDecoratedView;
 import me.panavtec.presentation.compiler.proxyviews.model.EnclosingView;
 import me.panavtec.presentation.compiler.proxyviews.model.ViewMethod;
@@ -66,9 +67,7 @@ public class ViewAnnotationProcessor extends AbstractProcessor {
 
     List<? extends TypeMirror> extendsViewInterfaces = ((TypeElement) elementView).getInterfaces();
     for (TypeMirror mirror : extendsViewInterfaces) {
-      if (!mirror.toString().contains("PresenterView")) {
-        processMethodsOfView(enclosingView, processingEnv.getTypeUtils().asElement(mirror));
-      }
+      processMethodsOfView(enclosingView, processingEnv.getTypeUtils().asElement(mirror));
     }
 
     return enclosingView;
@@ -81,6 +80,7 @@ public class ViewAnnotationProcessor extends AbstractProcessor {
       ViewMethod viewMethod = new ViewMethod();
       viewMethod.setMethodName(elementTools.getFieldName(e));
       viewMethod.setReturnType(((ExecutableElement) e).getReturnType());
+      viewMethod.setDecorate(e.getAnnotation(NoDecorate.class) == null);
       List<? extends VariableElement> parameters = ((ExecutableElement) e).getParameters();
       for (VariableElement parameterElement : parameters) {
         viewMethod.getParameters().add(parameterElement.asType());
@@ -92,6 +92,7 @@ public class ViewAnnotationProcessor extends AbstractProcessor {
   @Override public Set<String> getSupportedAnnotationTypes() {
     Set<String> supportTypes = new LinkedHashSet<>();
     supportTypes.add(ThreadDecoratedView.class.getCanonicalName());
+    supportTypes.add(NoDecorate.class.getCanonicalName());
     return supportTypes;
   }
 }

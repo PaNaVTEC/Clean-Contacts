@@ -64,10 +64,16 @@ public class ViewWriter {
       }
     }
 
-    methodBuilder.
-        addAnnotation(Override.class).
-        addStatement("this." + THREADSPEC_FIELD_NAME + ".execute($L)",
-            createRunnable("$L.$L($L)", VIEW_FIELD_NAME, method.getMethodName(), paramInvocation));
+    if (method.isDecorate()) {
+      methodBuilder.
+          addAnnotation(Override.class).
+          addStatement("this." + THREADSPEC_FIELD_NAME + ".execute($L)",
+              createRunnable("$L.$L($L)", VIEW_FIELD_NAME, method.getMethodName(), paramInvocation));
+    } else {
+      methodBuilder.
+          addAnnotation(Override.class).
+          addStatement("$L.$L($L)", VIEW_FIELD_NAME, method.getMethodName(), paramInvocation);
+    }
 
     return methodBuilder.build();
   }
@@ -94,17 +100,8 @@ public class ViewWriter {
     addDecoratedViewConsutrctor(classBuilder, viewType);
     addDecoratedViewFields(classBuilder, viewType);
     addDecoratedViewMethods(viewMethods, classBuilder);
-    addInitUiMethod(classBuilder);
 
     return classBuilder.build();
-  }
-
-  private void addInitUiMethod(TypeSpec.Builder classBuilder) {
-    classBuilder.addMethod(MethodSpec.methodBuilder("initUi")
-        .addModifiers(Modifier.PUBLIC)
-        .addAnnotation(Override.class)
-        .addStatement("$L.$L()", VIEW_FIELD_NAME, "initUi")
-        .build());
   }
 
   private void addDecoratedViewMethods(List<MethodSpec> viewMethods,
