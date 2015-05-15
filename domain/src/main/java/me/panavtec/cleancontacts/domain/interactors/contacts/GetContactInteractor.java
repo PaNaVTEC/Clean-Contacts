@@ -1,20 +1,16 @@
 package me.panavtec.cleancontacts.domain.interactors.contacts;
 
-import me.panavtec.cleancontacts.domain.abstractions.Bus;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.Interactor;
-import me.panavtec.cleancontacts.domain.interactors.contacts.events.GetContactEvent;
-import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.CannotObtainContactException;
+import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.ObtainContactException;
 import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
 
-public class GetContactInteractor implements Interactor {
+public class GetContactInteractor implements Interactor<Contact, ObtainContactException> {
 
-  private Bus bus;
   private ContactsRepository repository;
   private String contactMd5;
 
-  public GetContactInteractor(Bus bus, ContactsRepository repository) {
-    this.bus = bus;
+  public GetContactInteractor(ContactsRepository repository) {
     this.repository = repository;
   }
 
@@ -22,14 +18,7 @@ public class GetContactInteractor implements Interactor {
     this.contactMd5 = contactMd5;
   }
 
-  @Override public void execute() {
-    GetContactEvent event = new GetContactEvent();
-    try {
-      Contact contact = repository.obtain(contactMd5);
-      event.setContact(contact);
-    } catch (CannotObtainContactException e) {
-      event.setError(e);
-    }
-    bus.post(event);
+  @Override public Contact call() throws ObtainContactException {
+    return repository.obtain(contactMd5);
   }
 }

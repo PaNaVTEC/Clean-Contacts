@@ -12,7 +12,7 @@ public class PicassoImageLoader implements ImageLoader {
     this.picasso = picasso;
   }
 
-  public void load(String url, ImageView imageView) {
+  @Override public void load(String url, ImageView imageView) {
     picasso.load(url).into(imageView);
   }
 

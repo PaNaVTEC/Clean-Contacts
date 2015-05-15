@@ -10,7 +10,7 @@ import me.panavtec.cleancontacts.di.qualifiers.ApiLevel;
 
 @Module(
     includes = {
-        DataModule.class, UiModule.class
+        DataModule.class, UiModule.class, DomainModule.class, PresentationModule.class
     },
     injects = CleanContactsApp.class,
     library = true

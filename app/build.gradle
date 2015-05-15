@@ -1,9 +1,5 @@
-buildscript {
-  dependencies {
-  }
-}
-
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 def STRING = "String"
 def BOOLEAN = "boolean"
@@ -47,16 +43,16 @@ android {
 
 dependencies {
   compile parent.ext.libAndroidSupportv7
-  compile parent.ext.libPathQueue
   compile parent.ext.libDagger
-  provided parent.ext.libDaggerCompiler
+  apt parent.ext.libDaggerCompiler
   compile parent.ext.libButterknife
-  compile parent.ext.libEventBus
   compile parent.ext.libSnackBars
   compile parent.ext.libRecyclerView
   compile parent.ext.libPicasso
   compile parent.ext.libRecyclerAdapters
   compile parent.ext.libFAB
+  compile parent.ext.libCoordinator
+  apt parent.ext.libCoordinatorCompiler
 
   compile project(':domain')
   compile project(':presentation')

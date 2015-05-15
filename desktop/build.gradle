@@ -6,3 +6,17 @@ version = '1.0'
 repositories {
   mavenCentral()
 }
+
+allprojects {
+
+  ext {
+    // Libraries
+    libMockito = 'org.mockito:mockito-all:2.0.2-beta'
+    libJunit = 'junit:junit:4.12'
+  }
+
+  repositories {
+    jcenter()
+    mavenCentral()
+  }
+}

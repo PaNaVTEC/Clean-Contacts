@@ -2,7 +2,7 @@
 
 Clean contacts is a sample repository to illustrate Clean architecture in Android. It has also many other details that hopefully will be useful too.
 
-##Speak
+##Speaks
 I gave a talk in Salamanca (Spain) about this implementation, here is the video: [Spanish] (https://www.youtube.com/watch?v=Co8bJq_zbSQ&t=46m42s)
 
 Slides:
@@ -35,15 +35,29 @@ You can find some examples like ImageLoader or ErrorManager interfaces that are 
 ###Caching Strategy
 In the BDD data source you can find a Caching Strategy (CS). The CS is a common logic to all data "CachingDataSources" and is a configuration of the data source so I added a constructor parameter with this collaborator to configure externally. Currently I added 2 implementations of CS, TTL (Time To Live) and NullSafe (just for check if is null) so the datasource requests data and checks if the objects are valid. If the objects are not valid the datasource throws a "InvalidCacheException" and repo handles the Exception and requests data to the next data source if needed.
 
-###Material transitions and picasso loading
+###Material transitions and async image loading
 In the contact list you, when you tap a contact you will navigate to Detail. In the contact list you have a thumbnail of the contact pic. When navigating to DetailActivity the image is a shared element that will move/scale to the Detail position that will later load a large picture.
 
 ###Coordinator to avoid flags
+[Coordinator](http://panavtec.me/coordinator-as-a-library/) is a library that will help you to avoid flags, you will see in action on DetailActivity, it needs to coordinate the transition of the Main > Detail and the load from the BDD to show the contact.
 
-[Coordinator](http://panavtec.me/presentando-coodinator-o-como-evitar-flags/) is a simple class utility that will help you to avoid flags, you will see in action in DetailActivity, it needs to coordinate the transition of the Main > Detail and the load from the BDD to show the contact.
+###Dagger injection representing abstraction layers
+You can find a dagger configuration that fits the abstraction layer in the app/di/ package 
 
 ###Assisted injection
 This repo contains implementation for Android > 5 and < 5 (that just do nothing), For resolve this in Dagger I followed the tip of [Jesse Wilson](https://groups.google.com/forum/#!topic/dagger-discuss/QgnvmZ-dH9c/discussion) you can see the implementation in ActivityModule.
+
+###No more buses to handle configuration changes
+Reading the AOSP LoaderManager code gave me an idea of how to handle configuration cahnges without needing a bus. So I implemented the approach, you can see it [at this commit](https://github.com/PaNaVTEC/Clean-Contacts/commit/487b3db666df4db36df3ff667319958e4a6d70a5) and in [my blog there is a explanation](http://panavtec.me/clean-android-without-bus/). So now the interactor works with a tunned Callbacks to manage the returns threads.
+
+###The interactor invoker is based on Futures 
+The interactor invoker now uses Future and promises Java API and it has some advantages over the previous implementation. The invoker returns a Future<?> and you can cancel the the interactor and get the result of a Interactor synchronously.
+
+###The UI thread is autommatically treated
+The Presenter Base uses a "ViewInjector" wich is decorating the View interface with a Main thread return implementation using annotations at compile time, so every time you call "getView().XXXXX" in the child presenters they are using this decorated version and don't need to handle the return to UI thread by itselfs.
+
+###Reduced boilerplate using annotation processors
+The InteractorOutput provides a "Callback" implementation to get results from the Interactors, but is so verbose implement this. So I created a annotation processor to reduce the boilerplace, you can see the code generation on "presentation-compile" module and the use in any interactor with @Output @OnResult @OnFail and @OnCancel annotations.
 
 ###Desktop app sharing common modules
 I created a sample desktop app using JavaFX sharing presentation, domain/entities and repository modules. Just re-implementing the data sources and the UI module wich are implementation details. You can find the desktop app in the folder "desktop". If you are using IntelliJ and you want to run the sample, you will need this configuration:

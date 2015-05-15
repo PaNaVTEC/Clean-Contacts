@@ -11,16 +11,15 @@ import butterknife.InjectView;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
 import com.carlosdelachica.easyrecycleradapters.recycler_view_manager.EasyRecyclerViewManager;
-import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import me.panavtec.cleancontacts.R;
 import me.panavtec.cleancontacts.modules.detail.DetailActionCommand;
 import me.panavtec.cleancontacts.modules.main.adapters.ContactViewHolderFactory;
-import me.panavtec.cleancontacts.presentation.main.MainPresenter;
-import me.panavtec.cleancontacts.presentation.main.MainView;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
-import me.panavtec.cleancontacts.ui.BaseActivity;
+import me.panavtec.cleancontacts.presentation.modules.main.MainPresenter;
+import me.panavtec.cleancontacts.presentation.modules.main.MainView;
+import me.panavtec.cleancontacts.ui.activity.BaseActivity;
 import me.panavtec.cleancontacts.ui.elevation.ElevationHandler;
 import me.panavtec.cleancontacts.ui.errors.ErrorManager;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
@@ -43,11 +42,10 @@ public class MainActivity extends BaseActivity
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    initUi();
-    presenter.onCreate();
+    presenter.attachView(this);
   }
 
-  private void initUi() {
+  @Override public void initUi() {
     initToolbar();
     initRecyclerView();
     initRefreshLayout();
@@ -65,7 +63,8 @@ public class MainActivity extends BaseActivity
     ContactViewHolderFactory contactViewHolderFactory =
         new ContactViewHolderFactory(this, imageLoader);
     EasyRecyclerAdapter adapter =
-        new EasyRecyclerAdapter(contactViewHolderFactory, PresentationContact.class, ContactViewHolder.class);
+        new EasyRecyclerAdapter(contactViewHolderFactory, PresentationContact.class,
+            ContactViewHolder.class);
     recyclerViewManager =
         new EasyRecyclerViewManager.Builder(recyclerView, adapter).emptyLoadingListTextView(
             emptyList)
@@ -99,12 +98,12 @@ public class MainActivity extends BaseActivity
     presenter.onResume();
   }
 
-  @Override protected void onPause() {
-    super.onPause();
-    presenter.onPause();
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    presenter.detachView();
   }
 
-  @Override public void refreshContactsList(List<PresentationContact> contacts) {
+  @Override public void refreshContactsList(final List<PresentationContact> contacts) {
     recyclerViewManager.addAll(contacts);
     swipeRefreshLayout.setRefreshing(false);
   }
@@ -122,8 +121,8 @@ public class MainActivity extends BaseActivity
     swipeRefreshLayout.setRefreshing(true);
   }
 
-  @Override protected List<Object> getModules() {
-    return Arrays.<Object>asList(new MainModule(this));
+  @Override protected MainModule newDiModule() {
+    return new MainModule();
   }
 
   @Override public void onItemClick(int position, View view) {

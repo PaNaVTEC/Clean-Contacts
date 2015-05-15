@@ -1,7 +1,26 @@
 package me.panavtec.cleancontacts.presentation;
 
-public abstract class Presenter {
-  public abstract void onResume();
+import me.panavtec.presentation.common.ThreadSpec;
+import me.panavtec.presentation.common.views.ViewInjector;
 
-  public abstract void onPause();
+public abstract class Presenter<V> {
+
+  private V view;
+  private ThreadSpec mainThreadSpec;
+
+  public Presenter(ThreadSpec mainThreadSpec) {
+    this.mainThreadSpec = mainThreadSpec;
+  }
+
+  public void attachView(V view) {
+    this.view = ViewInjector.inject(view, this, mainThreadSpec);
+  }
+
+  public void detachView() {
+    view = null;
+  }
+
+  public V getView() {
+    return view;
+  }
 }
