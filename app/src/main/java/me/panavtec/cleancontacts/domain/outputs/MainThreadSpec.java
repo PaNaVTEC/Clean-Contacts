@@ -8,6 +8,6 @@ public class MainThreadSpec implements ThreadSpec {
   Handler handler = new Handler();
 
   @Override public void execute(Runnable action) {
-    handler.postAtFrontOfQueue(action);
+    handler.post(action);
   }
 }
