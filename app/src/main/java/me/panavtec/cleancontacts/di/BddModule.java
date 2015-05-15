@@ -51,4 +51,5 @@ public class BddModule {
   @Provides @Singleton @DatabaseName String provideDatabaseName() {
     return "cleancontacts" + (BuildConfig.DEBUG ? "-dev" : "") + ".db";
   }
+  
 }

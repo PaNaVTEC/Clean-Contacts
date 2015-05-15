@@ -20,5 +20,4 @@ public class RepositoryModule {
       ContactsNetworkDataSource networkDataSource, ContactsBddDataSource bddDataSource) {
     return new ContactsRepositoryImp(networkDataSource, bddDataSource);
   }
-
 }
