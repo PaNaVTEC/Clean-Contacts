@@ -3,6 +3,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 def STRING = "String"
 def BOOLEAN = "boolean"
+def INT = "int"
 
 android {
   compileSdkVersion parent.ext.androidCompileSdkVersion
@@ -15,6 +16,7 @@ android {
     versionCode parent.ext.androidVersionCode
     versionName parent.ext.androidVersionName
 
+    buildConfigField INT, "CONCURRENT_INTERACTORS", "3"
     // If you have a dev/prod api url, you maybe need to set this in buildtypes
     buildConfigField STRING, "API_URL", '"http://api.randomuser.me/"'
   }
