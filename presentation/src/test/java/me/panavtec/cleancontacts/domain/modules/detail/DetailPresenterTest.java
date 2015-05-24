@@ -1,6 +1,6 @@
 package me.panavtec.cleancontacts.domain.modules.detail;
 
-import me.panavtec.cleancontacts.presentation.Presenter;
+import me.panavtec.presentation.Presenter;
 import me.panavtec.cleancontacts.domain.PresenterTest;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
