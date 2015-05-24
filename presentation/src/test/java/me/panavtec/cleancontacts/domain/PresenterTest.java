@@ -1,6 +1,6 @@
 package me.panavtec.cleancontacts.domain;
 
-import me.panavtec.cleancontacts.presentation.Presenter;
+import me.panavtec.presentation.Presenter;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;

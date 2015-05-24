@@ -1,13 +1,13 @@
 package me.panavtec.cleancontacts.presentation.modules.main;
 
 import java.util.List;
-import me.panavtec.cleancontacts.presentation.Presenter;
-import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
-import me.panavtec.cleancontacts.presentation.model.PresentationContact;
-import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
 import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.RetrieveContactsException;
+import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
+import me.panavtec.cleancontacts.presentation.model.PresentationContact;
+import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
+import me.panavtec.presentation.Presenter;
 import me.panavtec.presentation.common.ThreadSpec;
 import me.panavtec.presentation.common.outputs.InteractorOutput;
 import me.panavtec.presentation.common.outputs.InteractorOutputInjector;

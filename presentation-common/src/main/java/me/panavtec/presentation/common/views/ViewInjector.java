@@ -2,6 +2,7 @@ package me.panavtec.presentation.common.views;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
+import me.panavtec.presentation.Presenter;
 import me.panavtec.presentation.common.ThreadSpec;
 
 public class ViewInjector {
@@ -12,7 +13,7 @@ public class ViewInjector {
       Class<?> expectedType = getPresenterGenericClass(presenter);
       Class<?>[] viewInterfaces = source.getClass().getInterfaces();
       for (Class<?> viewInterface : viewInterfaces) {
-        if (expectedType.getCanonicalName().equals(viewInterface.getCanonicalName())) {
+        if (isSameClass(expectedType, viewInterface)) {
           String packageName = viewInterface.getPackage().getName();
           String className = packageName + "." + CLASS_PREFIX + viewInterface.getSimpleName();
           Class<?> decoratedClass = Class.forName(className);
@@ -28,7 +29,25 @@ public class ViewInjector {
   }
 
   private static Class<?> getPresenterGenericClass(Object presenter) {
-    return (Class<?>) ((ParameterizedType) presenter.getClass()
-        .getGenericSuperclass()).getActualTypeArguments()[0];
+    Class<?> realPresenterClass = getSuperClassThatExtendsFromPresenter(presenter.getClass());
+    return (Class<?>) ((ParameterizedType) realPresenterClass.getGenericSuperclass()).getActualTypeArguments()[0];
   }
+
+  private static Class<?> getSuperClassThatExtendsFromPresenter(Class<?> sourceClass) {
+    try {
+      if (isSameClass(sourceClass.getSuperclass(), Presenter.class)) {
+        return sourceClass;
+      } else if (!isSameClass(sourceClass.getSuperclass(), Object.class)) {
+        return getSuperClassThatExtendsFromPresenter(sourceClass.getSuperclass());
+      }
+    } catch (Throwable e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  private static boolean isSameClass(Class<?> class1, Class<?> class2) {
+    return class1.getCanonicalName().equals(class2.getCanonicalName());
+  }
+
 }
