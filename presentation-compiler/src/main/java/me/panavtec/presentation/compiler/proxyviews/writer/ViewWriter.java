@@ -15,7 +15,7 @@ import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import me.panavtec.presentation.common.ThreadSpec;
-import me.panavtec.presentation.common.proguard.DoNotStrip;
+import me.panavtec.presentation.common.DoNotStrip;
 import me.panavtec.presentation.compiler.proxyviews.ViewAnnotationProcessor;
 import me.panavtec.presentation.compiler.proxyviews.model.EnclosingView;
 import me.panavtec.presentation.compiler.proxyviews.model.ViewMethod;

@@ -18,14 +18,14 @@
 -dontwarn me.panavtec.**
 -dontwarn com.squareup.javapoet.**
 
--keep,allowobfuscation @interface me.panavtec.presentation.common.proguard.DoNotStrip
+-keep,allowobfuscation @interface me.panavtec.presentation.common.DoNotStrip
 -keep @me.panavtec.presentation.common.views.qualifiers.ThreadDecoratedView class *
--keep @me.panavtec.presentation.common.proguard.DoNotStrip class *
+-keep @me.panavtec.presentation.common.DoNotStrip class *
 
 -keepnames class * extends me.panavtec.presentation.Presenter
 
 -keepclassmembers class * {
-    @me.panavtec.presentation.common.proguard.DoNotStrip *;
+    @me.panavtec.presentation.common.DoNotStrip *;
 }
 -keepclassmembers class * {
     @javax.inject.Inject *;

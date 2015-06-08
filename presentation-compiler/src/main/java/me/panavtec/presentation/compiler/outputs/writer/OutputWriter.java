@@ -17,7 +17,7 @@ import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import me.panavtec.presentation.common.outputs.Action;
 import me.panavtec.presentation.common.outputs.DecoratedInteractorOutput;
-import me.panavtec.presentation.common.proguard.DoNotStrip;
+import me.panavtec.presentation.common.DoNotStrip;
 import me.panavtec.presentation.compiler.outputs.model.ActionModel;
 import me.panavtec.presentation.compiler.outputs.model.EnclosingOutput;
 import me.panavtec.presentation.compiler.outputs.model.OutputModel;
