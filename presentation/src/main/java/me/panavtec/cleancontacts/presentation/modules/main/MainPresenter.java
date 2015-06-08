@@ -31,8 +31,7 @@ public class MainPresenter extends Presenter<MainView> {
     InteractorOutputInjector.inject(this);
   }
 
-  @Override public void attachView(final MainView view) {
-    super.attachView(view);
+  @Override public void onViewAttached() {
     getView().initUi();
   }
 

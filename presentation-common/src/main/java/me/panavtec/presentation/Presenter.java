@@ -14,13 +14,16 @@ public abstract class Presenter<V> {
 
   public void attachView(V view) {
     this.view = ViewInjector.inject(view, this, mainThreadSpec);
+    onViewAttached();
   }
 
   public void detachView() {
-    view = null;
+    view = ViewInjector.nullObjectPatternView(this);
   }
 
   public V getView() {
     return view;
   }
+
+  public abstract void onViewAttached();
 }
