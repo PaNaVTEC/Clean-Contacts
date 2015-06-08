@@ -32,8 +32,7 @@ public class DetailPresenter extends Presenter<DetailView> {
     InteractorOutputInjector.inject(this);
   }
 
-  @Override public void attachView(DetailView view) {
-    super.attachView(view);
+  @Override public void onViewAttached() {
     getView().initUi();
   }
 

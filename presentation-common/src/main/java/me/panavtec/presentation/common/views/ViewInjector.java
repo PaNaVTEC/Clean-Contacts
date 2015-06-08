@@ -1,7 +1,10 @@
 package me.panavtec.presentation.common.views;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Proxy;
 import me.panavtec.presentation.Presenter;
 import me.panavtec.presentation.common.ThreadSpec;
 
@@ -11,6 +14,15 @@ public class ViewInjector {
   public static <T> T inject(T source, Object presenter, ThreadSpec mainThreadSpec) {
     return injectView(source, source.getClass(), getPresenterGenericClass(presenter),
         mainThreadSpec);
+  }
+
+  public static <T> T nullObjectPatternView(Object presenter) {
+    return (T) Proxy.newProxyInstance(presenter.getClass().getClassLoader(),
+        new Class[] { getPresenterGenericClass(presenter) }, new InvocationHandler() {
+          @Override public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            return null;
+          }
+        });
   }
 
   private static <T> T injectView(T source, Class<?> sourceClass, Class<?> expectedType,
