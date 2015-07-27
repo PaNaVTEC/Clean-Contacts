@@ -37,6 +37,7 @@ public class MainPresenterTest extends PresenterTest<MainView> {
   private MainPresenterFactory presenterFactory;
 
   @Before public void setUp() {
+    super.setUp();
     presenterFactory = new MainPresenterFactory();
     threadSpec = new TestThreadSpec();
     interactorInvoker = spy(new TestInteractorInvoker());

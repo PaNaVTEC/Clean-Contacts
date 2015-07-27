@@ -44,6 +44,7 @@ public class DetailPresenterTest extends PresenterTest<DetailView> {
       };
 
   @Before public void setUp() {
+    super.setUp();
     presenterFactory = new DetailPresenterFactory();
     threadSpec = new TestThreadSpec();
     interactorInvoker = spy(new TestInteractorInvoker());
