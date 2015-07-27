@@ -1,6 +1,5 @@
 package me.panavtec.presentation.common.outputs;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class InteractorOutputInjector {
@@ -14,18 +13,17 @@ public class InteractorOutputInjector {
       Class<?> injector = Class.forName(container.getCanonicalName() + CLASS_SUFFIX);
       Method inject = injector.getMethod(METHOD_NAME, container);
       inject.invoke(null, source);
-    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
   private static Class<?> getInjectorContainerClass(Class<?> sourceClass) {
     try {
-      Class.forName(sourceClass.getName() + CLASS_SUFFIX);
       return Class.forName(sourceClass.getName());
     } catch (ClassNotFoundException e) {
       return getInjectorContainerClass(sourceClass.getSuperclass());
-    } catch (Throwable e) {
+    } catch (Exception e) {
       return null;
     }
   }
