@@ -9,9 +9,12 @@ import me.panavtec.presentation.common.outputs.InteractorOutput;
 public class InteractorInvokerImp implements InteractorInvoker {
 
   private ExecutorService executor;
+  private Thread.UncaughtExceptionHandler uncaughtExceptionHandler;
 
-  public InteractorInvokerImp(ExecutorService executor) {
+  public InteractorInvokerImp(ExecutorService executor,
+      Thread.UncaughtExceptionHandler uncaughtExceptionHandler) {
     this.executor = executor;
+    this.uncaughtExceptionHandler = uncaughtExceptionHandler;
   }
 
   @Override public <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor) {
@@ -30,7 +33,7 @@ public class InteractorInvokerImp implements InteractorInvoker {
 
   @Override public <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor,
       InteractorOutput<T, E> output, int priority) {
-    return (Future<T>) executor.submit(new InteractorOutputTask<>(interactor, priority, output));
+    return (Future<T>) executor.submit(
+        new InteractorOutputTask<>(interactor, priority, output, uncaughtExceptionHandler));
   }
-
 }
