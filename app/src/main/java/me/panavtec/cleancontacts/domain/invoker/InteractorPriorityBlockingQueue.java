@@ -8,12 +8,21 @@ public class InteractorPriorityBlockingQueue extends PriorityBlockingQueue<Runna
   public InteractorPriorityBlockingQueue(int initialCapacity) {
     super(initialCapacity, new Comparator<Runnable>() {
       @Override public int compare(Runnable runnable1, Runnable runnable2) {
-        if (runnable1 instanceof InteractorOutputTask
-            && runnable2 instanceof InteractorOutputTask) {
-          return Integer.valueOf(((InteractorOutputTask) runnable1).getPriority())
-              .compareTo(((InteractorOutputTask) runnable2).getPriority());
+        boolean firstIsPriority = runnable1 instanceof PriorityRunnableFutureDecorated;
+        boolean secondIsPriority = runnable2 instanceof PriorityRunnableFutureDecorated;
+
+        if (!firstIsPriority && !secondIsPriority) {
+          return 0;
+        } else if (!firstIsPriority) {
+          return -1;
+        } else if (!secondIsPriority) {
+          return 1;
         }
-        return 0;
+
+        int priority1 = ((PriorityRunnableFutureDecorated) runnable1).getPriority();
+        int priority2 = ((PriorityRunnableFutureDecorated) runnable2).getPriority();
+
+        return Integer.valueOf(priority1).compareTo(priority2);
       }
     });
   }

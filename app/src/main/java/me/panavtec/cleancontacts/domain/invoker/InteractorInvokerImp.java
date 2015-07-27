@@ -15,7 +15,12 @@ public class InteractorInvokerImp implements InteractorInvoker {
   }
 
   @Override public <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor) {
-    return executor.submit(interactor);
+    return execute(interactor, 0);
+  }
+
+  @Override
+  public <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor, int priority) {
+    return executor.submit(new PriorityInteractorDecorator<>(interactor, priority));
   }
 
   @Override public <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor,
@@ -27,4 +32,5 @@ public class InteractorInvokerImp implements InteractorInvoker {
       InteractorOutput<T, E> output, int priority) {
     return (Future<T>) executor.submit(new InteractorOutputTask<>(interactor, priority, output));
   }
+
 }

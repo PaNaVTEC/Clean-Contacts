@@ -1,6 +1,6 @@
-package me.panavtec.cleancontacts.domain.invoker;
+package me.panavtec.cleancontacts.presentation.invoker;
 
-public enum InteractorPriorityImp {
+public enum Priority {
   LOW(1),
   MEDIUM(50),
   HIGH(100),
@@ -8,7 +8,7 @@ public enum InteractorPriorityImp {
 
   private int priority;
 
-  InteractorPriorityImp(int priority) {
+  Priority(int priority) {
     this.priority = priority;
   }
 
