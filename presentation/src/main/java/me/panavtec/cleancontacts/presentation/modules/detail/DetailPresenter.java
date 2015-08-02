@@ -1,6 +1,6 @@
 package me.panavtec.cleancontacts.presentation.modules.detail;
 
-import me.panavtec.cleancontacts.presentation.Presenter;
+import me.panavtec.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
 import me.panavtec.cleancontacts.domain.entities.Contact;
@@ -32,8 +32,7 @@ public class DetailPresenter extends Presenter<DetailView> {
     InteractorOutputInjector.inject(this);
   }
 
-  @Override public void attachView(DetailView view) {
-    super.attachView(view);
+  @Override public void onViewAttached() {
     getView().initUi();
   }
 

@@ -1,4 +1,4 @@
-package me.panavtec.cleancontacts.presentation;
+package me.panavtec.presentation;
 
 import me.panavtec.presentation.common.ThreadSpec;
 import me.panavtec.presentation.common.views.ViewInjector;
@@ -14,13 +14,16 @@ public abstract class Presenter<V> {
 
   public void attachView(V view) {
     this.view = ViewInjector.inject(view, this, mainThreadSpec);
+    onViewAttached();
   }
 
   public void detachView() {
-    view = null;
+    view = ViewInjector.nullObjectPatternView(this);
   }
 
   public V getView() {
     return view;
   }
+
+  public abstract void onViewAttached();
 }

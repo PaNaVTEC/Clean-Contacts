@@ -1,7 +1,7 @@
 package me.panavtec.cleancontacts.domain.modules.main;
 
 import java.util.List;
-import me.panavtec.cleancontacts.presentation.Presenter;
+import me.panavtec.presentation.Presenter;
 import me.panavtec.cleancontacts.domain.PresenterTest;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
@@ -37,6 +37,7 @@ public class MainPresenterTest extends PresenterTest<MainView> {
   private MainPresenterFactory presenterFactory;
 
   @Before public void setUp() {
+    super.setUp();
     presenterFactory = new MainPresenterFactory();
     threadSpec = new TestThreadSpec();
     interactorInvoker = spy(new TestInteractorInvoker());

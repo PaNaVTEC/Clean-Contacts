@@ -1,6 +1,6 @@
 package me.panavtec.cleancontacts.domain.modules.detail;
 
-import me.panavtec.cleancontacts.presentation.Presenter;
+import me.panavtec.presentation.Presenter;
 import me.panavtec.cleancontacts.domain.PresenterTest;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
@@ -44,6 +44,7 @@ public class DetailPresenterTest extends PresenterTest<DetailView> {
       };
 
   @Before public void setUp() {
+    super.setUp();
     presenterFactory = new DetailPresenterFactory();
     threadSpec = new TestThreadSpec();
     interactorInvoker = spy(new TestInteractorInvoker());

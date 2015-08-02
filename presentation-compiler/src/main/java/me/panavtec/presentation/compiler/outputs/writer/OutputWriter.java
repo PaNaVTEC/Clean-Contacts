@@ -17,6 +17,7 @@ import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import me.panavtec.presentation.common.outputs.Action;
 import me.panavtec.presentation.common.outputs.DecoratedInteractorOutput;
+import me.panavtec.presentation.common.DoNotStrip;
 import me.panavtec.presentation.compiler.outputs.model.ActionModel;
 import me.panavtec.presentation.compiler.outputs.model.EnclosingOutput;
 import me.panavtec.presentation.compiler.outputs.model.OutputModel;
@@ -99,6 +100,7 @@ public class OutputWriter {
   private MethodSpec.Builder createInjectOutputs(EnclosingOutput parent) {
     return MethodSpec.methodBuilder(INJECT_METHOD).
         addModifiers(Modifier.PUBLIC, Modifier.STATIC).
+        addAnnotation(AnnotationSpec.builder(DoNotStrip.class).build()).
         returns(void.class).
         addParameter(ClassName.get(parent.getPackageName(), parent.getClassName()), TARGET);
   }
@@ -106,6 +108,7 @@ public class OutputWriter {
   private TypeSpec createInjectClass(EnclosingOutput parent, MethodSpec coordinateInject) {
     return TypeSpec.classBuilder(parent.getClassName() + INNER_CLASS_SUFFIX)
         .addModifiers(Modifier.PUBLIC)
+        .addAnnotation(AnnotationSpec.builder(DoNotStrip.class).build())
         .addAnnotation(AnnotationSpec.builder(Generated.class)
             .addMember("value", "$S", ViewAnnotationProcessor.class.getCanonicalName())
             .build())

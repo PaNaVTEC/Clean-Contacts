@@ -15,6 +15,7 @@ import javax.annotation.processing.Filer;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.type.TypeMirror;
 import me.panavtec.presentation.common.ThreadSpec;
+import me.panavtec.presentation.common.DoNotStrip;
 import me.panavtec.presentation.compiler.proxyviews.ViewAnnotationProcessor;
 import me.panavtec.presentation.compiler.proxyviews.model.EnclosingView;
 import me.panavtec.presentation.compiler.proxyviews.model.ViewMethod;
@@ -94,6 +95,7 @@ public class ViewWriter {
     TypeSpec.Builder classBuilder = TypeSpec.classBuilder(CLASS_PREFIX + view.getClassName())
         .addModifiers(Modifier.PUBLIC)
         .addSuperinterface(viewType)
+        .addAnnotation(AnnotationSpec.builder(DoNotStrip.class).build())
         .addAnnotation(AnnotationSpec.builder(Generated.class)
             .addMember("value", "$S", ViewAnnotationProcessor.class.getCanonicalName())
             .build());
@@ -119,6 +121,7 @@ public class ViewWriter {
 
   private void addDecoratedViewConsutrctor(TypeSpec.Builder classBuilder, ClassName viewType) {
     classBuilder.addMethod(MethodSpec.constructorBuilder().
+        addAnnotation(AnnotationSpec.builder(DoNotStrip.class).build()).
         addModifiers(Modifier.PUBLIC).
         addParameter(viewType, VIEW_FIELD_NAME).
         addParameter(ClassName.get(ThreadSpec.class), THREADSPEC_FIELD_NAME).

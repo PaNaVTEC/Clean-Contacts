@@ -8,6 +8,8 @@ public interface InteractorInvoker {
 
   <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor);
 
+  <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor, int priority);
+
   <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor,
       InteractorOutput<T, E> output);
 

@@ -11,6 +11,11 @@ public class TestInteractorInvoker implements InteractorInvoker {
     return execute(interactor, null, 0);
   }
 
+  @Override
+  public <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor, int priority) {
+    return execute(interactor, null, priority);
+  }
+
   @Override public <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor,
       InteractorOutput<T, E> output) {
     return execute(interactor, output, 0);
