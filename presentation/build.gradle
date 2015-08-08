@@ -1,3 +1,6 @@
+plugins {
+  id "net.ltgt.apt" version "0.3"
+}
 apply plugin: 'java'
 
 sourceCompatibility = JavaVersion.VERSION_1_7
@@ -6,7 +9,7 @@ targetCompatibility = JavaVersion.VERSION_1_7
 dependencies {
   compile project(':domain')
   compile project(':presentation-common')
-  compile project(":presentation-compiler")
+  apt project(":presentation-compiler")
 
   testCompile parent.ext.libJunit
   testCompile parent.ext.libMockito
