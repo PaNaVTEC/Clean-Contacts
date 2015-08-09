@@ -7,6 +7,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import me.panavtec.presentation.Presenter;
 import me.panavtec.presentation.common.ThreadSpec;
+import me.panavtec.presentation.common.views.qualifiers.ThreadDecoratedView;
 
 public class ViewInjector {
   private static final String CLASS_PREFIX = "Decorated";
@@ -19,7 +20,8 @@ public class ViewInjector {
   public static <T> T nullObjectPatternView(Object presenter) {
     return (T) Proxy.newProxyInstance(presenter.getClass().getClassLoader(),
         new Class[] { getPresenterGenericClass(presenter) }, new InvocationHandler() {
-          @Override public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+          @Override public Object invoke(Object proxy, Method method, Object[] args)
+              throws Throwable {
             return null;
           }
         });
@@ -31,9 +33,10 @@ public class ViewInjector {
       Class<?>[] viewInterfaces = sourceClass.getInterfaces();
       for (Class<?> viewInterface : viewInterfaces) {
         if (isSameClass(expectedType, viewInterface)) {
-          String packageName = viewInterface.getPackage().getName();
-          String className = packageName + "." + CLASS_PREFIX + viewInterface.getSimpleName();
-          Class<?> decoratedClass = Class.forName(className);
+          Class<?> decoratedClass = getDecoratedView(viewInterface);
+          if (decoratedClass == Void.TYPE) {
+            throw new RuntimeException("Can't find decoratedView class");
+          }
           Constructor<?> constructor =
               decoratedClass.getConstructor(viewInterface, ThreadSpec.class);
           return (T) constructor.newInstance(source, mainThreadSpec);
@@ -48,6 +51,19 @@ public class ViewInjector {
       e.printStackTrace();
     }
     return null;
+  }
+
+  private static Class<?> getDecoratedView(Class<?> viewInterface) {
+    String packageName = viewInterface.getPackage().getName();
+    String className = packageName + "." + CLASS_PREFIX + viewInterface.getSimpleName();
+    try {
+      return Class.forName(className);
+    } catch (ClassNotFoundException e) {
+      System.err.println(
+          String.format("Class %s not found. Please annotate with @%s the class %s", className,
+              ThreadDecoratedView.class.getSimpleName(), viewInterface.getCanonicalName()));
+    }
+    return Void.TYPE;
   }
 
   private static Class<?> getPresenterGenericClass(Object presenter) {
