@@ -19,6 +19,7 @@ android {
     buildConfigField INT, "CONCURRENT_INTERACTORS", "3"
     // If you have a dev/prod api url, you maybe need to set this in buildtypes
     buildConfigField STRING, "API_URL", '"http://api.randomuser.me/"'
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
   buildTypes {
     debug {

@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.InjectView;
+import butterknife.Bind;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyRecyclerAdapter;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
 import com.carlosdelachica.easyrecycleradapters.recycler_view_manager.EasyRecyclerViewManager;
@@ -33,10 +33,10 @@ public class MainActivity extends BaseActivity
   @Inject ImageLoader imageLoader;
   @Inject ElevationHandler elevationHandler;
 
-  @InjectView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
-  @InjectView(R.id.recyclerView) RecyclerView recyclerView;
-  @InjectView(R.id.empty_list) TextView emptyList;
-  @InjectView(R.id.toolbar) Toolbar toolbar;
+  @Bind(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
+  @Bind(R.id.recyclerView) RecyclerView recyclerView;
+  @Bind(R.id.empty_list) TextView emptyList;
+  @Bind(R.id.toolbar) Toolbar toolbar;
 
   private EasyRecyclerViewManager recyclerViewManager;
 

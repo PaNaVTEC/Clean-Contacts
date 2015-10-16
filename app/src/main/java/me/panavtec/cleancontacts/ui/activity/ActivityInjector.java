@@ -1,6 +1,7 @@
 package me.panavtec.cleancontacts.ui.activity;
 
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import dagger.ObjectGraph;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,18 +12,18 @@ public class ActivityInjector {
 
   ObjectGraph objectGraph;
   
-  public void createGraph(ActionBarActivity activity, Object module) {
+  public void createGraph(AppCompatActivity activity, Object module) {
     ArrayList<Object> modules = new ArrayList<>();
     modules.add(module);
     createGraph(activity, modules);
   }
 
-  public void createGraph(ActionBarActivity activity, List<Object> modules) {
+  public void createGraph(AppCompatActivity activity, List<Object> modules) {
     CleanContactsApp app = CleanContactsApp.get(activity);
     objectGraph = app.getObjectGraph().plus(getCombinedModules(activity, modules).toArray());
   }
 
-  private List<Object> getCombinedModules(ActionBarActivity activity, List<Object> modules) {
+  private List<Object> getCombinedModules(AppCompatActivity activity, List<Object> modules) {
     List<Object> combined = new ArrayList<>(modules);
     combined.add(new ActivityModule(activity));
     return combined;

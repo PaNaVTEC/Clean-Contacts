@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
 import java.util.Locale;
 import me.panavtec.cleancontacts.R;
@@ -16,9 +16,9 @@ import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
 
 public class ContactViewHolder extends EasyViewHolder<PresentationContact> {
 
-  @InjectView(R.id.imageView) ImageView imageView;
-  @InjectView(R.id.nameTextView) TextView nameTextView;
-  @InjectView(R.id.phoneTextView) TextView phoneTextView;
+  @Bind(R.id.imageView) ImageView imageView;
+  @Bind(R.id.nameTextView) TextView nameTextView;
+  @Bind(R.id.phoneTextView) TextView phoneTextView;
 
   private ImageLoader imageLoader;
   private Drawable placeholder;
@@ -26,7 +26,7 @@ public class ContactViewHolder extends EasyViewHolder<PresentationContact> {
   public ContactViewHolder(Context context, ViewGroup parent, ImageLoader imageLoader) {
     super(context, parent, R.layout.item_contact);
     this.imageLoader = imageLoader;
-    ButterKnife.inject(this, itemView);
+    ButterKnife.bind(this, itemView);
     initPlaceHolder(context);
   }
 

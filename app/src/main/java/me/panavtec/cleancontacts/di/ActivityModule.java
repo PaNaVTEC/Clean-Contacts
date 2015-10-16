@@ -2,7 +2,7 @@ package me.panavtec.cleancontacts.di;
 
 import android.content.Context;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import dagger.Module;
 import dagger.Provides;
@@ -14,14 +14,11 @@ import me.panavtec.cleancontacts.ui.errors.SnackbarErrorManagerImp;
 import me.panavtec.cleancontacts.ui.transitions.WindowTransitionListener;
 import me.panavtec.cleancontacts.ui.transitions.WindowTransitionListenerFactory;
 
-@Module(
-    addsTo = AppModule.class,
-    library = true)
-public class ActivityModule {
+@Module(addsTo = AppModule.class, library = true) public class ActivityModule {
 
-  private ActionBarActivity activity;
+  private AppCompatActivity activity;
 
-  public ActivityModule(ActionBarActivity activity) {
+  public ActivityModule(AppCompatActivity activity) {
     this.activity = activity;
   }
 
@@ -33,7 +30,7 @@ public class ActivityModule {
     return activity;
   }
 
-  @Provides ActionBarActivity provideActivity() {
+  @Provides AppCompatActivity provideActivity() {
     return activity;
   }
 

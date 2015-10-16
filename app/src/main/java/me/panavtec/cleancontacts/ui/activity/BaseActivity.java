@@ -2,8 +2,9 @@ package me.panavtec.cleancontacts.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
-public abstract class BaseActivity extends ActionBarActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
   private ActivityInjector activityInjector;
   private ActivityViewInjector viewInjector = new ActivityViewInjector();

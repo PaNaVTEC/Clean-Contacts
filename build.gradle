@@ -4,8 +4,8 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:1.2.3'
-    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+    classpath 'com.android.tools.build:gradle:1.3.0'
+    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
   }
 }
 
@@ -13,20 +13,20 @@ allprojects {
 
   ext {
     // Android config
-    androidBuildToolsVersion = '21.1.2'
+    androidBuildToolsVersion = '23.0.1'
     androidMinSdkVersion = 16
-    androidTargetSdkVersion = 21
-    androidCompileSdkVersion = 21
+    androidTargetSdkVersion = 23
+    androidCompileSdkVersion = 23
     androidApplicationId = 'me.panavtec.cleancontacts'
     androidVersionCode = 1
     androidVersionName = '1.0'
 
     // Libraries
-    libAndroidSupportv7 = 'com.android.support:appcompat-v7:21.0.+'
-    libRecyclerView = 'com.android.support:recyclerview-v7:21.0.+'
+    libAndroidSupportv7 = 'com.android.support:appcompat-v7:23.1.0'
+    libRecyclerView = 'com.android.support:recyclerview-v7:23.1.0'
     libDagger = 'com.squareup.dagger:dagger:1.2.2'
     libDaggerCompiler = 'com.squareup.dagger:dagger-compiler:1.2.2'
-    libButterknife = 'com.jakewharton:butterknife:6.1.0'
+    libButterknife = 'com.jakewharton:butterknife:7.0.1'
     libRetrofit = 'com.squareup.retrofit:retrofit:1.9.0'
     libGson = 'com.google.code.gson:gson:2.3.1'
     libOrmlite = 'com.j256.ormlite:ormlite-android:4.48'

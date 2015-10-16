@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.InjectView;
+import butterknife.Bind;
 import butterknife.OnClick;
 import javax.inject.Inject;
 import me.panavtec.cleancontacts.R;
@@ -33,14 +33,14 @@ public class DetailActivity extends BaseActivity
   @Inject ImageLoader imageLoader;
   @Inject ErrorManager errorManager;
   @Inject WindowTransitionListener windowTransitionListener;
-  @InjectView(R.id.contactImage) ImageView contactImageView;
+  @Bind(R.id.contactImage) ImageView contactImageView;
 
-  @InjectView(R.id.toolbar) Toolbar toolbar;
-  @InjectView(R.id.nameTextView) TextView nameTextView;
-  @InjectView(R.id.phoneInfoView) ContactInfoView phoneInfoView;
-  @InjectView(R.id.cellInfoView) ContactInfoView cellInfoView;
-  @InjectView(R.id.emailInfoView) ContactInfoView emailInfoView;
-  @InjectView(R.id.addressInfoView) ContactInfoView addressInfoView;
+  @Bind(R.id.toolbar) Toolbar toolbar;
+  @Bind(R.id.nameTextView) TextView nameTextView;
+  @Bind(R.id.phoneInfoView) ContactInfoView phoneInfoView;
+  @Bind(R.id.cellInfoView) ContactInfoView cellInfoView;
+  @Bind(R.id.emailInfoView) ContactInfoView emailInfoView;
+  @Bind(R.id.addressInfoView) ContactInfoView addressInfoView;
 
   @Actions({ COORDINATE_END_TRANSITION, COORDINATE_SHOW_CONTACT }) Coordinator coordinator;
   private PresentationContact contact;

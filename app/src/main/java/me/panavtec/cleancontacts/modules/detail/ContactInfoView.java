@@ -14,15 +14,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import me.panavtec.cleancontacts.R;
 
 public class ContactInfoView extends LinearLayout {
 
-  @InjectView(R.id.infoLabel) TextView infoLabel;
-  @InjectView(R.id.infoValue) TextView infoValue;
-  @InjectView(R.id.icon) ImageView imageView;
+  @Bind(R.id.infoLabel) TextView infoLabel;
+  @Bind(R.id.infoValue) TextView infoValue;
+  @Bind(R.id.icon) ImageView imageView;
 
   private Drawable iconDrawable;
   private String labelString;
@@ -53,7 +53,7 @@ public class ContactInfoView extends LinearLayout {
     initAttrs(attrs);
     LayoutInflater inflater = LayoutInflater.from(getContext());
     View rootView = inflater.inflate(R.layout.contact_info_view, this, true);
-    ButterKnife.inject(this, rootView);
+    ButterKnife.bind(this, rootView);
     initView();
   }
 
