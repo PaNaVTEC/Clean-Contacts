@@ -45,17 +45,17 @@ android {
 }
 
 dependencies {
-  compile parent.ext.libAndroidSupportv7
-  compile parent.ext.libDagger
-  apt parent.ext.libDaggerCompiler
-  compile parent.ext.libButterknife
-  compile parent.ext.libSnackBars
-  compile parent.ext.libRecyclerView
-  compile parent.ext.libPicasso
-  compile parent.ext.libRecyclerAdapters
-  compile parent.ext.libFAB
-  compile parent.ext.libCoordinator
-  apt parent.ext.libCoordinatorCompiler
+  compile rootProject.ext.dependencies.androidSupportv7
+  compile rootProject.ext.dependencies.dagger
+  apt rootProject.ext.dependencies.daggerCompiler
+  compile rootProject.ext.dependencies.butterknife
+  compile rootProject.ext.dependencies.snackBars
+  compile rootProject.ext.dependencies.recyclerView
+  compile rootProject.ext.dependencies.picasso
+  compile rootProject.ext.dependencies.recyclerAdapters
+  compile rootProject.ext.dependencies.fAB
+  compile rootProject.ext.dependencies.coordinator
+  apt rootProject.ext.dependencies.coordinatorCompiler
 
   compile project(':domain')
   compile project(':presentation')

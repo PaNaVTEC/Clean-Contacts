@@ -15,13 +15,13 @@ android {
 
 dependencies {
   compile project(':repository')
-  compile parent.ext.libRetrofit
-  compile parent.ext.libGson
-  compile parent.ext.libOkhttp
-  compile parent.ext.libOrmlite
-  compile parent.ext.libMappers
-  provided parent.ext.libMappersCompiler
+  compile rootProject.ext.dependencies.retrofit
+  compile rootProject.ext.dependencies.gson
+  compile rootProject.ext.dependencies.okhttp
+  compile rootProject.ext.dependencies.ormlite
+  compile rootProject.ext.dependencies.mappers
+  provided rootProject.ext.dependencies.mappersCompiler
 
-  testCompile parent.ext.libJunit
-  testCompile parent.ext.libMockito
+  testCompile rootProject.ext.testDependencies.junit
+  testCompile rootProject.ext.testDependencies.mockito
 }

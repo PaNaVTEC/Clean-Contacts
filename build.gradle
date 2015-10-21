@@ -1,3 +1,5 @@
+apply from: 'dependencies.gradle'
+
 buildscript {
   repositories {
     jcenter()
@@ -20,28 +22,6 @@ allprojects {
     androidApplicationId = 'me.panavtec.cleancontacts'
     androidVersionCode = 1
     androidVersionName = '1.0'
-
-    // Libraries
-    libAndroidSupportv7 = 'com.android.support:appcompat-v7:23.1.0'
-    libRecyclerView = 'com.android.support:recyclerview-v7:23.1.0'
-    libDagger = 'com.squareup.dagger:dagger:1.2.2'
-    libDaggerCompiler = 'com.squareup.dagger:dagger-compiler:1.2.2'
-    libButterknife = 'com.jakewharton:butterknife:7.0.1'
-    libRetrofit = 'com.squareup.retrofit:retrofit:1.9.0'
-    libGson = 'com.google.code.gson:gson:2.3.1'
-    libOrmlite = 'com.j256.ormlite:ormlite-android:4.48'
-    libOkhttp = 'com.squareup.okhttp:okhttp:2.2.0'
-    libMappers = 'com.mobandme:android-transformer:1.1.1'
-    libMappersCompiler = 'com.mobandme:android-transformer-compiler:1.1.1'
-    libSnackBars = 'com.nispok:snackbar:2.7.5'
-    libRecyclerAdapters = 'com.github.cmc00022:easyrecycleradapters:1.0.2'
-    libPicasso = 'com.squareup.picasso:picasso:2.5.0'
-    libFAB = 'com.melnykov:floatingactionbutton:1.2.0'
-    libMockito = 'org.mockito:mockito-all:2.0.2-beta'
-    libCoordinator = 'me.panavtec:coordinator:1.1.5'
-    libCoordinatorCompiler = 'me.panavtec:coordinator-compiler:1.1.5'
-
-    libJunit = 'junit:junit:4.12'
   }
 
   repositories {

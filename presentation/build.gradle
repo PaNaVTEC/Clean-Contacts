@@ -11,6 +11,6 @@ dependencies {
   compile project(':presentation-common')
   apt project(":presentation-compiler")
 
-  testCompile parent.ext.libJunit
-  testCompile parent.ext.libMockito
+  testCompile rootProject.ext.testDependencies.junit
+  testCompile rootProject.ext.testDependencies.mockito
 }
