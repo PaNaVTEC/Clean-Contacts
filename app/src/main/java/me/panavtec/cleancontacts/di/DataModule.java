@@ -5,10 +5,9 @@ import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
 import me.panavtec.cleancontacts.BuildConfig;
+import me.panavtec.cleancontacts.data.Endpoint;
 import me.panavtec.cleancontacts.data.RetrofitLog;
 import me.panavtec.cleancontacts.data.UserAgent;
-import retrofit.Endpoint;
-import retrofit.Endpoints;
 
 @Module(
     includes = {
@@ -18,8 +17,8 @@ import retrofit.Endpoints;
     library = true)
 public class DataModule {
 
-  @Provides @Singleton Endpoint provideEndpoint() {
-    return Endpoints.newFixedEndpoint(BuildConfig.API_URL);
+  @Provides @Singleton @Endpoint String provideEndpoint() {
+    return BuildConfig.API_URL;
   }
 
   @Provides @Singleton @RetrofitLog boolean provideRetrofitLog() {

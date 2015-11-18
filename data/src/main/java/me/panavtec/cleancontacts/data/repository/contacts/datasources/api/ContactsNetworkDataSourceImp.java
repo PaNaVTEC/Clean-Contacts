@@ -21,7 +21,7 @@ public class ContactsNetworkDataSourceImp implements ContactsNetworkDataSource {
 
   @Override public List<Contact> obtainContacts() throws ContactsNetworkException {
     try {
-      ApiContactsResponse apiContactsResponse = apiService.obtainUsers(100);
+      ApiContactsResponse apiContactsResponse = apiService.obtainUsers(100).execute().body();
       List<ApiContactResult> results = apiContactsResponse.getResults();
       List<Contact> contacts = new ArrayList<>();
       if (results != null) {
