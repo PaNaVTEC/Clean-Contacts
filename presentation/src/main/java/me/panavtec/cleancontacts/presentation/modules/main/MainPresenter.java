@@ -48,12 +48,12 @@ public class MainPresenter extends Presenter<MainView> {
     interactorInvoker.execute(getContactsInteractor, output);
   }
 
-  @OnResult void onContactsInteractorOutput(List<Contact> result) {
+  @OnResult void onContactsInteractor(List<Contact> result) {
     List<PresentationContact> presentationContacts = listMapper.modelToData(result);
     getView().refreshContactsList(presentationContacts);
   }
 
-  @OnError void onContactsInteractorErrorOutput(RetrieveContactsException data) {
+  @OnError void onContactsInteractorError(RetrieveContactsException data) {
     getView().showGetContactsError();
   }
 }
