@@ -134,23 +134,45 @@ public class OutputAnnotationProcessor extends AbstractProcessor {
         TypeMirror outputGeneric =
             ((DeclaredType) outputElement.asType()).getTypeArguments().get(genericPosition);
         List<? extends VariableElement> parameters = ((ExecutableElement) element).getParameters();
-        if (parameters.size() == 1 && processingEnv.getTypeUtils()
-            .isSameType(parameters.get(0).asType(), outputGeneric)) {
-          ActionModel actionModel = new ActionModel();
-          actionModel.setMethodName(elementTools.getFieldName(element));
-          actionModel.setType(element.asType());
-          if (element.getKind() == ElementKind.METHOD) {
-            actionModel.setType(((ExecutableElement) element).getParameters().get(0).asType());
-          }
-
-          System.out.println("It maches!!!" + actionModel);
-          return actionModel;
+        if (parameterMatches(parameters, processingEnv, outputGeneric) &&
+            methodEndsWithOutputName(elementTools, element, outputElement)) {
+            ActionModel actionModel = new ActionModel();
+            actionModel.setMethodName(elementTools.getFieldName(element));
+            actionModel.setType(element.asType());
+            if (element.getKind() == ElementKind.METHOD) {
+              actionModel.setType(((ExecutableElement) element).getParameters().get(0).asType());
+            }
+            System.out.println("It maches!!!" + actionModel);
+            return actionModel;
         } else {
           System.out.println("Does not match");
         }
       }
     }
     return null;
+  }
+
+  private boolean parameterMatches(List<? extends VariableElement> parameters,
+      ProcessingEnvironment processingEnv, TypeMirror outputGeneric) {
+    return (parameters.size() == 1 && processingEnv.getTypeUtils()
+        .isSameType(parameters.get(0).asType(), outputGeneric));
+  }
+
+  private boolean methodEndsWithOutputName(ElementTools elementTools, Element element, Element outputElement){
+    String method = elementTools.getFieldName(element);
+    String outputName = outputElement.getSimpleName().toString();
+    String outPutCapName = capitalizeFirstLetter(outputName);
+    if (method.endsWith(outPutCapName)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  private String capitalizeFirstLetter(String original){
+    if(original.length() == 0)
+      return original;
+    return original.substring(0, 1).toUpperCase() + original.substring(1);
   }
 
   @Override public Set<String> getSupportedAnnotationTypes() {

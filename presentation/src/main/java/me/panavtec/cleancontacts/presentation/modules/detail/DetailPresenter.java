@@ -45,11 +45,11 @@ public class DetailPresenter extends Presenter<DetailView> {
     interactorInvoker.execute(getContactInteractor, getContactOutput);
   }
 
-  @OnResult void onContactInteractor(Contact data) {
+  @OnResult void onContactInteractorGetContactOutput(Contact data) {
     getView().showContactData(presentationContactMapper.modelToData(data));
   }
 
-  @OnError void onContactInteractorError(ObtainContactException e) {
+  @OnError void onContactInteractorErrorGetContactOutput(ObtainContactException e) {
     getView().showGetContactError();
   }
 }
