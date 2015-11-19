@@ -7,10 +7,6 @@ import com.squareup.okhttp.Response;
 import com.squareup.okhttp.ResponseBody;
 import java.io.IOException;
 
-/**
- * Created by Sergio Martinez Rodriguez
- * Date 18/11/15.
- */
 public class LoggingInterceptorImpl implements Interceptor {
   private static final String TAG = "Retrofit Logging";
 

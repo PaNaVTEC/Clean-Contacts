@@ -6,10 +6,6 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import java.io.IOException;
 
-/**
- * Created by Sergio Martinez Rodriguez
- * Date 18/11/15.
- */
 public class HeadersInterceptorImpl implements Interceptor {
 
   private final String userAgent;
