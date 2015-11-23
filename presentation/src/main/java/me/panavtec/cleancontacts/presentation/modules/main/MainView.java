@@ -1,14 +1,13 @@
 package me.panavtec.cleancontacts.presentation.modules.main;
 
 import java.util.List;
-
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.threaddecoratedview.views.qualifiers.NotDecorated;
+import me.panavtec.threaddecoratedview.views.qualifiers.ThreadDecoratedView;
 
-public interface MainView {
+@ThreadDecoratedView public interface MainView {
 
-  @NotDecorated
-  void initUi();
+  @NotDecorated void initUi();
 
   void showGetContactsError();
 

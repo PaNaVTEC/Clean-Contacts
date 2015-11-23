@@ -20,6 +20,7 @@ public class MainPresenter extends Presenter<MainView> {
   private final InteractorInvoker interactorInvoker;
   private final GetContactsInteractor getContactsInteractor;
   private final ListMapper<Contact, PresentationContact> listMapper;
+
   @Output InteractorOutput<List<Contact>, RetrieveContactsException> output;
 
   public MainPresenter(InteractorInvoker interactorInvoker,
