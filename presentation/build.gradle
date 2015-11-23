@@ -8,8 +8,8 @@ targetCompatibility = JavaVersion.VERSION_1_7
 
 dependencies {
   compile project(':domain')
-  compile 'me.panavtec:threaddecoratedview-common:1.5.1'
-  apt 'me.panavtec:threaddecoratedview-compiler:1.5.1'
+  compile rootProject.ext.dependencies.threaddecoratedview
+  apt rootProject.ext.dependencies.threaddecoratedviewcompiler
 
   testCompile rootProject.ext.testDependencies.junit
   testCompile rootProject.ext.testDependencies.mockito
