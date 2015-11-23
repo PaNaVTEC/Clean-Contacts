@@ -1,4 +1,4 @@
-package me.panavtec.presentation.common.outputs;
+package me.panavtec.cleancontacts.presentation;
 
 public interface InteractorOutput<T, E extends Exception> {
   void onResult(T result);

@@ -2,7 +2,7 @@ package me.panavtec.cleancontacts.domain;
 
 import me.panavtec.cleancontacts.domain.interactors.base.TestInteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.base.TestThreadSpec;
-import me.panavtec.presentation.Presenter;
+import me.panavtec.cleancontacts.presentation.Presenter;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;

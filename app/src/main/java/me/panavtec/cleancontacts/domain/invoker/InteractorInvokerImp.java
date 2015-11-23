@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import me.panavtec.cleancontacts.domain.interactors.Interactor;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
-import me.panavtec.presentation.common.outputs.InteractorOutput;
+import me.panavtec.cleancontacts.presentation.InteractorOutput;
 
 public class InteractorInvokerImp implements InteractorInvoker {
 

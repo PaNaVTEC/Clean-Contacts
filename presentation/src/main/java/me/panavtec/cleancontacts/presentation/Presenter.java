@@ -1,4 +1,4 @@
-package me.panavtec.presentation;
+package me.panavtec.cleancontacts.presentation;
 
 import me.panavtec.threaddecoratedview.views.ThreadSpec;
 import me.panavtec.threaddecoratedview.views.ViewInjector;
