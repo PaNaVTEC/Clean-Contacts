@@ -8,8 +8,8 @@ targetCompatibility = JavaVersion.VERSION_1_7
 
 dependencies {
   compile project(':domain')
-  compile project(':presentation-common')
-  apt project(":presentation-compiler")
+  compile rootProject.ext.dependencies.threaddecoratedview
+  apt rootProject.ext.dependencies.threaddecoratedviewcompiler
 
   testCompile rootProject.ext.testDependencies.junit
   testCompile rootProject.ext.testDependencies.mockito

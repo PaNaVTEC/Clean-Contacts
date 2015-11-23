@@ -22,7 +22,7 @@
 -keep @me.panavtec.presentation.common.views.qualifiers.ThreadDecoratedView class *
 -keep @me.panavtec.presentation.common.DoNotStrip class *
 
--keepnames class * extends me.panavtec.presentation.Presenter
+-keepnames class * extends me.panavtec.cleancontacts.presentation.Presenter
 
 -keepclassmembers class * {
     @me.panavtec.presentation.common.DoNotStrip *;

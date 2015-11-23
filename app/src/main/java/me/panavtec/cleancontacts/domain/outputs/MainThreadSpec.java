@@ -1,7 +1,8 @@
 package me.panavtec.cleancontacts.domain.outputs;
 
 import android.os.Handler;
-import me.panavtec.presentation.common.ThreadSpec;
+
+import me.panavtec.threaddecoratedview.views.ThreadSpec;
 
 public class MainThreadSpec implements ThreadSpec {
 

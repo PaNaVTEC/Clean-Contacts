@@ -1,19 +1,20 @@
 package me.panavtec.cleancontacts.di;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Singleton;
 import me.panavtec.cleancontacts.di.qualifiers.BackThread;
 import me.panavtec.cleancontacts.di.qualifiers.SameThread;
 import me.panavtec.cleancontacts.di.qualifiers.UiThread;
-import me.panavtec.cleancontacts.presentation.model.PresentationContact;
-import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
-import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
+import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.outputs.BackThreadSpec;
 import me.panavtec.cleancontacts.domain.outputs.MainThreadSpec;
 import me.panavtec.cleancontacts.domain.outputs.SameThreadSpec;
-import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.presentation.common.ThreadSpec;
+import me.panavtec.cleancontacts.presentation.model.PresentationContact;
+import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
+import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
+import me.panavtec.threaddecoratedview.views.ThreadSpec;
 
 @Module(
     complete = false,
@@ -21,7 +22,8 @@ import me.panavtec.presentation.common.ThreadSpec;
 )
 public class PresentationModule {
 
-  @Provides @Singleton @UiThread ThreadSpec provideMainThread() {
+  @Provides @Singleton @UiThread
+  ThreadSpec provideMainThread() {
     return new MainThreadSpec();
   }
 

@@ -17,7 +17,9 @@ allprojects {
         fAB                 : 'com.melnykov:floatingactionbutton:1.2.0',
         mockito             : 'org.mockito:mockito-all:2.0.2-beta',
         coordinator         : 'me.panavtec:coordinator:1.1.5',
-        coordinatorCompiler : 'me.panavtec:coordinator-compiler:1.1.5'
+        coordinatorCompiler : 'me.panavtec:coordinator-compiler:1.1.5',
+        threaddecoratedview : 'me.panavtec:threaddecoratedview-common:1.5.1',
+        threaddecoratedviewcompiler : 'me.panavtec:threaddecoratedview-compiler:1.5.1'
     ]
 
     testDependencies = [mockito: "org.mockito:mockito-core:1.9.5",

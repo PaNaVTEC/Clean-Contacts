@@ -1,6 +1,7 @@
 package me.panavtec.cleancontacts.domain.outputs;
 
-import me.panavtec.presentation.common.ThreadSpec;
+
+import me.panavtec.threaddecoratedview.views.ThreadSpec;
 
 public class SameThreadSpec implements ThreadSpec {
 

@@ -1,6 +1,6 @@
 package me.panavtec.cleancontacts.domain.modules.detail;
 
-import me.panavtec.presentation.Presenter;
+import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.domain.PresenterTest;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
@@ -14,8 +14,8 @@ import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteracto
 import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.ObtainContactException;
 import me.panavtec.cleancontacts.presentation.modules.detail.DetailPresenter;
 import me.panavtec.cleancontacts.presentation.modules.detail.DetailView;
-import me.panavtec.presentation.common.ThreadSpec;
-import me.panavtec.presentation.common.outputs.InteractorOutput;
+import me.panavtec.cleancontacts.presentation.InteractorOutput;
+import me.panavtec.threaddecoratedview.views.ThreadSpec;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatcher;

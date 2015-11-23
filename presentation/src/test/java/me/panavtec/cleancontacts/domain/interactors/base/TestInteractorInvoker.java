@@ -3,7 +3,7 @@ package me.panavtec.cleancontacts.domain.interactors.base;
 import java.util.concurrent.Future;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.Interactor;
-import me.panavtec.presentation.common.outputs.InteractorOutput;
+import me.panavtec.cleancontacts.presentation.InteractorOutput;
 
 public class TestInteractorInvoker implements InteractorInvoker {
 

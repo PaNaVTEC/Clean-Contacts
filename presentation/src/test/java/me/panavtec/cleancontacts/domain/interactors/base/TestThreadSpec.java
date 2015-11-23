@@ -1,6 +1,6 @@
 package me.panavtec.cleancontacts.domain.interactors.base;
 
-import me.panavtec.presentation.common.ThreadSpec;
+import me.panavtec.threaddecoratedview.views.ThreadSpec;
 
 public class TestThreadSpec implements ThreadSpec {
 

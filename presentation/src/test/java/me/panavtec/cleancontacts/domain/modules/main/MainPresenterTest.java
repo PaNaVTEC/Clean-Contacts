@@ -1,7 +1,7 @@
 package me.panavtec.cleancontacts.domain.modules.main;
 
 import java.util.List;
-import me.panavtec.presentation.Presenter;
+import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.domain.PresenterTest;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
@@ -15,8 +15,8 @@ import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteract
 import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.RetrieveContactsException;
 import me.panavtec.cleancontacts.presentation.modules.main.MainPresenter;
 import me.panavtec.cleancontacts.presentation.modules.main.MainView;
-import me.panavtec.presentation.common.ThreadSpec;
-import me.panavtec.presentation.common.outputs.InteractorOutput;
+import me.panavtec.cleancontacts.presentation.InteractorOutput;
+import me.panavtec.threaddecoratedview.views.ThreadSpec;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
