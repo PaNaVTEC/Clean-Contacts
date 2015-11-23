@@ -1,1 +1,1 @@
-include ':app', ':presentation', ':domain', ':repository', ':data', ':presentation-compiler', ':presentation-common'
+include ':app', ':presentation', ':domain', ':repository', ':data'
