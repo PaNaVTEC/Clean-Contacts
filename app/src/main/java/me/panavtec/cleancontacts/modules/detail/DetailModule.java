@@ -4,11 +4,11 @@ import dagger.Module;
 import dagger.Provides;
 import me.panavtec.cleancontacts.di.ActivityModule;
 import me.panavtec.cleancontacts.di.qualifiers.UiThread;
+import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
 import me.panavtec.cleancontacts.presentation.modules.detail.DetailPresenter;
-import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
-import me.panavtec.presentation.common.ThreadSpec;
+import me.panavtec.threaddecoratedview.views.ThreadSpec;
 
 @Module(
     addsTo = ActivityModule.class,
@@ -22,10 +22,12 @@ public class DetailModule {
     this.contactMd5 = contactMd5;
   }
 
-  @Provides DetailPresenter providePresenter(InteractorInvoker interactorInvoker,
+  @Provides
+  DetailPresenter providePresenter(InteractorInvoker interactorInvoker,
       GetContactInteractor getContactInteractor, PresentationContactMapper contactMapper,
       @UiThread ThreadSpec mainThread) {
     return new DetailPresenter(contactMd5, interactorInvoker, getContactInteractor, contactMapper,
         mainThread);
   }
+
 }

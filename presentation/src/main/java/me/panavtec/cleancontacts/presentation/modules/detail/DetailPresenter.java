@@ -1,17 +1,17 @@
 package me.panavtec.cleancontacts.presentation.modules.detail;
 
-import me.panavtec.presentation.Presenter;
-import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
-import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
 import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.ObtainContactException;
+import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
+import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
+import me.panavtec.presentation.Presenter;
 import me.panavtec.presentation.common.outputs.InteractorOutput;
 import me.panavtec.presentation.common.outputs.InteractorOutputInjector;
-import me.panavtec.presentation.common.ThreadSpec;
 import me.panavtec.presentation.common.outputs.qualifiers.OnError;
 import me.panavtec.presentation.common.outputs.qualifiers.OnResult;
 import me.panavtec.presentation.common.outputs.qualifiers.Output;
+import me.panavtec.threaddecoratedview.views.ThreadSpec;
 
 public class DetailPresenter extends Presenter<DetailView> {
 
@@ -19,7 +19,8 @@ public class DetailPresenter extends Presenter<DetailView> {
   private final InteractorInvoker interactorInvoker;
   private final GetContactInteractor getContactInteractor;
   private final PresentationContactMapper presentationContactMapper;
-  @Output InteractorOutput<Contact, ObtainContactException> getContactOutput;
+  @Output
+  InteractorOutput<Contact, ObtainContactException> getContactOutput;
 
   public DetailPresenter(String contactMd5, InteractorInvoker interactorInvoker,
       GetContactInteractor getContactInteractor,
@@ -45,11 +46,13 @@ public class DetailPresenter extends Presenter<DetailView> {
     interactorInvoker.execute(getContactInteractor, getContactOutput);
   }
 
-  @OnResult void onContactInteractor(Contact data) {
+  @OnResult
+  void onContactInteractor(Contact data) {
     getView().showContactData(presentationContactMapper.modelToData(data));
   }
 
-  @OnError void onContactInteractorError(ObtainContactException e) {
+  @OnError
+  void onContactInteractorError(ObtainContactException e) {
     getView().showGetContactError();
   }
 }
