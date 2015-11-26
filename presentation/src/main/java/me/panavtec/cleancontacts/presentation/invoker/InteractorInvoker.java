@@ -1,19 +1,17 @@
 package me.panavtec.cleancontacts.presentation.invoker;
 
 import java.util.concurrent.Future;
-
 import me.panavtec.cleancontacts.domain.interactors.Interactor;
-import me.panavtec.cleancontacts.presentation.InteractorOutput;
+import me.panavtec.cleancontacts.domain.interactors.InteractorResponse;
+import me.panavtec.cleancontacts.presentation.InteractorResult;
 
 public interface InteractorInvoker {
 
-  <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor);
+  <T extends InteractorResponse> Future<T> execute(Interactor<T> interactor);
 
-  <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor, int priority);
+  <T extends InteractorResponse> Future<T> execute(Interactor<T> interactor, int priority);
 
-  <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor,
-                                             InteractorOutput<T, E> output);
+  <R, T extends InteractorResponse> Future<T> execute(Interactor<T> interactor, InteractorResult<R> output);
 
-  <T, E extends Exception> Future<T> execute(Interactor<T, E> interactor,
-                                             InteractorOutput<T, E> output, int priority);
-  }
+  <R, T extends InteractorResponse<R>> Future<T> execute(Interactor<T> interactor, InteractorResult<R> output, int priority);
+}

@@ -11,10 +11,9 @@ import me.panavtec.cleancontacts.domain.interactors.GetContactSuccessInteractor;
 import me.panavtec.cleancontacts.domain.interactors.base.TestInteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.base.TestThreadSpec;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
-import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.ObtainContactException;
 import me.panavtec.cleancontacts.presentation.modules.detail.DetailPresenter;
 import me.panavtec.cleancontacts.presentation.modules.detail.DetailView;
-import me.panavtec.cleancontacts.presentation.InteractorOutput;
+import me.panavtec.cleancontacts.presentation.InteractorResult;
 import me.panavtec.threaddecoratedview.views.ThreadSpec;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,7 +55,7 @@ public class DetailPresenterTest extends PresenterTest<DetailView> {
     DetailPresenter presenter = initializePresenter(getView(), getContactInteractor);
     presenter.onResume();
     verify(interactorInvoker).execute(eq(getContactInteractor),
-        Matchers.<InteractorOutput<Contact, ObtainContactException>>any());
+        Matchers.<InteractorResult<Contact>>any());
   }
 
   @Test public void onResumeGetContactSuccess() {

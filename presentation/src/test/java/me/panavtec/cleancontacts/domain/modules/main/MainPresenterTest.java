@@ -12,10 +12,9 @@ import me.panavtec.cleancontacts.domain.interactors.GetContactsSuccessInteractor
 import me.panavtec.cleancontacts.domain.interactors.base.TestInteractorInvoker;
 import me.panavtec.cleancontacts.domain.interactors.base.TestThreadSpec;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
-import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.RetrieveContactsException;
 import me.panavtec.cleancontacts.presentation.modules.main.MainPresenter;
 import me.panavtec.cleancontacts.presentation.modules.main.MainView;
-import me.panavtec.cleancontacts.presentation.InteractorOutput;
+import me.panavtec.cleancontacts.presentation.InteractorResult;
 import me.panavtec.threaddecoratedview.views.ThreadSpec;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +48,7 @@ public class MainPresenterTest extends PresenterTest<MainView> {
     MainPresenter presenter = initializePresenter(getView(), getContactsInteractor);
     presenter.onResume();
     verify(interactorInvoker).execute(eq(getContactsInteractor),
-        Matchers.<InteractorOutput<List<Contact>, RetrieveContactsException>>any());
+        Matchers.<InteractorResult<List<Contact>>>any());
   }
 
   @Test public void onResumeRefreshViewWithContactsSuccess() {

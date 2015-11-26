@@ -3,12 +3,11 @@ package me.panavtec.cleancontacts.presentation.modules.main;
 import java.util.List;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
-import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.RetrieveContactsException;
+import me.panavtec.cleancontacts.presentation.InteractorResult;
+import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
-import me.panavtec.cleancontacts.presentation.Presenter;
-import me.panavtec.cleancontacts.presentation.InteractorOutput;
 import me.panavtec.threaddecoratedview.views.ThreadSpec;
 
 public class MainPresenter extends Presenter<MainView> {
@@ -39,19 +38,12 @@ public class MainPresenter extends Presenter<MainView> {
   }
 
   private void refreshContactList() {
-    interactorInvoker.execute(getContactsInteractor,
-        new InteractorOutput<List<Contact>, RetrieveContactsException>() {
+    interactorInvoker.execute(getContactsInteractor, new InteractorResult<List<Contact>>() {
           @Override public void onResult(List<Contact> result) {
             List<PresentationContact> presentationContacts = listMapper.modelToData(result);
             getView().refreshContactsList(presentationContacts);
           }
-
-          @Override public void onError(RetrieveContactsException exception) {
-            getView().showGetContactsError();
-          }
-
-          @Override public void onCancel() {
-          }
-        });
+    });
+    //getView().showGetContactsError();
   }
 }
