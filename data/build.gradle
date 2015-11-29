@@ -16,6 +16,7 @@ android {
 dependencies {
   compile project(':repository')
   compile rootProject.ext.dependencies.retrofit
+  compile rootProject.ext.dependencies.loggingInterceptor
   compile rootProject.ext.dependencies.gsonConverter
   compile rootProject.ext.dependencies.ormlite
   compile rootProject.ext.dependencies.mappers
