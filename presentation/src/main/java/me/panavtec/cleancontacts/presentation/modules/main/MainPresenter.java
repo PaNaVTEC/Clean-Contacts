@@ -2,7 +2,7 @@ package me.panavtec.cleancontacts.presentation.modules.main;
 
 import java.util.List;
 import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.domain.interactors.InteractorError;
+import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsError;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
 import me.panavtec.cleancontacts.presentation.InteractorResult;
 import me.panavtec.cleancontacts.presentation.Presenter;
@@ -45,8 +45,8 @@ public class MainPresenter extends Presenter<MainView> {
         List<PresentationContact> presentationContacts = listMapper.modelToData(result);
         getView().refreshContactsList(presentationContacts);
       }
-    }).error(new InteractorResult<InteractorError>() {
-      @Override public void onResult(InteractorError error) {
+    }).error(GetContactsError.class, new InteractorResult<GetContactsError>() {
+      @Override public void onResult(GetContactsError error) {
         getView().showGetContactsError();
       }
     }).execute(interactorInvoker);
