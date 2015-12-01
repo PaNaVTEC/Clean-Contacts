@@ -1,8 +1,6 @@
 package me.panavtec.cleancontacts.presentation.modules.detail;
 
-import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
-import me.panavtec.cleancontacts.presentation.InteractorResult;
 import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
@@ -35,11 +33,11 @@ public class DetailPresenter extends Presenter<DetailView> {
 
   public void obtainContact() {
     getContactInteractor.setData(contactMd5);
-    interactorInvoker.execute(getContactInteractor, new InteractorResult<Contact>() {
+    /*interactorInvoker.execute(getContactInteractor, new InteractorResult<Contact>() {
           @Override public void onResult(Contact result) {
             getView().showContactData(presentationContactMapper.modelToData(result));
           }
-        });
+        });*/
     //getView().showGetContactError();
   }
 }

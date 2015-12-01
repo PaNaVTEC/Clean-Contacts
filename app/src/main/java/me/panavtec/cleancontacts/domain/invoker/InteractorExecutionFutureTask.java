@@ -3,35 +3,31 @@ package me.panavtec.cleancontacts.domain.invoker;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 import me.panavtec.cleancontacts.domain.interactors.InteractorResponse;
-import me.panavtec.cleancontacts.presentation.InteractorResult;
+import me.panavtec.cleancontacts.presentation.invoker.InteractorExecution;
 
-public class InteractorOutputTask<R, T extends InteractorResponse<R>> extends FutureTask<T>
-    implements PriorizableInteractor {
+public class InteractorExecutionFutureTask<T> extends FutureTask<T> implements PriorizableInteractor {
 
-  private final InteractorResult<R> output;
-  private final int priority;
+  private final InteractorExecution<T> interactorExecution;
   private final Thread.UncaughtExceptionHandler uncaughtExceptionHandler;
   private final String description;
 
-  public InteractorOutputTask(Callable<T> callable, int priority, InteractorResult<R> output,
+  public InteractorExecutionFutureTask(InteractorExecution<T> interactorExecution,
       Thread.UncaughtExceptionHandler uncaughtExceptionHandler) {
-    super(callable);
-    this.output = output;
-    this.priority = priority;
+    super((Callable<T>) interactorExecution.getInteractor());
+    this.interactorExecution = interactorExecution;
     this.uncaughtExceptionHandler = uncaughtExceptionHandler;
-    this.description = callable.getClass().toString();
+    this.description = interactorExecution.getInteractor().getClass().toString();
   }
 
   @Override protected void done() {
     super.done();
     try {
-      T response = get();
+      InteractorResponse<T> response = (InteractorResponse<T>) get();
       if (response.hasError()) {
-        throw new UnsupportedOperationException();
+        throw new RuntimeException();
       } else {
-        output.onResult(response.getResult());
+        interactorExecution.getInteractorResult().onResult(response.getResult());
       }
-
     } catch (Exception e) {
       Throwable causeException = e.getCause();
       unhandledException(causeException != null ? causeException : e);
@@ -46,7 +42,7 @@ public class InteractorOutputTask<R, T extends InteractorResponse<R>> extends Fu
   }
 
   public int getPriority() {
-    return priority;
+    return interactorExecution.getPriority();
   }
 
   @Override public String getDescription() {
