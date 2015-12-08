@@ -17,11 +17,11 @@ public class TestInteractorInvoker {
       @Override public Object answer(InvocationOnMock invocation) throws Throwable {
         InteractorExecution execution = (InteractorExecution) invocation.getArguments()[0];
         InteractorResponse response = execution.getInteractor().call();
-        Class<? extends InteractorError> errorClass = response.getError().getClass();
-        if (response.hasError() && execution.getInteractorErrorResult(errorClass) != null) {
-          execution.getInteractorErrorResult(errorClass).onResult(response);
+        InteractorError error = response.getError();
+        if (response.hasError() && execution.getInteractorErrorResult(error.getClass()) != null) {
+          execution.getInteractorErrorResult(error.getClass()).onResult(error);
         } else if (execution.getInteractorResult() != null) {
-          execution.getInteractorResult().onResult(response);
+          execution.getInteractorResult().onResult(response.getResult());
         }
         return null;
       }

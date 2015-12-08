@@ -1,51 +1,34 @@
 package me.panavtec.cleancontacts.presentation;
 
-import me.panavtec.cleancontacts.presentation.interactors.base.TestThreadSpec;
-import me.panavtec.threaddecoratedview.views.ThreadSpec;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class PresenterShould {
 
-  private TestThreadSpec threadSpec;
-  private TestInteractorInvoker interactorInvoker;
-  private View view;
-  private DummyPresenter presenter;
-  
+  private SpyPresenter presenter;
+
   @Before public void setUp() {
-    threadSpec = new TestThreadSpec();
-    presenter = new DummyPresenter(threadSpec);
-    MockitoAnnotations.initMocks(this);
+    presenter = new SpyPresenter();
   }
 
-  @Test public void have_view_after_attach_view() {
-    presenter.attachView(view);
-    
-    assertNotNull(presenter.getView());
+  @Test public void call_on_view_attached_after_attaching_view() {
+    presenter.attachView(new Object());
+
+    assertTrue(presenter.onViewAttachedCalled);
   }
 
-  @Test public void detachView() {
-    Presenter<V> presenter = getPresenter();
-    presenter.attachView(view);
-    presenter.detachView();
-    assertNotEquals(view, presenter.getView());
-  }
+  static class SpyPresenter extends Presenter<Object> {
 
-  static class View {
-    
-  }
-  
-  static class DummyPresenter extends Presenter<View> {
+    public boolean onViewAttachedCalled;
 
-    public DummyPresenter(ThreadSpec mainThreadSpec) {
-      super(mainThreadSpec);
+    public SpyPresenter() {
+      super(new TestViewInjector());
     }
 
     @Override public void onViewAttached() {
-      
+      onViewAttachedCalled = true;
     }
   }
 }

@@ -1,24 +1,21 @@
 package me.panavtec.cleancontacts.presentation;
 
-import me.panavtec.threaddecoratedview.views.ThreadSpec;
-import me.panavtec.threaddecoratedview.views.ViewInjector;
-
 public abstract class Presenter<V> {
 
+  private CleanContactsViewInjector viewInjector;
   private V view;
-  private ThreadSpec mainThreadSpec;
 
-  public Presenter(ThreadSpec mainThreadSpec) {
-    this.mainThreadSpec = mainThreadSpec;
+  public Presenter(CleanContactsViewInjector viewInjector) {
+    this.viewInjector = viewInjector;
   }
 
   public void attachView(V view) {
-    this.view = ViewInjector.inject(view, mainThreadSpec);
+    this.view = viewInjector.injectView(view);
     onViewAttached();
   }
 
   public void detachView() {
-    this.view = ViewInjector.nullObjectPatternView(view);
+    this.view = viewInjector.nullObjectPatternView(view);
   }
 
   public V getView() {

@@ -4,13 +4,13 @@ import java.util.List;
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsError;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
+import me.panavtec.cleancontacts.presentation.CleanContactsViewInjector;
 import me.panavtec.cleancontacts.presentation.InteractorResult;
 import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorExecution;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
-import me.panavtec.threaddecoratedview.views.ThreadSpec;
 
 public class MainPresenter extends Presenter<MainView> {
 
@@ -20,8 +20,8 @@ public class MainPresenter extends Presenter<MainView> {
 
   public MainPresenter(InteractorInvoker interactorInvoker,
       GetContactsInteractor getContactsInteractor,
-      final ListMapper<Contact, PresentationContact> listMapper, ThreadSpec mainThreadSpec) {
-    super(mainThreadSpec);
+      ListMapper<Contact, PresentationContact> listMapper, CleanContactsViewInjector viewInjector) {
+    super(viewInjector);
     this.interactorInvoker = interactorInvoker;
     this.getContactsInteractor = getContactsInteractor;
     this.listMapper = listMapper;

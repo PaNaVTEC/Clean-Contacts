@@ -4,12 +4,12 @@ import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.InteractorError;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactError;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
+import me.panavtec.cleancontacts.presentation.CleanContactsViewInjector;
 import me.panavtec.cleancontacts.presentation.InteractorResult;
 import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorExecution;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
-import me.panavtec.threaddecoratedview.views.ThreadSpec;
 
 public class DetailPresenter extends Presenter<DetailView> {
 
@@ -20,8 +20,8 @@ public class DetailPresenter extends Presenter<DetailView> {
 
   public DetailPresenter(String contactMd5, InteractorInvoker interactorInvoker,
       GetContactInteractor getContactInteractor,
-      final PresentationContactMapper presentationContactMapper, ThreadSpec mainThreadSpec) {
-    super(mainThreadSpec);
+      PresentationContactMapper presentationContactMapper, CleanContactsViewInjector viewInjector) {
+    super(viewInjector);
     this.contactMd5 = contactMd5;
     this.interactorInvoker = interactorInvoker;
     this.getContactInteractor = getContactInteractor;
