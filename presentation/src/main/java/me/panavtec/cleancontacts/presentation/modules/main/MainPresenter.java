@@ -13,6 +13,7 @@ import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
 import me.panavtec.threaddecoratedview.views.ThreadSpec;
 
 public class MainPresenter extends Presenter<MainView> {
+
   private final InteractorInvoker interactorInvoker;
   private final GetContactsInteractor getContactsInteractor;
   private final ListMapper<Contact, PresentationContact> listMapper;

@@ -1,19 +1,16 @@
-package me.panavtec.cleancontacts.domain.modules.detail;
+package me.panavtec.cleancontacts.presentation.modules.detail;
 
+import me.panavtec.cleancontacts.domain.entities.Contact;
+import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
+import me.panavtec.cleancontacts.presentation.InteractorResult;
 import me.panavtec.cleancontacts.presentation.Presenter;
-import me.panavtec.cleancontacts.domain.PresenterTest;
+import me.panavtec.cleancontacts.presentation.PresenterShould;
+import me.panavtec.cleancontacts.presentation.interactors.GetContactFailinteractor;
+import me.panavtec.cleancontacts.presentation.interactors.GetContactSuccessInteractor;
+import me.panavtec.cleancontacts.presentation.interactors.base.TestThreadSpec;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
-import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.domain.interactors.GetContactFailinteractor;
-import me.panavtec.cleancontacts.domain.interactors.GetContactSuccessInteractor;
-import me.panavtec.cleancontacts.domain.interactors.base.TestInteractorInvoker;
-import me.panavtec.cleancontacts.domain.interactors.base.TestThreadSpec;
-import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
-import me.panavtec.cleancontacts.presentation.modules.detail.DetailPresenter;
-import me.panavtec.cleancontacts.presentation.modules.detail.DetailView;
-import me.panavtec.cleancontacts.presentation.InteractorResult;
 import me.panavtec.threaddecoratedview.views.ThreadSpec;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,14 +18,9 @@ import org.mockito.ArgumentMatcher;
 import org.mockito.Matchers;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.argThat;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
-public class DetailPresenterTest extends PresenterTest<DetailView> {
+public class DetailPresenterShould extends PresenterShould<DetailView> {
 
   private static final String MD5 = "ContactMD5";
   private PresentationContactMapper mapper = new PresentationContactMapper();

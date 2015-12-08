@@ -1,4 +1,4 @@
-package me.panavtec.cleancontacts.domain.interactors;
+package me.panavtec.cleancontacts.presentation.interactors;
 
 import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactInteractor;
