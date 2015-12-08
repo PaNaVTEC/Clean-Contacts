@@ -1,29 +1,25 @@
 package me.panavtec.cleancontacts.domain.invoker;
 
 import java.util.concurrent.Callable;
-import me.panavtec.cleancontacts.domain.interactors.Interactor;
-import me.panavtec.cleancontacts.domain.interactors.InteractorResponse;
+import me.panavtec.cleancontacts.presentation.invoker.InteractorExecution;
 
-public class PriorityInteractorDecorator<T extends InteractorResponse>
-    implements Callable<T>, PriorizableInteractor {
+public class PriorityInteractorDecorator<T> implements Callable<T>, PriorizableInteractor {
 
-  private Interactor<T> interactor;
-  private int priority;
+  private InteractorExecution<T> execution;
 
-  public PriorityInteractorDecorator(Interactor<T> interactor, int priority) {
-    this.interactor = interactor;
-    this.priority = priority;
+  public PriorityInteractorDecorator(InteractorExecution<T> execution) {
+    this.execution = execution;
   }
 
   @Override public T call() throws Exception {
-    return interactor.call();
+    return (T) execution.getInteractor().call();
   }
 
   @Override public int getPriority() {
-    return priority;
+    return execution.getPriority();
   }
 
   @Override public String getDescription() {
-    return interactor.getClass().toString();
+    return execution.getClass().toString();
   }
 }
