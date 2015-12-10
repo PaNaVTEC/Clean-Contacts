@@ -2,19 +2,18 @@ package me.panavtec.cleancontacts.di;
 
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import dagger.Module;
 import dagger.Provides;
 import java.util.List;
 import javax.inject.Singleton;
 import me.panavtec.cleancontacts.data.Endpoint;
 import me.panavtec.cleancontacts.data.HeadersInterceptor;
-import me.panavtec.cleancontacts.data.LoggingInterceptor;
 import me.panavtec.cleancontacts.data.RetrofitLog;
 import me.panavtec.cleancontacts.data.UserAgent;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.ContactsApiService;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.ContactsNetworkDataSourceImp;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.interceptors.HeadersInterceptorImpl;
-import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.interceptors.LoggingInterceptorImpl;
 import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsNetworkDataSource;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -44,8 +43,10 @@ public class ApiModule {
 
   }
 
-  @Provides @Singleton @LoggingInterceptor Interceptor provideLoggingInterceptor() {
-    return new LoggingInterceptorImpl();
+  @Provides @Singleton HttpLoggingInterceptor provideLoggingInterceptor() {
+    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+    interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+    return interceptor;
   }
 
   @Provides @Singleton @HeadersInterceptor Interceptor provideHeadersInterceptor(
@@ -55,7 +56,7 @@ public class ApiModule {
 
   @Provides @Singleton OkHttpClient provideOkClient(@RetrofitLog boolean retrofitLog,
       @HeadersInterceptor Interceptor headersInterceptor,
-      @LoggingInterceptor Interceptor loggingInterceptor) {
+      HttpLoggingInterceptor loggingInterceptor) {
     OkHttpClient okHttpClient = new OkHttpClient();
     List<Interceptor> interceptors = okHttpClient.interceptors();
     interceptors.add(headersInterceptor);
