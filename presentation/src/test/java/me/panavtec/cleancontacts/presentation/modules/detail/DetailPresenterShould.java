@@ -37,7 +37,7 @@ import static org.mockito.Mockito.*;
     presenter.attachView(view);
   }
 
-  @Test public void call_view_show_contact_data_when_obtain_contact_success() {
+  @Test public void show_contact_data_when_obtain_contact_success() {
     when(getContactInteractor.call()).thenReturn(CONTACT_RESPONSE);
 
     presenter.onResume();
@@ -45,7 +45,7 @@ import static org.mockito.Mockito.*;
     verify(view).showContactData(any(PresentationContact.class));
   }
 
-  @Test public void call_view_show_get_contact_error_when_obtain_contact_fails() throws Exception {
+  @Test public void show_get_contact_error_when_obtain_contact_fails() throws Exception {
     when(getContactInteractor.call()).thenReturn(ERROR_RESPONSE);
 
     presenter.onResume();

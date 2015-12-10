@@ -37,7 +37,7 @@ import static org.mockito.Mockito.*;
     presenter.attachView(view);
   }
 
-  @Test public void call_refresh_contact_list_when_refresh_contacts_list_success() {
+  @Test public void refresh_contact_list_when_refresh_contacts_list_success() {
     when(getContactsInteractor.call()).thenReturn(SUCCESS_RESPONSE);
 
     presenter.onResume();
@@ -45,7 +45,7 @@ import static org.mockito.Mockito.*;
     verify(view).refreshContactsList(anyListOf(PresentationContact.class));
   }
 
-  @Test public void call_show_get_contacts_error_when_refresh_contacts_list_fails() {
+  @Test public void show_get_contacts_error_when_refresh_contacts_list_fails() {
     when(getContactsInteractor.call()).thenReturn(ERROR_RESPONSE);
 
     presenter.onResume();
