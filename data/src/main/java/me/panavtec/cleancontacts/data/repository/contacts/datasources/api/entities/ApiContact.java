@@ -3,7 +3,7 @@ package me.panavtec.cleancontacts.data.repository.contacts.datasources.api.entit
 import com.google.gson.annotations.Expose;
 import com.mobandme.android.transformer.compiler.Mappable;
 import com.mobandme.android.transformer.compiler.Mapped;
-import me.panavtec.cleancontacts.domain.entities.Contact;
+import me.panavtec.cleancontacts.domain.model.Contact;
 
 @Mappable(with = Contact.class)
 public class ApiContact {

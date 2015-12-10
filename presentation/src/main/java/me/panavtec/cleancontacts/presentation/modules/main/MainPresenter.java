@@ -1,9 +1,9 @@
 package me.panavtec.cleancontacts.presentation.modules.main;
 
 import java.util.List;
-import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsError;
 import me.panavtec.cleancontacts.domain.interactors.contacts.GetContactsInteractor;
+import me.panavtec.cleancontacts.domain.model.Contact;
 import me.panavtec.cleancontacts.presentation.CleanContactsViewInjector;
 import me.panavtec.cleancontacts.presentation.InteractorResult;
 import me.panavtec.cleancontacts.presentation.Presenter;

@@ -12,16 +12,15 @@ import me.panavtec.cleancontacts.data.repository.caching.strategy.CachingStrateg
 import me.panavtec.cleancontacts.data.repository.caching.strategy.list.ListCachingStrategy;
 import me.panavtec.cleancontacts.data.repository.caching.strategy.nullsafe.NotNullCachingStrategy;
 import me.panavtec.cleancontacts.data.repository.caching.strategy.ttl.TtlCachingStrategy;
-import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.ContactsBddDataSourceImp;
+import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.ContactsLocalGatewayImp;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entities.BddContact;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.persistors.ContactPersistor;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.persistors.Persistor;
-import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
+import me.panavtec.cleancontacts.domain.model.ContactsLocalGateway;
 
 @Module(
     complete = false,
-    library = true)
-public class BddModule {
+    library = true) public class BddModule {
 
   @Provides @Singleton CachingStrategy<BddContact> provideContactCachingStrategy() {
     return new NotNullCachingStrategy<>();
@@ -31,11 +30,11 @@ public class BddModule {
     return new ListCachingStrategy<>(new TtlCachingStrategy<BddContact>(3, TimeUnit.MINUTES));
   }
 
-  @Provides @Singleton ContactsBddDataSource provideContactsBddDataSource(
+  @Provides @Singleton ContactsLocalGateway provideContactsLocalGateway(
       Persistor<BddContact> persistor, DatabaseHelper helper,
       CachingStrategy<BddContact> singleContactCachingStrategy,
       ListCachingStrategy<BddContact> listCachingStrategy) {
-    return new ContactsBddDataSourceImp(persistor, helper.getContactDao(),
+    return new ContactsLocalGatewayImp(persistor, helper.getContactDao(),
         singleContactCachingStrategy, listCachingStrategy);
   }
 
@@ -43,13 +42,12 @@ public class BddModule {
     return new ContactPersistor(helper);
   }
 
-  @Provides @Singleton public DatabaseHelper provideDatabaseHelper(
-      @DatabaseName String databaseName, Application app) {
+  @Provides @Singleton
+  public DatabaseHelper provideDatabaseHelper(@DatabaseName String databaseName, Application app) {
     return new DatabaseHelper(databaseName, app);
   }
 
   @Provides @Singleton @DatabaseName String provideDatabaseName() {
     return "cleancontacts" + (BuildConfig.DEBUG ? "-dev" : "") + ".db";
   }
-  
 }

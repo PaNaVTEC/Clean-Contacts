@@ -14,7 +14,7 @@ android {
 }
 
 dependencies {
-  compile project(':repository')
+  compile project(':domain')
   compile rootProject.ext.dependencies.retrofit
   compile rootProject.ext.dependencies.loggingInterceptor
   compile rootProject.ext.dependencies.gsonConverter

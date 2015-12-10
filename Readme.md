@@ -1,6 +1,6 @@
 #CleanContacts [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CleanContacts-brightgreen.svg?style=flat)](http://android-arsenal.com/details/3/1649)
 
-Clean contacts is a sample repository to illustrate Clean architecture in Android. It has also many other details that hopefully will be useful too.
+Clean contacts is a sample localGateway to illustrate Clean architecture in Android. It has also many other details that hopefully will be useful too.
 
 ##Speaks
 I gave a talk in Salamanca (Spain) about this implementation, here is the video: [Spanish] (https://www.youtube.com/watch?v=Co8bJq_zbSQ&t=46m42s)
@@ -8,13 +8,13 @@ I gave a talk in Salamanca (Spain) about this implementation, here is the video:
 Slides:
 [Spanish] (http://es.slideshare.net/ChristianPanadero/my-way-to-clean-android-android-day-salamanca-edition), [English] (http://es.slideshare.net/ChristianPanadero/my-way-to-clean-android-android-day-salamanca-edition-45930288)
 
-##How to start with this repository
+##How to start with this localGateway
 The project is divided in 5 modules:
 
 * App (Android): Contains UI, Dependency injection (Configuration) and implementation details of some figures like the Bus and Invoker.
 * Presentation (Java): Contains presenters of (MVP) and the contract (View interface) to comunicate with.
 * Domain (Java): Contains Interactors and bussines logic
-* Repository (Java): Basic [repository](http://martinfowler.com/eaaCatalog/repository.html) implementation. It handles the data sources and knows when to choose network/bdd.
+* Repository (Java): Basic [localGateway](http://martinfowler.com/eaaCatalog/localGateway.html) implementation. It handles the data sources and knows when to choose network/bdd.
 * Data (Android): Data sources implementation (network, bdd, shared prefs...)
 * **Bonus:** Desktop. Using the logic of this app and re-implementation details (App module and data module) I re-used code to create a JavaFX implementation of the first screen to show a contact list
 
@@ -26,8 +26,8 @@ Model View presenter implemented in 2 modules. The Java module does not uses dep
 ###Navigation via ActionCommands
 This is an idea of [Pedrovgs](https://github.com/pedrovgs/EffectiveAndroidUI), create small classes named "ActionCommands" that are used to navigate between activities, you can find this implementation in "DetailActionCommand"
 
-###Minimal repository
-You can find a [repository](http://martinfowler.com/eaaCatalog/repository.html) implementation in the "repository" module. Is just  the part that allows to discriminate the data source. If I need to use other implementation for network/bdd I will only change the data source imp.
+###Minimal localGateway
+You can find a [localGateway](http://martinfowler.com/eaaCatalog/localGateway.html) implementation in the "localGateway" module. Is just  the part that allows to discriminate the data source. If I need to use other implementation for network/bdd I will only change the data source imp.
 
 ###Use of abstractions
 You can find some examples like ImageLoader or ErrorManager interfaces that are implemented by PicassoImageLoader and SnackBarErrorManager, this will allow to change the implementations in the future to use different ways to show images / show errors. Allways you can do it, use an Abstractions instead of a concrete implementation.
@@ -60,7 +60,7 @@ The Presenter Base uses a "ViewInjector" wich is decorating the View interface w
 The InteractorOutput provides a "Callback" implementation to get results from the Interactors, but is so verbose implement this. So I created a annotation processor to reduce the boilerplace, you can see the code generation on "presentation-compile" module and the use in any interactor with @Output @OnResult @OnFail and @OnCancel annotations.
 
 ###Desktop app sharing common modules
-I created a sample desktop app using JavaFX sharing presentation, domain/entities and repository modules. Just re-implementing the data sources and the UI module wich are implementation details. You can find the desktop app in the folder "desktop". If you are using IntelliJ and you want to run the sample, you will need this configuration:
+I created a sample desktop app using JavaFX sharing presentation, domain/entities and localGateway modules. Just re-implementing the data sources and the UI module wich are implementation details. You can find the desktop app in the folder "desktop". If you are using IntelliJ and you want to run the sample, you will need this configuration:
 
 ![IntelliJ config](art/intellij_config.png)
 

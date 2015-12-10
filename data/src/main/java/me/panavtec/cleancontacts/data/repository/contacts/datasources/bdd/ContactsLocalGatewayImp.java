@@ -10,17 +10,11 @@ import me.panavtec.cleancontacts.data.repository.caching.strategy.CachingStrateg
 import me.panavtec.cleancontacts.data.repository.caching.strategy.list.ListCachingStrategy;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entities.BddContact;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.persistors.Persistor;
-import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsBddDataSource;
-import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.DeleteContactException;
-import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.InvalidCacheException;
-import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainBddContactException;
-import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.ObtainContactsBddException;
-import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.PersistContactsBddException;
-import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.UnknownObtainContactsException;
-import me.panavtec.cleancontacts.repository.contacts.datasources.exceptions.UnknownPersistContactsException;
+import me.panavtec.cleancontacts.domain.model.Contact;
+import me.panavtec.cleancontacts.domain.model.ContactsLocalGateway;
+import me.panavtec.cleancontacts.domain.model.LocalException;
 
-public class ContactsBddDataSourceImp implements ContactsBddDataSource {
+public class ContactsLocalGatewayImp implements ContactsLocalGateway {
 
   private final Dao<BddContact, Integer> daoContacts;
   private final Persistor<BddContact> persistor;
@@ -28,7 +22,7 @@ public class ContactsBddDataSourceImp implements ContactsBddDataSource {
   private final ListCachingStrategy<BddContact> listCachingStrategy;
   private static final Transformer transformer = new Transformer.Builder().build(BddContact.class);
 
-  public ContactsBddDataSourceImp(Persistor<BddContact> persistor,
+  public ContactsLocalGatewayImp(Persistor<BddContact> persistor,
       Dao<BddContact, Integer> daoContacts, CachingStrategy<BddContact> cachingStrategy,
       ListCachingStrategy<BddContact> listCachingStrategy) {
     this.daoContacts = daoContacts;
@@ -37,13 +31,11 @@ public class ContactsBddDataSourceImp implements ContactsBddDataSource {
     this.listCachingStrategy = listCachingStrategy;
   }
 
-  @Override public List<Contact> obtainContacts()
-      throws ObtainContactsBddException, UnknownObtainContactsException, InvalidCacheException {
+  @Override public List<Contact> obtainContacts() {
     try {
       List<BddContact> bddContacts = daoContacts.queryForAll();
       if (!listCachingStrategy.isValid(bddContacts)) {
         deleteBddContacts(listCachingStrategy.candidatesToPurgue(bddContacts));
-        throw new InvalidCacheException();
       }
       ArrayList<Contact> contacts = new ArrayList<>();
       for (BddContact bddContact : bddContacts) {
@@ -51,14 +43,11 @@ public class ContactsBddDataSourceImp implements ContactsBddDataSource {
       }
       return contacts;
     } catch (java.sql.SQLException e) {
-      throw new ObtainContactsBddException();
-    } catch (Throwable e) {
-      throw new UnknownObtainContactsException();
+      throw new LocalException();
     }
   }
 
-  @Override public void persist(List<Contact> contacts)
-      throws PersistContactsBddException, UnknownPersistContactsException {
+  @Override public void persist(List<Contact> contacts) {
     try {
       for (Contact contact : contacts) {
         BddContact bddContact = transformer.transform(contact, BddContact.class);
@@ -66,26 +55,24 @@ public class ContactsBddDataSourceImp implements ContactsBddDataSource {
         persistor.persist(bddContact);
       }
     } catch (SQLException e) {
-      throw new PersistContactsBddException();
-    } catch (Throwable e) {
-      throw new UnknownPersistContactsException();
+      throw new LocalException();
     }
   }
 
-  @Override public Contact obtain(String md5) throws ObtainBddContactException, InvalidCacheException {
+  @Override public Contact obtain(String md5) {
     try {
       BddContact bddContact =
           daoContacts.queryBuilder().where().eq(BddContact.FIELD_MD5, md5).queryForFirst();
       if (!cachingStrategy.isValid(bddContact)) {
-        throw new InvalidCacheException();
+        return null;
       }
       return transformer.transform(bddContact, Contact.class);
     } catch (Throwable e) {
-      throw new ObtainBddContactException();
+      throw new LocalException();
     }
   }
 
-  @Override public void delete(List<Contact> purgue) throws DeleteContactException {
+  @Override public void delete(List<Contact> purgue) {
     if (purgue != null && purgue.size() > 0) {
       try {
         List<String> deleteMd5s = new ArrayList<>();
@@ -94,7 +81,7 @@ public class ContactsBddDataSourceImp implements ContactsBddDataSource {
         }
         internalDeleteContacts(deleteMd5s);
       } catch (Throwable e) {
-        throw new DeleteContactException();
+        throw new LocalException();
       }
     }
   }

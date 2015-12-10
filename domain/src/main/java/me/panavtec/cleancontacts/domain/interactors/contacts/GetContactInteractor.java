@@ -1,18 +1,17 @@
 package me.panavtec.cleancontacts.domain.interactors.contacts;
 
-import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.Interactor;
 import me.panavtec.cleancontacts.domain.interactors.InteractorResponse;
-import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.ObtainContactException;
-import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
+import me.panavtec.cleancontacts.domain.model.Contact;
+import me.panavtec.cleancontacts.domain.model.ContactsLocalGateway;
 
 public class GetContactInteractor implements Interactor<InteractorResponse<Contact>> {
 
-  private ContactsRepository repository;
+  private ContactsLocalGateway localGateway;
   private String contactMd5;
 
-  public GetContactInteractor(ContactsRepository repository) {
-    this.repository = repository;
+  public GetContactInteractor(ContactsLocalGateway localGateway) {
+    this.localGateway = localGateway;
   }
 
   public void setData(String contactMd5) {
@@ -20,10 +19,6 @@ public class GetContactInteractor implements Interactor<InteractorResponse<Conta
   }
 
   @Override public InteractorResponse<Contact> call() {
-    try {
-      return new InteractorResponse<>(repository.obtain(contactMd5));
-    } catch (ObtainContactException e) {
-      return new InteractorResponse<>(new GetContactError() { });
-    }
+    return new InteractorResponse<>(localGateway.obtain(contactMd5));
   }
 }

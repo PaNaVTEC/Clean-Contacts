@@ -11,11 +11,10 @@ import me.panavtec.cleancontacts.data.UserAgent;
 
 @Module(
     includes = {
-        InteractorsModule.class, RepositoryModule.class,
+        InteractorsModule.class, BddModule.class, ApiModule.class
     },
     complete = false,
-    library = true)
-public class DataModule {
+    library = true) public class DataModule {
 
   @Provides @Singleton @Endpoint String provideEndpoint() {
     return BuildConfig.API_URL;

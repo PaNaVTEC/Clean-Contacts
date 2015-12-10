@@ -17,7 +17,7 @@ import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 
 @Module(
     includes = {
-        InteractorsModule.class, RepositoryModule.class
+        InteractorsModule.class
     },
     complete = false,
     library = true) public class DomainModule {

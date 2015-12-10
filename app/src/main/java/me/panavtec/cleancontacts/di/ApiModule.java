@@ -12,35 +12,30 @@ import me.panavtec.cleancontacts.data.HeadersInterceptor;
 import me.panavtec.cleancontacts.data.RetrofitLog;
 import me.panavtec.cleancontacts.data.UserAgent;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.ContactsApiService;
-import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.ContactsNetworkDataSourceImp;
+import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.ContactsNetworkGatewayImp;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.interceptors.HeadersInterceptorImpl;
-import me.panavtec.cleancontacts.repository.contacts.datasources.ContactsNetworkDataSource;
+import me.panavtec.cleancontacts.domain.model.ContactsNetworkGateway;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
 @Module(
     complete = false,
-    library = true)
-public class ApiModule {
+    library = true) public class ApiModule {
 
-  @Provides @Singleton ContactsNetworkDataSource provideContactsNetworkDataSource(
+  @Provides @Singleton ContactsNetworkGateway provideContactsNetworkDataSource(
       ContactsApiService apiService) {
-    return new ContactsNetworkDataSourceImp(apiService);
+    return new ContactsNetworkGatewayImp(apiService);
   }
 
-  @Provides @Singleton ContactsApiService provideApiService(
-      @Endpoint String enpoint,
-      GsonConverterFactory gsonConverterFactory,
-      OkHttpClient okClient) {
+  @Provides @Singleton ContactsApiService provideApiService(@Endpoint String enpoint,
+      GsonConverterFactory gsonConverterFactory, OkHttpClient okClient) {
 
-    Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl(enpoint)
+    Retrofit retrofit = new Retrofit.Builder().baseUrl(enpoint)
         .client(okClient)
-        .addConverterFactory(gsonConverterFactory).build();
+        .addConverterFactory(gsonConverterFactory)
+        .build();
 
-    ContactsApiService service = retrofit.create(ContactsApiService.class);
-    return service;
-
+    return retrofit.create(ContactsApiService.class);
   }
 
   @Provides @Singleton HttpLoggingInterceptor provideLoggingInterceptor() {
@@ -61,7 +56,7 @@ public class ApiModule {
     List<Interceptor> interceptors = okHttpClient.interceptors();
     interceptors.add(headersInterceptor);
 
-    if (retrofitLog){
+    if (retrofitLog) {
       interceptors.add(loggingInterceptor);
     }
 
@@ -71,5 +66,4 @@ public class ApiModule {
   @Provides @Singleton GsonConverterFactory provideGsonConverterFactory() {
     return GsonConverterFactory.create();
   }
-
 }

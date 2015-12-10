@@ -1,25 +1,39 @@
 package me.panavtec.cleancontacts.domain.interactors.contacts;
 
 import java.util.List;
-import me.panavtec.cleancontacts.domain.entities.Contact;
 import me.panavtec.cleancontacts.domain.interactors.Interactor;
 import me.panavtec.cleancontacts.domain.interactors.InteractorResponse;
-import me.panavtec.cleancontacts.domain.interactors.contacts.exceptions.RetrieveContactsException;
-import me.panavtec.cleancontacts.domain.repository.ContactsRepository;
+import me.panavtec.cleancontacts.domain.model.Contact;
+import me.panavtec.cleancontacts.domain.model.ContactsLocalGateway;
+import me.panavtec.cleancontacts.domain.model.ContactsNetworkGateway;
+import me.panavtec.cleancontacts.domain.model.LocalException;
+import me.panavtec.cleancontacts.domain.model.NetworkException;
 
 public class GetContactsInteractor implements Interactor<InteractorResponse<List<Contact>>> {
 
-  private ContactsRepository repository;
+  private ContactsLocalGateway localGateway;
+  private ContactsNetworkGateway networkGateway;
 
-  public GetContactsInteractor(ContactsRepository repository) {
-    this.repository = repository;
+  public GetContactsInteractor(ContactsLocalGateway localGateway,
+      ContactsNetworkGateway networkGateway) {
+    this.localGateway = localGateway;
+    this.networkGateway = networkGateway;
   }
 
   @Override public InteractorResponse<List<Contact>> call() {
     try {
-      return new InteractorResponse<>(repository.obtainContacts());
-    } catch (RetrieveContactsException e) {
-      return new InteractorResponse<>(new GetContactsError());
+      List<Contact> contacts = localGateway.obtainContacts();
+      try {
+        if (contacts == null) {
+          contacts = networkGateway.obtainContacts();
+          localGateway.persist(contacts);
+        }
+      } catch (NetworkException e) {
+        return new InteractorResponse<>(new GetContactError());
+      }
+      return new InteractorResponse<>(contacts);
+    } catch (LocalException e) {
+      return new InteractorResponse<>(new GetContactError());
     }
   }
 }

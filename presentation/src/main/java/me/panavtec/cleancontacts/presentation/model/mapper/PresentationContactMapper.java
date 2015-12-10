@@ -1,9 +1,9 @@
 package me.panavtec.cleancontacts.presentation.model.mapper;
 
+import me.panavtec.cleancontacts.domain.model.Contact;
+import me.panavtec.cleancontacts.domain.model.Name;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.Mapper;
-import me.panavtec.cleancontacts.domain.entities.Contact;
-import me.panavtec.cleancontacts.domain.entities.Name;
 
 public class PresentationContactMapper implements Mapper<Contact, PresentationContact> {
   

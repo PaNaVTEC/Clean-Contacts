@@ -1,4 +1,4 @@
-package me.panavtec.cleancontacts.domain.entities;
+package me.panavtec.cleancontacts.domain.model;
 
 public class Name {
 

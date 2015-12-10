@@ -1,13 +1,12 @@
 package me.panavtec.cleancontacts.di;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
+import javax.inject.Singleton;
 import me.panavtec.cleancontacts.di.qualifiers.BackThread;
 import me.panavtec.cleancontacts.di.qualifiers.SameThread;
 import me.panavtec.cleancontacts.di.qualifiers.UiThread;
-import me.panavtec.cleancontacts.domain.entities.Contact;
+import me.panavtec.cleancontacts.domain.model.Contact;
 import me.panavtec.cleancontacts.domain.outputs.BackThreadSpec;
 import me.panavtec.cleancontacts.domain.outputs.MainThreadSpec;
 import me.panavtec.cleancontacts.domain.outputs.SameThreadSpec;
