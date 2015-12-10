@@ -4,6 +4,7 @@ import me.panavtec.cleancontacts.domain.interactors.Interactor;
 import me.panavtec.cleancontacts.domain.interactors.InteractorResponse;
 import me.panavtec.cleancontacts.domain.model.Contact;
 import me.panavtec.cleancontacts.domain.model.ContactsLocalGateway;
+import me.panavtec.cleancontacts.domain.model.LocalException;
 
 public class GetContactInteractor implements Interactor<InteractorResponse<Contact>> {
 
@@ -19,6 +20,10 @@ public class GetContactInteractor implements Interactor<InteractorResponse<Conta
   }
 
   @Override public InteractorResponse<Contact> call() {
-    return new InteractorResponse<>(localGateway.obtain(contactMd5));
+    try {
+      return new InteractorResponse<>(localGateway.obtain(contactMd5));
+    } catch (LocalException e) {
+      return new InteractorResponse<>(new GetContactError());
+    }
   }
 }

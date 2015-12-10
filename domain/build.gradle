@@ -2,3 +2,9 @@ apply plugin: 'java'
 
 sourceCompatibility = JavaVersion.VERSION_1_7
 targetCompatibility = JavaVersion.VERSION_1_7
+
+dependencies {
+  testCompile rootProject.ext.testDependencies.junit
+  testCompile rootProject.ext.testDependencies.mockito
+  testCompile rootProject.ext.testDependencies.hamcrest
+}

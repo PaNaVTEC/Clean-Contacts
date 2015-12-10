@@ -2,8 +2,7 @@ package me.panavtec.cleancontacts.domain.model;
 
 import java.util.List;
 
-public interface ContactsLocalGateway {
-  List<Contact> obtainContacts();
+public interface ContactsLocalGateway extends ContactProvider {
 
   void persist(List<Contact> contacts);
 
