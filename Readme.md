@@ -9,12 +9,11 @@ Slides:
 [Spanish] (http://es.slideshare.net/ChristianPanadero/my-way-to-clean-android-android-day-salamanca-edition), [English] (http://es.slideshare.net/ChristianPanadero/my-way-to-clean-android-android-day-salamanca-edition-45930288)
 
 ##How to start with this localGateway
-The project is divided in 5 modules:
+The project is divided in 4 modules:
 
 * App (Android): Contains UI, Dependency injection (Configuration) and implementation details of some figures like the Bus and Invoker.
 * Presentation (Java): Contains presenters of (MVP) and the contract (View interface) to comunicate with.
 * Domain (Java): Contains Interactors and bussines logic
-* Repository (Java): Basic [localGateway](http://martinfowler.com/eaaCatalog/localGateway.html) implementation. It handles the data sources and knows when to choose network/bdd.
 * Data (Android): Data sources implementation (network, bdd, shared prefs...)
 * **Bonus:** Desktop. Using the logic of this app and re-implementation details (App module and data module) I re-used code to create a JavaFX implementation of the first screen to show a contact list
 
@@ -25,9 +24,6 @@ Model View presenter implemented in 2 modules. The Java module does not uses dep
 
 ###Navigation via ActionCommands
 This is an idea of [Pedrovgs](https://github.com/pedrovgs/EffectiveAndroidUI), create small classes named "ActionCommands" that are used to navigate between activities, you can find this implementation in "DetailActionCommand"
-
-###Minimal localGateway
-You can find a [localGateway](http://martinfowler.com/eaaCatalog/localGateway.html) implementation in the "localGateway" module. Is just  the part that allows to discriminate the data source. If I need to use other implementation for network/bdd I will only change the data source imp.
 
 ###Use of abstractions
 You can find some examples like ImageLoader or ErrorManager interfaces that are implemented by PicassoImageLoader and SnackBarErrorManager, this will allow to change the implementations in the future to use different ways to show images / show errors. Allways you can do it, use an Abstractions instead of a concrete implementation.
@@ -55,9 +51,6 @@ The interactor invoker now uses Future and promises Java API and it has some adv
 
 ###The UI thread is autommatically treated
 The Presenter Base uses a "ViewInjector" wich is decorating the View interface with a Main thread return implementation using annotations at compile time, so every time you call "getView().XXXXX" in the child presenters they are using this decorated version and don't need to handle the return to UI thread by itselfs.
-
-###Reduced boilerplate using annotation processors
-The InteractorOutput provides a "Callback" implementation to get results from the Interactors, but is so verbose implement this. So I created a annotation processor to reduce the boilerplace, you can see the code generation on "presentation-compile" module and the use in any interactor with @Output @OnResult @OnFail and @OnCancel annotations.
 
 ###Desktop app sharing common modules
 I created a sample desktop app using JavaFX sharing presentation, domain/entities and localGateway modules. Just re-implementing the data sources and the UI module wich are implementation details. You can find the desktop app in the folder "desktop". If you are using IntelliJ and you want to run the sample, you will need this configuration:
