@@ -1,19 +1,21 @@
 package me.panavtec.cleancontacts.domain.interactors.contacts;
 
-import java.util.Collections;
 import java.util.List;
 import me.panavtec.cleancontacts.domain.interactors.Interactor;
-import me.panavtec.cleancontacts.domain.interactors.InteractorError;
 import me.panavtec.cleancontacts.domain.interactors.InteractorResponse;
+import me.panavtec.cleancontacts.domain.interactors.contacts.Chain.TypeProvider;
+import me.panavtec.cleancontacts.domain.interactors.contacts.Chain.TypeStorer;
 import me.panavtec.cleancontacts.domain.model.Contact;
-import me.panavtec.cleancontacts.domain.model.ContactProvider;
 import me.panavtec.cleancontacts.domain.model.ContactsLocalGateway;
 import me.panavtec.cleancontacts.domain.model.ContactsNetworkGateway;
 
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
+
 public class GetContactsInteractor implements Interactor<InteractorResponse<List<Contact>>> {
 
-  private ContactsLocalGateway localGateway;
-  private ContactsNetworkGateway networkGateway;
+  private final ContactsLocalGateway localGateway;
+  private final ContactsNetworkGateway networkGateway;
 
   public GetContactsInteractor(ContactsLocalGateway localGateway,
       ContactsNetworkGateway networkGateway) {
@@ -22,85 +24,38 @@ public class GetContactsInteractor implements Interactor<InteractorResponse<List
   }
 
   @Override public InteractorResponse<List<Contact>> call() {
-    return new Chain<>(new TypeChecker<List<Contact>>() {
-      @Override public boolean isValid(List<Contact> object) {
-        return object.isEmpty();
-      }
+    return new Chain.Builder<List<Contact>>().typeChecker(contactListTypeChcker())
+        .providers(asList(localGateway(), networkGateway()))
+        .storers(singletonList(localGatewayStore()))
+        .build()
+        .obtain();
+  }
 
-      @Override public List<Contact> empty() {
-        return Collections.emptyList();
-      }
+  private ListTypeChecker<Contact> contactListTypeChcker() {
+    return new ListTypeChecker<>(new GetContactsError());
+  }
 
-      @Override public InteractorError error() {
-        return new GetContactsError();
+  private TypeStorer<List<Contact>> localGatewayStore() {
+    return new TypeStorer<List<Contact>>() {
+      @Override public void store(List<Contact> contacts) {
+        localGateway.persist(contacts);
       }
-    }, new TypeProvider<List<Contact>>() {
-      @Override public List<Contact> obtain() {
-        return localGateway.obtainContacts();
-      }
-    }, new TypeProvider<List<Contact>>() {
+    };
+  }
+
+  private TypeProvider<List<Contact>> networkGateway() {
+    return new TypeProvider<List<Contact>>() {
       @Override public List<Contact> obtain() {
         return networkGateway.obtainContacts();
       }
-    }).recursiveGetContacts(0);
+    };
   }
 
-  private InteractorResponse<List<Contact>> getContacts(ContactProvider... providers) {
-    for (int j = 0; j < providers.length; j++) {
-      try {
-        ContactProvider provider = providers[j];
-        List<Contact> contacts = provider.obtainContacts();
-        if (!contacts.isEmpty()) {
-          return new InteractorResponse<>(contacts);
-        }
-      } catch (RuntimeException e) {
-        boolean isLast = j == providers.length - 1;
-        if (isLast) {
-          return new InteractorResponse<>(new GetContactsError());
-        }
+  private TypeProvider<List<Contact>> localGateway() {
+    return new TypeProvider<List<Contact>>() {
+      @Override public List<Contact> obtain() {
+        return localGateway.obtainContacts();
       }
-    }
-    return new InteractorResponse<>(Collections.<Contact>emptyList());
-  }
-
-  static class Chain<T> {
-
-    private TypeChecker<T> typeChecker;
-    private TypeProvider<T>[] providers;
-
-    public Chain(TypeChecker<T> typeChecker, TypeProvider<T>... providers) {
-      this.typeChecker = typeChecker;
-      this.providers = providers;
-    }
-
-    private InteractorResponse<T> recursiveGetContacts(int nextProvider) {
-      boolean isLast = nextProvider == providers.length - 1;
-      TypeProvider<T> provider = providers[nextProvider];
-      try {
-        T contacts = provider.obtain();
-        if (!typeChecker.isValid(contacts)) {
-          return new InteractorResponse<>(contacts);
-        } else if (isLast) {
-          return new InteractorResponse<>(typeChecker.empty());
-        }
-      } catch (RuntimeException e) {
-        if (isLast) {
-          return new InteractorResponse<>(typeChecker.error());
-        }
-      }
-      return recursiveGetContacts(++nextProvider);
-    }
-  }
-
-  interface TypeProvider<T> {
-    T obtain();
-  }
-
-  interface TypeChecker<T> {
-    boolean isValid(T object);
-
-    T empty();
-
-    InteractorError error();
+    };
   }
 }
