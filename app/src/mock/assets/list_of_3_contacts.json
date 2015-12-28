@@ -1,0 +1,109 @@
+{
+  "results": [
+    {
+      "user": {
+        "gender": "male",
+        "name": {
+          "title": "mr",
+          "first": "fred",
+          "last": "bryant"
+        },
+        "location": {
+          "street": "1574 eason rd",
+          "city": "bernalillo",
+          "state": "north carolina",
+          "zip": "97188"
+        },
+        "email": "fred.bryant40@example.com",
+        "username": "whiteswan794",
+        "password": "killbill",
+        "salt": "cKregiY1",
+        "md5": "9c888bc8f3a82da07e404ddc3bbc6d8f",
+        "sha1": "271668c5c86a65572f58a6971a6103dee7794b5c",
+        "sha256": "66976494b6929338415fd2ca568ddb073141a31975d3995935a62c3b772b1da7",
+        "registered": "1448747518",
+        "dob": "232256601",
+        "phone": "(163)-819-4160",
+        "cell": "(149)-635-3373",
+        "SSN": "213-82-6251",
+        "picture": {
+          "large": "http://api.randomuser.me/portraits/men/25.jpg",
+          "medium": "http://api.randomuser.me/portraits/med/men/25.jpg",
+          "thumbnail": "http://api.randomuser.me/portraits/thumb/men/25.jpg"
+        },
+        "version": "0.4.1"
+      },
+      "seed": "panavtec"
+    },
+    {
+      "user": {
+        "gender": "female",
+        "name": {
+          "title": "miss",
+          "first": "tamara",
+          "last": "watson"
+        },
+        "location": {
+          "street": "8698 bruce st",
+          "city": "raleigh",
+          "state": "virginia",
+          "zip": "58924"
+        },
+        "email": "tamara.watson15@example.com",
+        "username": "silverelephant898",
+        "password": "alison",
+        "salt": "YyGFBSVT",
+        "md5": "ca75f3e56b5f21cf0b023ff4d20d685d",
+        "sha1": "e25fdebe8d0bae44137032ecebd5ebb8e50d9b44",
+        "sha256": "f3fb2cc1c70c4dc6f427459ccfc93b8b774f5df814908a4a32e840821cfb514d",
+        "registered": "1000137811",
+        "dob": "283624345",
+        "phone": "(326)-142-6081",
+        "cell": "(217)-790-3879",
+        "SSN": "430-91-4933",
+        "picture": {
+          "large": "http://api.randomuser.me/portraits/women/85.jpg",
+          "medium": "http://api.randomuser.me/portraits/med/women/85.jpg",
+          "thumbnail": "http://api.randomuser.me/portraits/thumb/women/85.jpg"
+        },
+        "version": "0.4.1"
+      },
+      "seed": "05eafa85b2e49c52"
+    },
+    {
+      "user": {
+        "gender": "male",
+        "name": {
+          "title": "mr",
+          "first": "sebastian",
+          "last": "gray"
+        },
+        "location": {
+          "street": "8720 spring st",
+          "city": "albany",
+          "state": "minnesota",
+          "zip": "91978"
+        },
+        "email": "sebastian.gray81@example.com",
+        "username": "orangemouse976",
+        "password": "ricky1",
+        "salt": "Y6uTl1pz",
+        "md5": "e30647c51312f86e92b7c249bbc6e242",
+        "sha1": "6ede1ea39b3d453c8c74897ccdba8ce66bff2b5e",
+        "sha256": "db2715a2dcd3197ba379686ef71425b1d7bdcc315be99621c10d0fd508673ed6",
+        "registered": "1279791185",
+        "dob": "258391237",
+        "phone": "(199)-604-1964",
+        "cell": "(319)-154-9161",
+        "SSN": "984-66-2665",
+        "picture": {
+          "large": "http://api.randomuser.me/portraits/men/45.jpg",
+          "medium": "http://api.randomuser.me/portraits/med/men/45.jpg",
+          "thumbnail": "http://api.randomuser.me/portraits/thumb/men/45.jpg"
+        },
+        "version": "0.4.1"
+      },
+      "seed": "b841087abf985e2c"
+    }
+  ]
+}

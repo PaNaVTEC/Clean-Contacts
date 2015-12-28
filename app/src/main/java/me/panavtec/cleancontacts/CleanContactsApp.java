@@ -30,4 +30,8 @@ public class CleanContactsApp extends Application {
   public ObjectGraph getObjectGraph() {
     return objectGraph;
   }
+
+  public void setObjectGraph(ObjectGraph objectGraph) {
+    this.objectGraph = objectGraph;
+  }
 }
