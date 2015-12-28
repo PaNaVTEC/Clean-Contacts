@@ -33,6 +33,12 @@ android {
     }
   }
 
+  productFlavors {
+    mock {
+      applicationId parent.ext.androidApplicationId + 'internal'
+    }
+  }
+
   //you can use the diamond operator, multi-catch, strings in switches
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_7
@@ -61,10 +67,15 @@ dependencies {
   compile project(':presentation')
   compile project(':data')
 
+  androidTestCompile rootProject.ext.testDependencies.mockito
   androidTestCompile rootProject.ext.androidTestDependencies.runner
   androidTestCompile rootProject.ext.androidTestDependencies.rules
   androidTestCompile rootProject.ext.androidTestDependencies.espresso_core
-  androidTestCompile rootProject.ext.androidTestDependencies.espresso_contrib
+  androidTestCompile (rootProject.ext.androidTestDependencies.espresso_contrib) {
+    exclude module: 'support-annotations'
+    exclude module: 'recyclerview-v7'
+    exclude module: 'support-v4'
+  }
   androidTestCompile rootProject.ext.androidTestDependencies.espresso_intents
 
 }
