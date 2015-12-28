@@ -34,6 +34,15 @@ import static org.mockito.Mockito.*;
     interactor = new GetContactsInteractor(localGateway, networkGateway);
   }
 
+  @Test public void update_cache_when_hit_network() throws Exception {
+    when(localGateway.obtainContacts()).thenReturn(EMPTY_LIST);
+    when(networkGateway.obtainContacts()).thenReturn(CONTACTS);
+
+    interactor.call();
+
+    verify(localGateway).persist(CONTACTS);
+  }
+
   @Test public void return_networks_contacts_when_network_success() {
     when(localGateway.obtainContacts()).thenReturn(EMPTY_LIST);
     when(networkGateway.obtainContacts()).thenReturn(CONTACTS);

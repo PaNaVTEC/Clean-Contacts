@@ -1,18 +1,21 @@
 package me.panavtec.cleancontacts.domain.interactors.contacts;
 
-import java.util.Collections;
 import java.util.List;
 import me.panavtec.cleancontacts.domain.interactors.Interactor;
 import me.panavtec.cleancontacts.domain.interactors.InteractorResponse;
+import me.panavtec.cleancontacts.domain.interactors.contacts.Chain.TypeProvider;
+import me.panavtec.cleancontacts.domain.interactors.contacts.Chain.TypeStorer;
 import me.panavtec.cleancontacts.domain.model.Contact;
-import me.panavtec.cleancontacts.domain.model.ContactProvider;
 import me.panavtec.cleancontacts.domain.model.ContactsLocalGateway;
 import me.panavtec.cleancontacts.domain.model.ContactsNetworkGateway;
 
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
+
 public class GetContactsInteractor implements Interactor<InteractorResponse<List<Contact>>> {
 
-  private ContactsLocalGateway localGateway;
-  private ContactsNetworkGateway networkGateway;
+  private final ContactsLocalGateway localGateway;
+  private final ContactsNetworkGateway networkGateway;
 
   public GetContactsInteractor(ContactsLocalGateway localGateway,
       ContactsNetworkGateway networkGateway) {
@@ -21,42 +24,38 @@ public class GetContactsInteractor implements Interactor<InteractorResponse<List
   }
 
   @Override public InteractorResponse<List<Contact>> call() {
-    return getContacts(localGateway, networkGateway);
+    return new Chain.Builder<List<Contact>>().typeChecker(contactListTypeChcker())
+        .providers(asList(localGateway(), networkGateway()))
+        .storers(singletonList(localGatewayStore()))
+        .build()
+        .obtain();
   }
 
-  private InteractorResponse<List<Contact>> getContacts(ContactProvider... providers) {
-    for (int j = 0; j < providers.length; j++) {
-      try {
-        ContactProvider provider = providers[j];
-        List<Contact> contacts = provider.obtainContacts();
-        if (!contacts.isEmpty()) {
-          return new InteractorResponse<>(contacts);
-        }
-      } catch (RuntimeException e) {
-        boolean isLast = j == providers.length - 1;
-        if (isLast) {
-          return new InteractorResponse<>(new GetContactsError());
-        }
-      }
-    }
-    return new InteractorResponse<>(Collections.<Contact>emptyList());
+  private ListTypeChecker<Contact> contactListTypeChcker() {
+    return new ListTypeChecker<>(new GetContactsError());
   }
 
-  private InteractorResponse<List<Contact>> recursiveGetContacts(int nextProvider, ContactProvider... providers) {
-    boolean isLast = nextProvider == providers.length - 1;
-    ContactProvider provider = providers[nextProvider];
-    try {
-      List<Contact> contacts = provider.obtainContacts();
-      if (!contacts.isEmpty()) {
-        return new InteractorResponse<>(contacts);
-      } else if (isLast) {
-        return new InteractorResponse<>(Collections.<Contact>emptyList());
+  private TypeStorer<List<Contact>> localGatewayStore() {
+    return new TypeStorer<List<Contact>>() {
+      @Override public void store(List<Contact> contacts) {
+        localGateway.persist(contacts);
       }
-    } catch (RuntimeException e) {
-      if (isLast) {
-        return new InteractorResponse<>(new GetContactsError());
+    };
+  }
+
+  private TypeProvider<List<Contact>> networkGateway() {
+    return new TypeProvider<List<Contact>>() {
+      @Override public List<Contact> obtain() {
+        return networkGateway.obtainContacts();
       }
-    }
-    return recursiveGetContacts(++nextProvider, providers);
+    };
+  }
+
+  private TypeProvider<List<Contact>> localGateway() {
+    return new TypeProvider<List<Contact>>() {
+      @Override public List<Contact> obtain() {
+        return localGateway.obtainContacts();
+      }
+    };
   }
 }
