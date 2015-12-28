@@ -33,6 +33,12 @@ android {
     }
   }
 
+  productFlavors {
+    mock {
+      applicationId parent.ext.androidApplicationId + 'internal'
+    }
+  }
+
   //you can use the diamond operator, multi-catch, strings in switches
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_7
@@ -60,4 +66,24 @@ dependencies {
   compile project(':domain')
   compile project(':presentation')
   compile project(':data')
+
+  androidTestCompile rootProject.ext.testDependencies.mockito
+  androidTestCompile rootProject.ext.androidTestDependencies.runner
+  androidTestCompile rootProject.ext.androidTestDependencies.rules
+  androidTestCompile rootProject.ext.androidTestDependencies.espresso_core
+  androidTestCompile (rootProject.ext.androidTestDependencies.espresso_contrib) {
+    exclude module: 'support-annotations'
+    exclude module: 'recyclerview-v7'
+    exclude module: 'support-v4'
+  }
+  androidTestCompile rootProject.ext.androidTestDependencies.espresso_intents
+
+}
+
+/*
+Resolves dependency versions across test and production APKs, specifically, transitive
+dependencies. This is required since Espresso internally has a dependency on support-annotations.
+*/
+configurations.all {
+  resolutionStrategy.force "com.android.support:support-annotations:$rootProject.supportLibraryVersion"
 }
