@@ -1,0 +1,13 @@
+language: android
+android:
+  components:
+  - build-tools-23.0.1
+  - android-23
+  
+  # Additional components
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - extra-android-support
+
+  # Emulator for the tests
+  - sys-img-armeabi-v7a-android-23
