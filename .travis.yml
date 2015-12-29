@@ -1,4 +1,5 @@
 language: android
+sudo: false
 android:
   components:
   - build-tools-23.0.1
@@ -17,8 +18,7 @@ addons:
   artifacts:
     paths:
       - $(git ls-files -o | grep app/build/outputs | tr "\n" ":")
-script:
-  - ./gradlew --stacktrace connectedCheck
+after_script:
   # print build failure summary
   - pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
   # print lint results details
