@@ -23,6 +23,11 @@ addons:
     paths:
       - $(git ls-files -o | grep app/build/outputs | tr "\n" ":")
 
+env:
+  global:
+    # install timeout in minutes (2 minutes by default)
+    - ADB_INSTALL_TIMEOUT=8
+
 # Emulator Management: Create, Start and Wait
 # From: https://github.com/cotsog/android-tdd-playground/blob/master/.travis.yml
 before_script:
