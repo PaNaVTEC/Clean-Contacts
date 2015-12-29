@@ -50,7 +50,7 @@ script:
   # Launches unit tests
   - ./gradlew test --continue
   # Launches androidTests
-  - adb shell am instrument -w me.panavtec.cleancontacts.mock.test/me.panavtec.cleancontacts.CleanContactsRunner
+  - adb shell 'am instrument -w me.panavtec.cleancontacts.mock.test/me.panavtec.cleancontacts.U2020TestRunner 2>&1 ; exit $?'
 
 after_failure:
   # print lint results details
