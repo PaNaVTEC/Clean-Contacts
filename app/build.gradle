@@ -35,7 +35,7 @@ android {
 
   productFlavors {
     mock {
-      applicationId parent.ext.androidApplicationId + 'internal'
+      applicationId parent.ext.androidApplicationId + '.mock'
     }
   }
 
