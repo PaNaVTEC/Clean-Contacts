@@ -1,6 +1,5 @@
 package me.panavtec.cleancontacts.modules.main;
 
-import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +13,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -32,8 +32,7 @@ import static org.junit.Assert.assertThat;
 
   @Test public void navigates_to_a_details_when_click_on_list() {
     Intents.init();
-    onView(withId(R.id.recyclerView)).perform(
-        RecyclerViewActions.actionOnItemAtPosition(2, click()));
+    onView(withId(R.id.recyclerView)).perform(actionOnItemAtPosition(2, click()));
     intended(hasComponent(DetailActivity.class.getCanonicalName()));
     Intents.release();
   }
