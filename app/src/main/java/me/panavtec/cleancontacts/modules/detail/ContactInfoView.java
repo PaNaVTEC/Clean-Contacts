@@ -6,8 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +74,7 @@ public class ContactInfoView extends LinearLayout {
   }
 
   private void initBackground() {
-    setBackground(getResources().getDrawable(R.drawable.list_selector));
+    setBackground(ContextCompat.getDrawable(getContext(), R.drawable.list_selector));
   }
 
   private void initPadding() {
@@ -90,7 +89,7 @@ public class ContactInfoView extends LinearLayout {
 
   private void initIcon() {
     Drawable icon = iconDrawable.mutate();
-    icon.setColorFilter(getResources().getColor(R.color.primary_dark), PorterDuff.Mode.SRC_IN);
+    icon.setColorFilter(ContextCompat.getColor(getContext(), R.color.primary_dark), PorterDuff.Mode.SRC_IN);
     imageView.setImageDrawable(icon);
   }
 
@@ -98,11 +97,4 @@ public class ContactInfoView extends LinearLayout {
     infoValue.setText(textStringRes);
   }
 
-  public void setInfoLabel(@StringRes int textStringRes) {
-    infoLabel.setText(textStringRes);
-  }
-
-  public void setIconImage(@DrawableRes int iconDrawRes) {
-    imageView.setImageResource(iconDrawRes);
-  }
 }

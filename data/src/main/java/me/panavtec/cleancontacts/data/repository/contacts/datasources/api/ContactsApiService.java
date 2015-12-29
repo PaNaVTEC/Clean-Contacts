@@ -7,10 +7,7 @@ import retrofit.http.Query;
 
 public interface ContactsApiService {
 
-  static final String API_VERSION = "/0.4.1/";
-
-  @GET(API_VERSION)
-  Call<ApiContactsResponse> obtainUser();
+  String API_VERSION = "/0.4.1/";
 
   @GET(API_VERSION)
   Call<ApiContactsResponse> obtainUsers(@Query("results") int users);

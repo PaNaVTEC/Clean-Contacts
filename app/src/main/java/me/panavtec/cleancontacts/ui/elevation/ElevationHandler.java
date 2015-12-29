@@ -6,7 +6,7 @@ public interface ElevationHandler {
   void setElevation(View view, float elevation);
   void setDefaultElevation(View view);
   
-  public interface Factory {
+  interface Factory {
     ElevationHandler createElevationHandler();
   }
 }
