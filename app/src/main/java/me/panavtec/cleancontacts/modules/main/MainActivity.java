@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity
 
   private void initRefreshLayout() {
     swipeRefreshLayout.setOnRefreshListener(this);
-    recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+    recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
       public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
       }
