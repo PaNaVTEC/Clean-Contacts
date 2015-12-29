@@ -26,7 +26,7 @@ public class ListCachingStrategy<T> implements CachingStrategy<List<T>> {
   }
   
   public boolean isNotValidSingleElement(T data) {
-    return cachingStrategy.isValid(data);
+    return !cachingStrategy.isValid(data);
   }
   
   public List<T> candidatesToPurgue(List<T> data) {
