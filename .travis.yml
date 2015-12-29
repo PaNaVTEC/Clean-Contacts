@@ -11,3 +11,6 @@ android:
 
   # Emulator for the tests
   - sys-img-armeabi-v7a-android-23
+script:
+  - ./gradlew --stacktrace lint
+  - ./gradlew --stacktrace connectedCheck
