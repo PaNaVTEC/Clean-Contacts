@@ -44,7 +44,7 @@ before_script:
 # If the issue is fixed, you can remove this script section
 script:
   - ./gradlew assembleDebug -PdisablePreDex
-  - ./gradlew assembleDebugAndroidTest -PdisablePreDex
+  - ./gradlew assembleAndroidTest -PdisablePreDex
   - adb install app/build/outputs/apk/app-mock-debug.apk
   - adb install app/build/outputs/apk/app-mock-debug-androidTest-unaligned.apk
   - adb shell am instrument -w me.panavtec.cleancontacts.mock.test/android.support.test.runner.AndroidJUnitRunner
