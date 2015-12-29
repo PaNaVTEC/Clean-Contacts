@@ -2,9 +2,9 @@ language: android
 sudo: false
 jdk: oraclejdk7
 env:
+  matrix:
+    - ANDROID_TARGET=android-23 ANDROID_ABI=armeabi-v7a
   global:
-    # switch glibc to a memory conserving mode
-    - MALLOC_ARENA_MAX=2
     # wait up to 10 minutes for adb to connect to emulator
     - ADB_INSTALL_TIMEOUT=10
 
@@ -33,7 +33,7 @@ addons:
 # Emulator Management: Create, Start and Wait
 # From: https://github.com/cotsog/android-tdd-playground/blob/master/.travis.yml
 before_script:
-  - echo no | android create avd --force --name test --target android-23 --abi armeabi-v7a
+  - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb devices
@@ -45,9 +45,12 @@ before_script:
 script:
   - ./gradlew assembleDebug -PdisablePreDex
   - ./gradlew assembleAndroidTest -PdisablePreDex
-  - adb install app/build/outputs/apk/app-mock-debug.apk
-  - adb install app/build/outputs/apk/app-mock-debug-androidTest-unaligned.apk
-  - adb shell am instrument -w me.panavtec.cleancontacts.mock.test/android.support.test.runner.AndroidJUnitRunner
+  - adb install -r app/build/outputs/apk/app-mock-debug.apk
+  - adb install -r app/build/outputs/apk/app-mock-debug-androidTest-unaligned.apk
+  # Launches unit tests
+  - ./gradlew test --continue
+  # Launches androidTests
+  - adb shell am instrument -w me.panavtec.cleancontacts.mock.test/me.panavtec.cleancontacts.CleanContactsRunner
 
 after_failure:
   # print lint results details
