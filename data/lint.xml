@@ -3,5 +3,6 @@
   <!-- workarround for retrofit 2.0 -->
   <issue id="InvalidPackage">
     <ignore regexp="okio-1.6.0.jar"/>
+    <ignore regexp="retrofit-2.0.0-beta2.jar"/>
   </issue>
 </lint>
