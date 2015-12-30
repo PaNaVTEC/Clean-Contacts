@@ -13,7 +13,8 @@ import static org.mockito.Mockito.mock;
 
 public class TestInteractorInvoker {
 
-  private TestInteractorInvoker() {}
+  private TestInteractorInvoker() {
+  }
 
   public static InteractorInvoker create() {
     InteractorInvoker interactorInvoker = mock(InteractorInvoker.class);
