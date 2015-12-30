@@ -14,7 +14,7 @@ android:
   - tools
   - build-tools-23.0.2
   - android-23
-  
+
   # Additional components
   - extra-google-m2repository
   - extra-android-m2repository
@@ -22,6 +22,14 @@ android:
 
   # Emulator for the tests
   - sys-img-armeabi-v7a-android-23
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/2.8
+    - $HOME/.gradle/caches/jars-1
+    - $HOME/.gradle/daemon
+    - $HOME/.gradle/native
+    - $HOME/.gradle/wrapper
 
 addons:
   apt_packages:
@@ -50,7 +58,7 @@ script:
   # Launches unit tests
   - ./gradlew test --continue
   # Launches androidTests
-  - adb shell 'am instrument -w me.panavtec.cleancontacts.mock.test/me.panavtec.cleancontacts.U2020TestRunner 2>&1 ; exit $?'
+  - adb shell 'am instrument -w me.panavtec.cleancontacts.mock.test/me.panavtec.cleancontacts.CleanContactsRunner 2>&1 ; exit $?'
 
 after_failure:
   # print lint results details
