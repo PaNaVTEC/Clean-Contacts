@@ -16,7 +16,7 @@ public class Contact {
   public String dob;
   public String phone;
   public String cell;
-  public String SSN;
+  public String ssn;
   public Picture picture;
   public String version;
 
@@ -132,12 +132,12 @@ public class Contact {
     this.cell = cell;
   }
 
-  public String getSSN() {
-    return SSN;
+  public String getSsn() {
+    return ssn;
   }
 
-  public void setSSN(String SSN) {
-    this.SSN = SSN;
+  public void setSsn(String ssn) {
+    this.ssn = ssn;
   }
 
   public Picture getPicture() {

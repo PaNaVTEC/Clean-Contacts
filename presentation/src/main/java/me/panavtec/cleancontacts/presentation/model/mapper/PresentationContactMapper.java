@@ -6,12 +6,12 @@ import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.base.Mapper;
 
 public class PresentationContactMapper implements Mapper<Contact, PresentationContact> {
-  
+
   private static final PresentationLocationMapper
       PRESENTATION_LOCATION_MAPPER = new PresentationLocationMapper();
   private static final PresentationPictureMapper
       PRESENTATION_PICTURE_MAPPER = new PresentationPictureMapper();
-  
+
   @Override public PresentationContact modelToData(Contact model) {
     if (model == null) {
       return null;

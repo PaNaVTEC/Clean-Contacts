@@ -51,6 +51,7 @@ before_script:
 # http://stackoverflow.com/questions/33403743/travis-ci-build-keeps-failing-with-shellcommandunresponsiveexception/33571279#33571279
 # If the issue is fixed, you can remove this script section
 script:
+  - ./gradlew check
   - ./gradlew assembleDebug -PdisablePreDex
   - ./gradlew assembleAndroidTest -PdisablePreDex
   - adb install -r app/build/outputs/apk/app-mock-debug.apk
