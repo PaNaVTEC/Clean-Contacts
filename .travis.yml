@@ -43,9 +43,6 @@ addons:
 before_script:
   - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb devices
-  - adb shell input keyevent 82 &
 
 # There is an AOSP bug related with API 23, this is the workarround as comented here:
 # http://stackoverflow.com/questions/33403743/travis-ci-build-keeps-failing-with-shellcommandunresponsiveexception/33571279#33571279
@@ -54,6 +51,9 @@ script:
   - ./gradlew check
   - ./gradlew assembleDebug -PdisablePreDex
   - ./gradlew assembleAndroidTest -PdisablePreDex
+  - android-wait-for-emulator
+  - adb devices
+  - adb shell input keyevent 82 &
   - adb install -r app/build/outputs/apk/app-mock-debug.apk
   - adb install -r app/build/outputs/apk/app-mock-debug-androidTest-unaligned.apk
   # Launches unit tests
