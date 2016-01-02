@@ -14,6 +14,7 @@ android:
   - tools
   - build-tools-23.0.2
   - android-23
+  - android-22
 
   # Additional components
   - extra-google-m2repository
@@ -44,6 +45,8 @@ before_install:
 # Emulator Management: Create, Start and Wait
 # From: https://github.com/cotsog/android-tdd-playground/blob/master/.travis.yml
 before_script:
+  - echo ********** Android Targets **********
+  - android list target
   - ./gradlew check
   - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
