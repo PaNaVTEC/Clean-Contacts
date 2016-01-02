@@ -3,7 +3,7 @@ sudo: false
 jdk: oraclejdk7
 env:
   matrix:
-    - ANDROID_TARGET=android-23 ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
   global:
     # wait up to 10 minutes for adb to connect to emulator
     - ADB_INSTALL_TIMEOUT=10
@@ -21,7 +21,7 @@ android:
   - extra-android-support
 
   # Emulator for the tests
-  - sys-img-armeabi-v7a-android-23
+  - sys-img-armeabi-v7a-android-22
 
 cache:
   directories:
@@ -75,3 +75,4 @@ after_script:
   # print lint results details
   - for f in app/build/outputs/lint-results.html; do pandoc $f -t plain; done
   - for f in data/build/outputs/lint-results.html; do pandoc $f -t plain; done
+
