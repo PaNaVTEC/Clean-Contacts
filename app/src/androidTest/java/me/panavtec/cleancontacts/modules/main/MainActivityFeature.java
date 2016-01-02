@@ -1,7 +1,5 @@
 package me.panavtec.cleancontacts.modules.main;
 
-import android.app.Application;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.registerIdlingResources;
-import static android.support.test.espresso.Espresso.unregisterIdlingResources;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.intent.Intents.intended;
@@ -42,18 +38,5 @@ import static org.junit.Assert.assertThat;
     onView(withId(R.id.recyclerView)).perform(actionOnItemAtPosition(2, click()));
     intended(hasComponent(DetailActivity.class.getCanonicalName()));
     Intents.release();
-  }
-
-  private void waitUntilActivityIsResumed() {
-    Application app = (Application) InstrumentationRegistry.getInstrumentation().getTargetContext().getApplicationContext();
-    idleUntilResume = new ActivityResumedIdlingResource();
-    app.registerActivityLifecycleCallbacks(idleUntilResume);
-    registerIdlingResources(idleUntilResume);
-  }
-
-  private void removeIdlingResources() {
-    Application app = (Application) InstrumentationRegistry.getInstrumentation().getTargetContext().getApplicationContext();
-    unregisterIdlingResources(idleUntilResume);
-    app.unregisterActivityLifecycleCallbacks(idleUntilResume);
   }
 }
