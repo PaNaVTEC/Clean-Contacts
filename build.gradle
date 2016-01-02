@@ -1,4 +1,5 @@
 apply from: 'dependencies.gradle'
+apply from: 'gradle/jacoco.gradle'
 
 buildscript {
   repositories {

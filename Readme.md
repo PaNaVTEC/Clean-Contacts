@@ -1,5 +1,4 @@
-#CleanContacts [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CleanContacts-brightgreen.svg?style=flat)](http://android-arsenal.com/details/3/1649)
-
+#CleanContacts [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CleanContacts-brightgreen.svg?style=flat)](http://android-arsenal.com/details/3/1649) [![Build Status](https://img.shields.io/travis/PaNaVTEC/Clean-Contacts.svg)](https://travis-ci.org/PaNaVTEC/Clean-Contacts) [![Code Coverage](https://img.shields.io/codecov/c/github/panavtec/Clean-Contacts.svg)]()
 Clean contacts is a sample project to illustrate Clean architecture in Android. It has also many other details that hopefully will be useful too.
 
 ##Speaks

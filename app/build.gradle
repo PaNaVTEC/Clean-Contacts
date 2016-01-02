@@ -24,6 +24,7 @@ android {
   }
   buildTypes {
     debug {
+      testCoverageEnabled = true
       buildConfigField BOOLEAN, "RETROFIT_LOG", "true"
     }
     release {

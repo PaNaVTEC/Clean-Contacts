@@ -36,7 +36,10 @@ addons:
     - pandoc
   artifacts:
     paths:
-      - $(git ls-files -o | grep app/build/outputs | tr "\n" ":")
+      - $(git ls-files -o | grep build/outputs | tr "\n" ":")
+
+before_install:
+  - pip install --user codecov
 
 # Emulator Management: Create, Start and Wait
 # From: https://github.com/cotsog/android-tdd-playground/blob/master/.travis.yml
@@ -56,9 +59,13 @@ script:
   - adb shell input keyevent 82 &
   - adb install -r app/build/outputs/apk/app-mock-debug.apk
   - adb install -r app/build/outputs/apk/app-mock-debug-androidTest-unaligned.apk
-  - # Launches unit tests
   - ./gradlew test --continue
-  - .buildscript/launchInstrumentationTests.sh
+  - ./gradlew connectedAndroidTest
+  - ./gradlew jacocoFullReport
+  # - .buildscript/launchInstrumentationTests.sh
+
+after_success:
+  - codecov
 
 after_failure:
   # print build failure summary
@@ -67,3 +74,4 @@ after_failure:
 after_script:
   # print lint results details
   - for f in app/build/outputs/lint-results.html; do pandoc $f -t plain; done
+  - for f in data/build/outputs/lint-results.html; do pandoc $f -t plain; done
