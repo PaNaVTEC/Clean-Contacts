@@ -71,6 +71,7 @@ after_success:
 after_failure:
   # print build failure summary
   - pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
+  - pandoc app/build/reports/androidTests/connected/flavors/MOCK/index.html -t plain
 
 after_script:
   # print lint results details
