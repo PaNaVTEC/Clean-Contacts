@@ -2,6 +2,7 @@ package me.panavtec.cleancontacts;
 
 import android.app.Activity;
 import android.app.Instrumentation;
+import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import dagger.ObjectGraph;
@@ -30,5 +31,9 @@ public class DaggerActivityTestRule<T extends Activity> extends ActivityTestRule
     CleanContactsApp app = (CleanContactsApp) instrumentation.getTargetContext()
         .getApplicationContext();
     app.setObjectGraph(ObjectGraph.create(new AppModule(app), new ApiModuleMock(), new BddModuleMock()));
+  }
+
+  public T launchActivity() {
+    return super.launchActivity(new Intent());
   }
 }

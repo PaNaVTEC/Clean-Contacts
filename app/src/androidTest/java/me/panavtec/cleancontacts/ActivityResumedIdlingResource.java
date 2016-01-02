@@ -11,6 +11,10 @@ public class ActivityResumedIdlingResource implements Application.ActivityLifecy
   private static final AtomicBoolean isIdle = new AtomicBoolean(false);
   private IdlingResource.ResourceCallback callback;
 
+  public ActivityResumedIdlingResource(Application app) {
+    app.registerActivityLifecycleCallbacks(this);
+  }
+
   @Override public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
   }
 
@@ -49,5 +53,9 @@ public class ActivityResumedIdlingResource implements Application.ActivityLifecy
     if (isIdle.get()) {
       callback.onTransitionToIdle();
     }
+  }
+
+  public void unregister(Application app) {
+    app.unregisterActivityLifecycleCallbacks(this);
   }
 }

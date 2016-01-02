@@ -41,37 +41,23 @@ addons:
 before_install:
   - pip install --user codecov
 
-# Emulator Management: Create, Start and Wait
-# From: https://github.com/cotsog/android-tdd-playground/blob/master/.travis.yml
 before_script:
-  # - ./gradlew check
   - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
-  # - chmod +x .buildscript/launchInstrumentationTests.sh
 
-# There is an AOSP bug related with API 23, this is the workarround as comented here:
-# http://stackoverflow.com/questions/33403743/travis-ci-build-keeps-failing-with-shellcommandunresponsiveexception/33571279#33571279
 script:
-  # - ./gradlew assembleDebug -PdisablePreDex
-  # - ./gradlew assembleAndroidTest -PdisablePreDex
-  # - adb install -r app/build/outputs/apk/app-mock-debug.apk
-  # - adb install -r app/build/outputs/apk/app-mock-debug-androidTest-unaligned.apk
-  # - ./gradlew test --continue
   - ./gradlew check -PdisablePreDex --continue --stacktrace
   - android-wait-for-emulator
   - adb devices
   - adb shell input keyevent 82 &
   - ./gradlew connectedAndroidTest -PdisablePreDex --continue --stacktrace
   - ./gradlew jacocoFullReport
-  # - .buildscript/launchInstrumentationTests.sh
 
 after_success:
   - codecov
 
 after_failure:
-  # print build failure summary
   - pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
-  - pandoc app/build/reports/androidTests/connected/flavors/MOCK/index.html -t plain
 
 after_script:
   # print lint results details

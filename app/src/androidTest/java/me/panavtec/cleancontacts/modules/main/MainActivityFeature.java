@@ -1,7 +1,6 @@
 package me.panavtec.cleancontacts.modules.main;
 
 import android.app.Application;
-import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.runner.AndroidJUnit4;
@@ -36,16 +35,8 @@ import static org.junit.Assert.assertThat;
   private ActivityResumedIdlingResource idlingResource;
 
   @Before public void setUp() {
-    if (idlingResource == null) {
-      idlingResource = new ActivityResumedIdlingResource();
-      Application app = (Application) InstrumentationRegistry.getTargetContext().getApplicationContext();
-      app.registerActivityLifecycleCallbacks(idlingResource);
-      registerIdlingResources(idlingResource);
-    }
-  }
-
-  @Before public void beforeTest() {
-    activityTestRule.launchActivity(new Intent());
+    waitUntilOnResumeExecuted();
+    activityTestRule.launchActivity();
   }
 
   @Test public void load_a_contact_list_when_screen_is_resumed() {
@@ -58,6 +49,13 @@ import static org.junit.Assert.assertThat;
     onView(withId(R.id.recyclerView)).perform(actionOnItemAtPosition(2, click()));
     intended(hasComponent(DetailActivity.class.getCanonicalName()));
     Intents.release();
+  }
+
+  private void waitUntilOnResumeExecuted() {
+    if (idlingResource == null) {
+      idlingResource = new ActivityResumedIdlingResource((Application) InstrumentationRegistry.getTargetContext().getApplicationContext());
+      registerIdlingResources(idlingResource);
+    }
   }
 
   @After public void after() {
