@@ -58,11 +58,11 @@ script:
   # - adb install -r app/build/outputs/apk/app-mock-debug.apk
   # - adb install -r app/build/outputs/apk/app-mock-debug-androidTest-unaligned.apk
   # - ./gradlew test --continue
-  - ./gradlew check --continue --stacktrace
+  - ./gradlew check -PdisablePreDex --continue --stacktrace
   - android-wait-for-emulator
   - adb devices
   - adb shell input keyevent 82 &
-  - ./gradlew connectedAndroidTest --continue --stacktrace
+  - ./gradlew connectedAndroidTest -PdisablePreDex --continue --stacktrace
   - ./gradlew jacocoFullReport
   # - .buildscript/launchInstrumentationTests.sh
 
