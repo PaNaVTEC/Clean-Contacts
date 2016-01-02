@@ -1,12 +1,9 @@
 package me.panavtec.cleancontacts.modules.main;
 
-import android.app.Application;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.RecyclerView;
 import android.test.suitebuilder.annotation.LargeTest;
-import me.panavtec.cleancontacts.ActivityResumedIdlingResource;
 import me.panavtec.cleancontacts.DaggerActivityTestRule;
 import me.panavtec.cleancontacts.R;
 import me.panavtec.cleancontacts.modules.detail.DetailActivity;
@@ -15,8 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.registerIdlingResources;
-import static android.support.test.espresso.Espresso.unregisterIdlingResources;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.intent.Intents.intended;
@@ -30,8 +25,6 @@ import static org.junit.Assert.assertThat;
   @Rule public DaggerActivityTestRule<MainActivity> activityTestRule =
       new DaggerActivityTestRule<>(MainActivity.class);
 
-  private ActivityResumedIdlingResource idleUntilResume;
-
   @Test public void load_a_contact_list_when_screen_is_resumed() {
     RecyclerView recyclerView = activityTestRule.getActivity().recyclerView;
     assertThat(recyclerView.getChildCount(), is(3));
@@ -42,18 +35,5 @@ import static org.junit.Assert.assertThat;
     onView(withId(R.id.recyclerView)).perform(actionOnItemAtPosition(2, click()));
     intended(hasComponent(DetailActivity.class.getCanonicalName()));
     Intents.release();
-  }
-
-  private void waitUntilActivityIsResumed() {
-    Application app = (Application) InstrumentationRegistry.getInstrumentation().getTargetContext().getApplicationContext();
-    idleUntilResume = new ActivityResumedIdlingResource();
-    app.registerActivityLifecycleCallbacks(idleUntilResume);
-    registerIdlingResources(idleUntilResume);
-  }
-
-  private void removeIdlingResources() {
-    Application app = (Application) InstrumentationRegistry.getInstrumentation().getTargetContext().getApplicationContext();
-    unregisterIdlingResources(idleUntilResume);
-    app.unregisterActivityLifecycleCallbacks(idleUntilResume);
   }
 }
