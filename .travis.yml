@@ -3,7 +3,7 @@ sudo: false
 jdk: oraclejdk7
 env:
   matrix:
-    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-18 ANDROID_ABI=armeabi-v7a
   global:
     # wait up to 10 minutes for adb to connect to emulator
     - ADB_INSTALL_TIMEOUT=10
@@ -14,7 +14,6 @@ android:
   - tools
   - build-tools-23.0.2
   - android-23
-  - android-22
 
   # Additional components
   - extra-google-m2repository
@@ -22,7 +21,7 @@ android:
   - extra-android-support
 
   # Emulator for the tests
-  - sys-img-armeabi-v7a-android-22
+  - sys-img-armeabi-v7a-android-18
 
 cache:
   directories:
