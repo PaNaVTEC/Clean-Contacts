@@ -27,7 +27,7 @@ public class BddContact implements TtlCachingObject {
   @DatabaseField @Mapped public String dob;
   @DatabaseField @Mapped public String phone;
   @DatabaseField @Mapped public String cell;
-  @DatabaseField @Mapped public String SSN;
+  @DatabaseField @Mapped public String ssn;
   @DatabaseField(foreign = true, foreignAutoRefresh = true) @Mapped public BddPicture picture;
   @DatabaseField @Mapped public String version;
   @DatabaseField public long persistedTime;
@@ -152,12 +152,12 @@ public class BddContact implements TtlCachingObject {
     this.cell = cell;
   }
 
-  public String getSSN() {
-    return SSN;
+  public String getSsn() {
+    return ssn;
   }
 
-  public void setSSN(String SSN) {
-    this.SSN = SSN;
+  public void setSsn(String ssn) {
+    this.ssn = ssn;
   }
 
   public BddPicture getPicture() {

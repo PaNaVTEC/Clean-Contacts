@@ -1,0 +1,119 @@
+apply plugin: 'jacoco'
+// I know that exists version 0.7.5 but Android ConnectedTests create 0.7.4 .ec file
+def jacocoVersion = "0.7.4.201502262128"
+def groupTask = 'Reporting'
+def descriptionTask = 'Generate Jacoco coverage reports after running tests.'
+
+subprojects { project ->
+
+  apply plugin: 'jacoco'
+
+  jacoco {
+    toolVersion = jacocoVersion
+  }
+
+  task jacocoReport(type: JacocoReport, dependsOn: 'test') {
+    group = groupTask
+    description = descriptionTask
+
+    reports {
+      xml.enabled = true
+      html.enabled = true
+    }
+
+    classDirectories = possibleClassDir(project)
+
+    def coverageSourceDirs = ["src/main/java",
+                              "src/mock/java",
+                              "src/debug/java"]
+
+    additionalSourceDirs = files(coverageSourceDirs)
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = fileTree(dir: project.buildDir,
+        includes: ['**/*.exec', '**/*.ec'])
+
+    //    doFirst {
+    //      files("${project.buildDir}/intermediates/classes/debug",
+    //          "${project.buildDir}/intermediates/classes/mock/debug",
+    //          "${project.buildDir}/classes/main").getFiles().each { file ->
+    //        if (file.name.contains('$')) {
+    //          file.renameTo(file.path.replace('$', '$$'))
+    //        }
+    //      }
+    //    }
+  }
+}
+
+jacoco {
+  toolVersion = jacocoVersion
+}
+
+/**
+ *  Root task that generates an aggregated Jacoco test coverage report for all sub-projects*/
+task jacocoFullReport(type: JacocoReport, group: 'Coverage reports') {
+  group = groupTask
+  description = descriptionTask
+
+  dependsOn(subprojects.jacocoReport)
+
+  additionalSourceDirs = generateSourceFiles(subprojects)
+  sourceDirectories = generateSourceFiles(subprojects)
+  classDirectories = generateClassDirs(subprojects)
+  executionData = files(subprojects.jacocoReport.executionData)
+
+  reports {
+    html.enabled true
+    html.destination 'build/reports/fullJacoco/'
+    xml.enabled false
+    csv.enabled false
+  }
+}
+
+/**
+ *  Generate a FileCollection of all projects source files*/
+FileCollection generateSourceFiles(Collection projects) {
+  def dirs = []
+
+  projects.each { project ->
+    dirs.add("${project.name}/src/main/java")
+    dirs.add("${project.name}/src/mock/java")
+    dirs.add("${project.name}/src/debug/java")
+  }
+
+  return files(dirs)
+}
+
+FileCollection excludeFilesFromTree(String path) {
+  return fileTree(dir: path, excludes: ['**/R.class',
+                                        '**/R$*.class',
+                                        '**/*$ViewInjector*.*',
+                                        '**/*$ViewBinder*.*',
+                                        '**/*$InjectAdapter*.*', // Dagger auto-generated
+                                        '**/*$ModuleAdapter*.*', // Dagger auto-generated
+                                        '**/*$CoordinatorInjector*.*', // coordinator library
+                                        '**/BuildConfig.*',
+                                        '**/Manifest*.*',
+                                        '**/*$Lambda$*.*', // Jacoco can not handle several "$" in class name.
+                                        '**/*Module.*', // Modules for Dagger.
+                                        '**/*Dagger*.*', // Dagger auto-generated code.
+                                        '**/*MembersInjector*.*', // Dagger auto-generated code.
+                                        '**/*_Provide*Factory*.*'] // Dagger auto-generated code.
+  )
+}
+
+FileCollection generateClassDirs(Collection projects) {
+  def tree = fileTree('directory does not exists')
+  projects.each { project ->
+    tree += possibleClassDir(project)
+  }
+
+  return tree
+}
+
+FileCollection possibleClassDir(Project project) {
+  def tree = fileTree('directory does not exists')
+  tree += excludeFilesFromTree("${project.buildDir}/intermediates/classes/debug")
+  tree += excludeFilesFromTree("${project.buildDir}/intermediates/classes/mock/debug")
+  tree += excludeFilesFromTree("${project.buildDir}/classes/main")
+  return tree
+}

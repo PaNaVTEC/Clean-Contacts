@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply from: rootProject.file('gradle/checkstyle.gradle')
 
 def STRING = "String"
 def BOOLEAN = "boolean"
@@ -19,10 +20,11 @@ android {
     buildConfigField INT, "CONCURRENT_INTERACTORS", "3"
     // If you have a dev/prod api url, you maybe need to set this in buildtypes
     buildConfigField STRING, "API_URL", '"http://api.randomuser.me/"'
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner "me.panavtec.cleancontacts.CleanContactsRunner"
   }
   buildTypes {
     debug {
+      testCoverageEnabled = true
       buildConfigField BOOLEAN, "RETROFIT_LOG", "true"
     }
     release {
@@ -35,7 +37,7 @@ android {
 
   productFlavors {
     mock {
-      applicationId parent.ext.androidApplicationId + 'internal'
+      applicationId parent.ext.androidApplicationId + '.mock'
     }
   }
 
@@ -67,6 +69,7 @@ dependencies {
   compile project(':presentation')
   compile project(':data')
 
+  androidTestApt rootProject.ext.dependencies.daggerCompiler
   androidTestCompile rootProject.ext.testDependencies.mockito
   androidTestCompile rootProject.ext.androidTestDependencies.runner
   androidTestCompile rootProject.ext.androidTestDependencies.rules

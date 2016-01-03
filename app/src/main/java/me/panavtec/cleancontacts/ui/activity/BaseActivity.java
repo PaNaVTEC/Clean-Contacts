@@ -14,7 +14,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     viewInjector.inject(this, onCreateViewId());
   }
 
-  public int onCreateViewId() {
+  protected int onCreateViewId() {
     return 0;
   }
 

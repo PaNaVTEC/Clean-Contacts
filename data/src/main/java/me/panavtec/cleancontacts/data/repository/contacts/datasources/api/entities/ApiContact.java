@@ -1,6 +1,7 @@
 package me.panavtec.cleancontacts.data.repository.contacts.datasources.api.entities;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.mobandme.android.transformer.compiler.Mappable;
 import com.mobandme.android.transformer.compiler.Mapped;
 import me.panavtec.cleancontacts.domain.model.Contact;
@@ -22,7 +23,7 @@ public class ApiContact {
   @Expose @Mapped public String dob;
   @Expose @Mapped public String phone;
   @Expose @Mapped public String cell;
-  @Expose @Mapped public String SSN;
+  @Expose @Mapped @SerializedName("SSN") public String ssn;
   @Expose @Mapped public ApiPicture picture;
   @Expose @Mapped public String version;
 
@@ -138,12 +139,12 @@ public class ApiContact {
     this.cell = cell;
   }
 
-  public String getSSN() {
-    return SSN;
+  public String getSsn() {
+    return ssn;
   }
 
-  public void setSSN(String SSN) {
-    this.SSN = SSN;
+  public void setSsn(String ssn) {
+    this.ssn = ssn;
   }
 
   public ApiPicture getPicture() {

@@ -16,23 +16,23 @@ public class HeadersInterceptorImpl implements Interceptor {
 
   @Override
   public Response intercept(Chain chain) throws IOException {
+    return chain.proceed(composeRequest(chain));
+  }
+
+  private Request composeRequest(Chain chain) {
+    HttpUrl url = composeUrl(chain);
     Request original = chain.request();
-
-    HttpUrl url = chain.request().httpUrl()
-        .newBuilder()
-        .addQueryParameter("seed", "panavtec")
-        .build();
-
-    // Customize the request
-    Request request = original.newBuilder()
+    return original.newBuilder()
         .url(url)
         .header("User-Agent", userAgent)
         .method(original.method(), original.body())
         .build();
+  }
 
-    Response response = chain.proceed(request);
-
-    // Customize or return the response
-    return response;
+  private HttpUrl composeUrl(Chain chain) {
+    return chain.request().httpUrl()
+          .newBuilder()
+          .addQueryParameter("seed", "panavtec")
+          .build();
   }
 }
