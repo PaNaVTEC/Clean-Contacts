@@ -65,12 +65,14 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
     Intents.release();
   }
 
+  @After public void after() {
+    unregisterIdlingResources(idlingResource);
+  }
+
   private void waitUntilOnResumeExecuted() {
-    if (idlingResource == null) {
-      idlingResource = new ActivityResumedIdlingResource(
-          (Application) InstrumentationRegistry.getTargetContext().getApplicationContext());
-      registerIdlingResources(idlingResource);
-    }
+    idlingResource = new ActivityResumedIdlingResource(
+        (Application) InstrumentationRegistry.getTargetContext().getApplicationContext());
+    registerIdlingResources(idlingResource);
   }
 
   private PresentationContact contactNamed(String title, String first, String last) {
@@ -79,9 +81,5 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
     presentationContact.setFirstName(first);
     presentationContact.setLastName(last);
     return presentationContact;
-  }
-
-  @After public void after() {
-    unregisterIdlingResources(idlingResource);
   }
 }
