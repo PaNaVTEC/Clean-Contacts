@@ -1,4 +1,4 @@
-package me.panavtec.cleancontacts;
+package me.panavtec.cleancontacts.di;
 
 import android.os.AsyncTask;
 import dagger.Module;

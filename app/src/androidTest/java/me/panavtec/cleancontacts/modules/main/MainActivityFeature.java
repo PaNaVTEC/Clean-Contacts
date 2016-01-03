@@ -10,7 +10,7 @@ import android.view.View;
 import java.util.Arrays;
 import java.util.List;
 import me.panavtec.cleancontacts.ActivityResumedIdlingResource;
-import me.panavtec.cleancontacts.DaggerActivityTestRule;
+import me.panavtec.cleancontacts.di.DaggerActivityTestRule;
 import me.panavtec.cleancontacts.R;
 import me.panavtec.cleancontacts.modules.detail.DetailActivity;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
