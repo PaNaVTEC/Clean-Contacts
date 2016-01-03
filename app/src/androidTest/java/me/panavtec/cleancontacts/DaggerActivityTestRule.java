@@ -30,7 +30,7 @@ public class DaggerActivityTestRule<T extends Activity> extends ActivityTestRule
     Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
     CleanContactsApp app = (CleanContactsApp) instrumentation.getTargetContext()
         .getApplicationContext();
-    app.setObjectGraph(ObjectGraph.create(new AppModule(app), new ApiModuleMock(), new BddModuleMock()));
+    app.setObjectGraph(ObjectGraph.create(new AppModule(app), new ApiModuleMock(), new BddModuleMock(), new TestModule()));
   }
 
   public T launchActivity() {
