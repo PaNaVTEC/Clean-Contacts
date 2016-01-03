@@ -10,7 +10,6 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.carlosdelachica.easyrecycleradapters.adapter.EasyViewHolder;
-import java.util.Locale;
 import me.panavtec.cleancontacts.R;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.ui.imageloader.ImageLoader;
@@ -40,9 +39,7 @@ public class ContactViewHolder extends EasyViewHolder<PresentationContact> {
   }
 
   @Override public void bindTo(PresentationContact contact) {
-    nameTextView.setText(
-        String.format(Locale.getDefault(), "%s, %s %s", contact.getTitle(), contact.getFirstName(),
-            contact.getLastName()));
+    nameTextView.setText(contact.getDisplayName());
     imageLoader.load(contact.getPicture().getThumbnail(), imageView, placeholder);
     phoneTextView.setText(contact.getPhone());
   }

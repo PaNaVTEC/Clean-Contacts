@@ -1,5 +1,7 @@
 package me.panavtec.cleancontacts.presentation.model;
 
+import java.util.Locale;
+
 public class PresentationContact {
 
   public String gender;
@@ -119,4 +121,10 @@ public class PresentationContact {
   public void setVersion(String version) {
     this.version = version;
   }
+
+  public String getDisplayName() {
+    return String.format(Locale.getDefault(), "%s, %s %s", getTitle(), getFirstName(),
+        getLastName());
+  }
+
 }
