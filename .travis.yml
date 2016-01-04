@@ -52,11 +52,7 @@ script:
   - android-wait-for-emulator
   - adb devices
   - adb shell input keyevent 82 &
-  - adb shell screencap -p | sed 's/\r$//' > bootscreen-after-unlock.png
-  - ./imgurbash.sh bootscreen-after-unlock.png
   - ./gradlew connectedAndroidTest -PdisablePreDex --continue --stacktrace
-  - adb shell screencap -p | sed 's/\r$//' > bootscreen-after-tests.png
-  - ./imgurbash.sh bootscreen-after-tests.png
   - rm /home/travis/.gradle/caches/2.8/plugin-resolution/cache.properties.lock
 
 after_success:
@@ -64,6 +60,8 @@ after_success:
   - codecov
 
 after_failure:
+  - adb shell screencap -p | sed 's/\r$//' > screen.png
+  - ./imgurbash.sh screen.png
   - pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
 
 after_script:
