@@ -38,11 +38,6 @@ addons:
     paths:
       - $(git ls-files -o | grep build/outputs | tr "\n" ":")
 
-before_install:
-  - wget http://imgur.com/tools/imgurbash.sh
-  - chmod a+x imgurbash.sh
-  - pip install --user codecov
-
 before_script:
   - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
@@ -57,9 +52,12 @@ script:
 
 after_success:
   - ./gradlew jacocoFullReport
+  - pip install --user codecov
   - codecov
 
 after_failure:
+  - wget http://imgur.com/tools/imgurbash.sh
+  - chmod a+x imgurbash.sh
   - adb shell screencap -p | sed 's/\r$//' > screen.png
   - ./imgurbash.sh screen.png
   - pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
