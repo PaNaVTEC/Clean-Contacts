@@ -2,7 +2,6 @@ package me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.DeleteBuilder;
-import com.mobandme.android.transformer.Transformer;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +9,7 @@ import me.panavtec.cleancontacts.data.repository.caching.strategy.CachingStrateg
 import me.panavtec.cleancontacts.data.repository.caching.strategy.list.ListCachingStrategy;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entities.BddContact;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.persistors.Persistor;
+import me.panavtec.cleancontacts.domain.mappers.TwoWaysMapper;
 import me.panavtec.cleancontacts.domain.model.Contact;
 import me.panavtec.cleancontacts.domain.model.ContactsLocalGateway;
 import me.panavtec.cleancontacts.domain.model.LocalException;
@@ -20,15 +20,17 @@ public class ContactsLocalGatewayImp implements ContactsLocalGateway {
   private final Persistor<BddContact> persistor;
   private final CachingStrategy<BddContact> cachingStrategy;
   private final ListCachingStrategy<BddContact> listCachingStrategy;
-  private static final Transformer transformer = new Transformer.Builder().build(BddContact.class);
+  private final TwoWaysMapper<BddContact, Contact> mapper;
 
   public ContactsLocalGatewayImp(Persistor<BddContact> persistor,
       Dao<BddContact, Integer> daoContacts, CachingStrategy<BddContact> cachingStrategy,
-      ListCachingStrategy<BddContact> listCachingStrategy) {
+      ListCachingStrategy<BddContact> listCachingStrategy,
+      TwoWaysMapper<BddContact, Contact> mapper) {
     this.daoContacts = daoContacts;
     this.persistor = persistor;
     this.cachingStrategy = cachingStrategy;
     this.listCachingStrategy = listCachingStrategy;
+    this.mapper = mapper;
   }
 
   @Override public List<Contact> obtainContacts() {
@@ -39,7 +41,7 @@ public class ContactsLocalGatewayImp implements ContactsLocalGateway {
       }
       ArrayList<Contact> contacts = new ArrayList<>();
       for (BddContact bddContact : bddContacts) {
-        contacts.add(transformer.transform(bddContact, Contact.class));
+        contacts.add(mapper.map(bddContact));
       }
       return contacts;
     } catch (java.sql.SQLException e) {
@@ -50,7 +52,7 @@ public class ContactsLocalGatewayImp implements ContactsLocalGateway {
   @Override public void persist(List<Contact> contacts) {
     try {
       for (Contact contact : contacts) {
-        BddContact bddContact = transformer.transform(contact, BddContact.class);
+        BddContact bddContact = mapper.inverseMap(contact);
         bddContact.setPersistedTime(System.currentTimeMillis());
         persistor.persist(bddContact);
       }
@@ -66,7 +68,7 @@ public class ContactsLocalGatewayImp implements ContactsLocalGateway {
       if (!cachingStrategy.isValid(bddContact)) {
         return null;
       }
-      return transformer.transform(bddContact, Contact.class);
+      return mapper.map(bddContact);
     } catch (Throwable e) {
       throw new LocalException();
     }

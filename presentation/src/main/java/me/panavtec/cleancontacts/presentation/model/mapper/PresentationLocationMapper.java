@@ -2,7 +2,7 @@ package me.panavtec.cleancontacts.presentation.model.mapper;
 
 import me.panavtec.cleancontacts.domain.model.Location;
 import me.panavtec.cleancontacts.presentation.model.PresentationLocation;
-import me.panavtec.cleancontacts.presentation.model.mapper.base.Mapper;
+import me.panavtec.cleancontacts.domain.mappers.Mapper;
 
 public class PresentationLocationMapper implements Mapper<Location, PresentationLocation> {
   @Override public PresentationLocation map(Location model) {

@@ -9,7 +9,7 @@ import me.panavtec.cleancontacts.domain.model.Contact;
 import me.panavtec.cleancontacts.presentation.CleanContactsViewInjector;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
-import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
+import me.panavtec.cleancontacts.domain.mappers.ListMapper;
 import me.panavtec.cleancontacts.presentation.modules.main.MainPresenter;
 
 @Module(

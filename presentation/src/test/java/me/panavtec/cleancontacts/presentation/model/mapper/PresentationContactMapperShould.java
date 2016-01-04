@@ -19,7 +19,7 @@ public class PresentationContactMapperShould {
     assertThat(contactMapper.map(null), nullValue(PresentationContact.class));
   }
 
-  @Test public void testDataToModel() {
+  @Test public void create_an_exact_copy_of_a_domain_contact() {
     Contact contact = createFullContact();
 
     PresentationContact mappedContact = contactMapper.map(contact);

@@ -13,7 +13,11 @@ import me.panavtec.cleancontacts.data.RetrofitLog;
 import me.panavtec.cleancontacts.data.UserAgent;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.ContactsApiService;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.ContactsNetworkGatewayImp;
+import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.entities.ApiContact;
+import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.entities.mapper.ApiContactMapper;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.api.interceptors.HeadersInterceptorImpl;
+import me.panavtec.cleancontacts.domain.mappers.Mapper;
+import me.panavtec.cleancontacts.domain.model.Contact;
 import me.panavtec.cleancontacts.domain.model.ContactsNetworkGateway;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -23,8 +27,12 @@ import retrofit.Retrofit;
     library = true) public class ApiModule {
 
   @Provides @Singleton ContactsNetworkGateway provideContactsNetworkDataSource(
-      ContactsApiService apiService) {
-    return new ContactsNetworkGatewayImp(apiService);
+      ContactsApiService apiService, Mapper<ApiContact, Contact> mapper) {
+    return new ContactsNetworkGatewayImp(apiService, mapper);
+  }
+
+  @Provides @Singleton Mapper<ApiContact, Contact> provideMaper() {
+    return new ApiContactMapper();
   }
 
   @Provides @Singleton ContactsApiService provideApiService(@Endpoint String enpoint,

@@ -1,35 +1,31 @@
 package me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entities;
 
 import com.j256.ormlite.field.DatabaseField;
-import com.mobandme.android.transformer.compiler.Mappable;
-import com.mobandme.android.transformer.compiler.Mapped;
 import me.panavtec.cleancontacts.data.repository.caching.strategy.ttl.TtlCachingObject;
-import me.panavtec.cleancontacts.domain.model.Contact;
 
-@Mappable(with = Contact.class)
 public class BddContact implements TtlCachingObject {
 
   public static final String FIELD_MD5 = "md5";
   public static final String FIELD_ID = "id";
 
   @DatabaseField(generatedId = true, columnName = FIELD_ID) private int id;
-  @DatabaseField @Mapped public String gender;
-  @DatabaseField(foreign = true, foreignAutoRefresh = true) @Mapped public BddName name;
-  @DatabaseField(foreign = true, foreignAutoRefresh = true) @Mapped public BddLocation location;
-  @DatabaseField @Mapped public String email;
-  @DatabaseField @Mapped public String username;
-  @DatabaseField @Mapped public String password;
-  @DatabaseField @Mapped public String salt;
-  @DatabaseField(columnName = FIELD_MD5) @Mapped public String md5;
-  @DatabaseField @Mapped public String sha1;
-  @DatabaseField @Mapped public String sha256;
-  @DatabaseField @Mapped public String registered;
-  @DatabaseField @Mapped public String dob;
-  @DatabaseField @Mapped public String phone;
-  @DatabaseField @Mapped public String cell;
-  @DatabaseField @Mapped public String ssn;
-  @DatabaseField(foreign = true, foreignAutoRefresh = true) @Mapped public BddPicture picture;
-  @DatabaseField @Mapped public String version;
+  @DatabaseField public String gender;
+  @DatabaseField(foreign = true, foreignAutoRefresh = true) public BddName name;
+  @DatabaseField(foreign = true, foreignAutoRefresh = true) public BddLocation location;
+  @DatabaseField public String email;
+  @DatabaseField public String username;
+  @DatabaseField public String password;
+  @DatabaseField public String salt;
+  @DatabaseField(columnName = FIELD_MD5) public String md5;
+  @DatabaseField public String sha1;
+  @DatabaseField public String sha256;
+  @DatabaseField public String registered;
+  @DatabaseField public String dob;
+  @DatabaseField public String phone;
+  @DatabaseField public String cell;
+  @DatabaseField public String ssn;
+  @DatabaseField(foreign = true, foreignAutoRefresh = true) public BddPicture picture;
+  @DatabaseField public String version;
   @DatabaseField public long persistedTime;
 
   public int getId() {

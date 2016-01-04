@@ -1,4 +1,4 @@
-package me.panavtec.cleancontacts.presentation.model.mapper.base;
+package me.panavtec.cleancontacts.domain.mappers;
 
 import java.util.ArrayList;
 import java.util.List;

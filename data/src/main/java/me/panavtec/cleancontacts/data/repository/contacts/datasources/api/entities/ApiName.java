@@ -1,16 +1,12 @@
 package me.panavtec.cleancontacts.data.repository.contacts.datasources.api.entities;
 
 import com.google.gson.annotations.Expose;
-import com.mobandme.android.transformer.compiler.Mappable;
-import com.mobandme.android.transformer.compiler.Mapped;
-import me.panavtec.cleancontacts.domain.model.Name;
 
-@Mappable(with = Name.class)
 public class ApiName {
 
-  @Expose @Mapped public String title;
-  @Expose @Mapped public String first;
-  @Expose @Mapped public String last;
+  @Expose public String title;
+  @Expose public String first;
+  @Expose public String last;
 
   public String getTitle() {
     return title;
