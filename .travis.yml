@@ -39,6 +39,8 @@ addons:
       - $(git ls-files -o | grep build/outputs | tr "\n" ":")
 
 before_install:
+  - wget http://imgur.com/tools/imgurbash.sh
+  - chmod a+x imgurbash.sh
   - pip install --user codecov
 
 before_script:
@@ -50,12 +52,11 @@ script:
   - android-wait-for-emulator
   - adb devices
   - adb shell input keyevent 82 &
-  # First download the bash script
-  - wget http://imgur.com/tools/imgurbash.sh
-  - chmod a+x imgurbash.sh
-  - adb shell screencap -p | sed 's/\r$//' > bootscreen.png
-  - ./imgurbash.sh bootscreen.png
+  - adb shell screencap -p | sed 's/\r$//' > bootscreen-after-unlock.png
+  - ./imgurbash.sh bootscreen-after-unlock.png
   - ./gradlew connectedAndroidTest -PdisablePreDex --continue --stacktrace
+  - adb shell screencap -p | sed 's/\r$//' > bootscreen-after-tests.png
+  - ./imgurbash.sh bootscreen-after-tests.png
   - rm /home/travis/.gradle/caches/2.8/plugin-resolution/cache.properties.lock
 
 after_success:
