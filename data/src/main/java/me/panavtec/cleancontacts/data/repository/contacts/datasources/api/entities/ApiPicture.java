@@ -1,16 +1,12 @@
 package me.panavtec.cleancontacts.data.repository.contacts.datasources.api.entities;
 
 import com.google.gson.annotations.Expose;
-import com.mobandme.android.transformer.compiler.Mappable;
-import com.mobandme.android.transformer.compiler.Mapped;
-import me.panavtec.cleancontacts.domain.model.Picture;
 
-@Mappable(with = Picture.class)
 public class ApiPicture {
 
-  @Expose @Mapped public String large;
-  @Expose @Mapped public String medium;
-  @Expose @Mapped public String thumbnail;
+  @Expose public String large;
+  @Expose public String medium;
+  @Expose public String thumbnail;
 
   public String getLarge() {
     return large;

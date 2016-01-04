@@ -19,8 +19,6 @@ dependencies {
   compile rootProject.ext.dependencies.loggingInterceptor
   compile rootProject.ext.dependencies.gsonConverter
   compile rootProject.ext.dependencies.ormlite
-  compile rootProject.ext.dependencies.mappers
-  provided rootProject.ext.dependencies.mappersCompiler
 
   testCompile rootProject.ext.testDependencies.junit
   testCompile rootProject.ext.testDependencies.mockito

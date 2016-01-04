@@ -10,7 +10,7 @@ import me.panavtec.cleancontacts.presentation.Presenter;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorExecution;
 import me.panavtec.cleancontacts.presentation.invoker.InteractorInvoker;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
-import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
+import me.panavtec.cleancontacts.domain.mappers.ListMapper;
 
 public class MainPresenter extends Presenter<MainView> {
 
@@ -43,7 +43,7 @@ public class MainPresenter extends Presenter<MainView> {
   private void refreshContactList() {
     new InteractorExecution<>(getContactsInteractor).result(new InteractorResult<List<Contact>>() {
       @Override public void onResult(List<Contact> result) {
-        List<PresentationContact> presentationContacts = listMapper.modelToData(result);
+        List<PresentationContact> presentationContacts = listMapper.map(result);
         getView().refreshContactsList(presentationContacts);
       }
     }).error(GetContactsError.class, new InteractorResult<GetContactsError>() {

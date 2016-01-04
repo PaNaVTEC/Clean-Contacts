@@ -40,7 +40,7 @@ public class DetailPresenter extends Presenter<DetailView> {
     getContactInteractor.setData(contactMd5);
     new InteractorExecution<>(getContactInteractor).result(new InteractorResult<Contact>() {
       @Override public void onResult(Contact result) {
-        getView().showContactData(presentationContactMapper.modelToData(result));
+        getView().showContactData(presentationContactMapper.map(result));
       }
     }).error(GetContactError.class, new InteractorResult<InteractorError>() {
       @Override public void onResult(InteractorError result) {

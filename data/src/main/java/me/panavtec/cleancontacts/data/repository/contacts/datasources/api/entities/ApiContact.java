@@ -2,30 +2,26 @@ package me.panavtec.cleancontacts.data.repository.contacts.datasources.api.entit
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.mobandme.android.transformer.compiler.Mappable;
-import com.mobandme.android.transformer.compiler.Mapped;
-import me.panavtec.cleancontacts.domain.model.Contact;
 
-@Mappable(with = Contact.class)
 public class ApiContact {
 
-  @Expose @Mapped public String gender;
-  @Expose @Mapped public ApiName name;
-  @Expose @Mapped public ApiLocation location;
-  @Expose @Mapped public String email;
-  @Expose @Mapped public String username;
-  @Expose @Mapped public String password;
-  @Expose @Mapped public String salt;
-  @Expose @Mapped public String md5;
-  @Expose @Mapped public String sha1;
-  @Expose @Mapped public String sha256;
-  @Expose @Mapped public String registered;
-  @Expose @Mapped public String dob;
-  @Expose @Mapped public String phone;
-  @Expose @Mapped public String cell;
-  @Expose @Mapped @SerializedName("SSN") public String ssn;
-  @Expose @Mapped public ApiPicture picture;
-  @Expose @Mapped public String version;
+  @Expose public String gender;
+  @Expose public ApiName name;
+  @Expose public ApiLocation location;
+  @Expose public String email;
+  @Expose public String username;
+  @Expose public String password;
+  @Expose public String salt;
+  @Expose public String md5;
+  @Expose public String sha1;
+  @Expose public String sha256;
+  @Expose public String registered;
+  @Expose public String dob;
+  @Expose public String phone;
+  @Expose public String cell;
+  @Expose @SerializedName("SSN") public String ssn;
+  @Expose public ApiPicture picture;
+  @Expose public String version;
 
   public String getGender() {
     return gender;

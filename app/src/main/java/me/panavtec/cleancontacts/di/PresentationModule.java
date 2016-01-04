@@ -12,7 +12,7 @@ import me.panavtec.cleancontacts.domain.outputs.MainThreadSpec;
 import me.panavtec.cleancontacts.domain.outputs.SameThreadSpec;
 import me.panavtec.cleancontacts.presentation.model.PresentationContact;
 import me.panavtec.cleancontacts.presentation.model.mapper.PresentationContactMapper;
-import me.panavtec.cleancontacts.presentation.model.mapper.base.ListMapper;
+import me.panavtec.cleancontacts.domain.mappers.ListMapper;
 import me.panavtec.threaddecoratedview.views.ThreadSpec;
 
 @Module(

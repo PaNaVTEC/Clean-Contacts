@@ -14,8 +14,11 @@ import me.panavtec.cleancontacts.data.repository.caching.strategy.nullsafe.NotNu
 import me.panavtec.cleancontacts.data.repository.caching.strategy.ttl.TtlCachingStrategy;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.ContactsLocalGatewayImp;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entities.BddContact;
+import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.entities.mapper.BddContactMapper;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.persistors.ContactPersistor;
 import me.panavtec.cleancontacts.data.repository.contacts.datasources.bdd.persistors.Persistor;
+import me.panavtec.cleancontacts.domain.mappers.TwoWaysMapper;
+import me.panavtec.cleancontacts.domain.model.Contact;
 import me.panavtec.cleancontacts.domain.model.ContactsLocalGateway;
 
 @Module(
@@ -33,9 +36,13 @@ import me.panavtec.cleancontacts.domain.model.ContactsLocalGateway;
   @Provides @Singleton ContactsLocalGateway provideContactsLocalGateway(
       Persistor<BddContact> persistor, DatabaseHelper helper,
       CachingStrategy<BddContact> singleContactCachingStrategy,
-      ListCachingStrategy<BddContact> listCachingStrategy) {
+      ListCachingStrategy<BddContact> listCachingStrategy, TwoWaysMapper<BddContact, Contact> mapper) {
     return new ContactsLocalGatewayImp(persistor, helper.getContactDao(),
-        singleContactCachingStrategy, listCachingStrategy);
+        singleContactCachingStrategy, listCachingStrategy, mapper);
+  }
+
+  @Provides @Singleton TwoWaysMapper<BddContact, Contact> provideBddContactMapper() {
+    return new BddContactMapper();
   }
 
   @Provides @Singleton Persistor<BddContact> provideContactPersistor(DatabaseHelper helper) {
