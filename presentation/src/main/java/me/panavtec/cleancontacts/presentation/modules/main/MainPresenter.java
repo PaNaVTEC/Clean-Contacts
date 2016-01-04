@@ -43,7 +43,7 @@ public class MainPresenter extends Presenter<MainView> {
   private void refreshContactList() {
     new InteractorExecution<>(getContactsInteractor).result(new InteractorResult<List<Contact>>() {
       @Override public void onResult(List<Contact> result) {
-        List<PresentationContact> presentationContacts = listMapper.modelToData(result);
+        List<PresentationContact> presentationContacts = listMapper.map(result);
         getView().refreshContactsList(presentationContacts);
       }
     }).error(GetContactsError.class, new InteractorResult<GetContactsError>() {
