@@ -54,4 +54,14 @@ import static org.mockito.Mockito.when;
 
     verify(view).showGetContactsError();
   }
+
+
+  @Test public void refresh_contact_list_when_refresh_success() {
+    when(getContactsInteractor.call()).thenReturn(SUCCESS_RESPONSE);
+
+    presenter.onRefresh();
+
+    verify(view).refreshUi();
+    verify(view).refreshContactsList(anyListOf(PresentationContact.class));
+  }
 }
