@@ -7,7 +7,9 @@ I gave a talk in Salamanca (Spain) about this implementation, here is the video:
 Slides:
 [Spanish] (http://es.slideshare.net/ChristianPanadero/my-way-to-clean-android-android-day-salamanca-edition), [English] (http://es.slideshare.net/ChristianPanadero/my-way-to-clean-android-android-day-salamanca-edition-45930288)
 
-##How to start with this localGateway
+I algo gave a 2nd version of the talk with the new features but unfortunately the video was not recorded or at lest not uploaded, anyway, the slides of that 2nd version are [here to download](http://es.slideshare.net/ChristianPanadero/my-way-to-clean-android-v2-english-droidcon-spain)
+
+##How to start with this repository
 The project is divided in 4 modules:
 
 * App (Android): Contains UI, Dependency injection (Configuration) and implementation details of some figures like the Bus and Invoker.
