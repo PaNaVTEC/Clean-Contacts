@@ -63,7 +63,7 @@ task jacocoFullReport(type: JacocoReport, group: 'Coverage reports') {
 
   reports {
     html.enabled true
-    html.destination 'build/reports/fullJacoco/'
+    html.destination file("${buildDir}/reports/fullJacoco/")
     xml.enabled false
     csv.enabled false
   }
