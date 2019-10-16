@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 apply from: rootProject.file('gradle/checkstyle.gradle')
 android {
   compileSdkVersion parent.ext.androidCompileSdkVersion
-  buildToolsVersion parent.ext.androidBuildToolsVersion
   defaultConfig {
     minSdkVersion parent.ext.androidMinSdkVersion
   }
@@ -14,12 +13,12 @@ android {
 }
 
 dependencies {
-  compile project(':domain')
-  compile rootProject.ext.dependencies.retrofit
-  compile rootProject.ext.dependencies.loggingInterceptor
-  compile rootProject.ext.dependencies.gsonConverter
-  compile rootProject.ext.dependencies.ormlite
+  implementation project(':domain')
+  api rootProject.ext.dependencies.retrofit
+  api rootProject.ext.dependencies.loggingInterceptor
+  api rootProject.ext.dependencies.gsonConverter
+  api rootProject.ext.dependencies.ormlite
 
-  testCompile rootProject.ext.testDependencies.junit
-  testCompile rootProject.ext.testDependencies.mockito
+  testImplementation rootProject.ext.testDependencies.junit
+  testImplementation rootProject.ext.testDependencies.mockito
 }

@@ -5,10 +5,10 @@ buildscript {
   repositories {
     jcenter()
     mavenCentral()
+    google()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:1.5.0'
-    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    classpath 'com.android.tools.build:gradle:3.4.2'
   }
 }
 
@@ -16,7 +16,6 @@ allprojects {
 
   ext {
     // Android config
-    androidBuildToolsVersion = '23.0.2'
     androidMinSdkVersion = 16
     androidTargetSdkVersion = 23
     androidCompileSdkVersion = 23
@@ -28,5 +27,6 @@ allprojects {
   repositories {
     jcenter()
     mavenCentral()
+    google()
   }
 }

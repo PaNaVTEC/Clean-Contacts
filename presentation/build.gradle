@@ -1,17 +1,17 @@
-plugins {
-  id "net.ltgt.apt" version "0.5"
-}
-apply plugin: 'java'
+//plugins {
+//  id "net.ltgt.apt" version "0.5"
+//}
+apply plugin: 'java-library'
 apply from: rootProject.file('gradle/checkstyle.gradle')
 
 sourceCompatibility = JavaVersion.VERSION_1_7
 targetCompatibility = JavaVersion.VERSION_1_7
 
 dependencies {
-  compile project(':domain')
-  compile rootProject.ext.dependencies.threaddecoratedview
-  apt rootProject.ext.dependencies.threaddecoratedviewcompiler
+  implementation project(':domain')
+  api rootProject.ext.dependencies.threaddecoratedview
+  annotationProcessor rootProject.ext.dependencies.threaddecoratedviewcompiler
 
-  testCompile rootProject.ext.testDependencies.junit
-  testCompile rootProject.ext.testDependencies.mockito
+  testImplementation rootProject.ext.testDependencies.junit
+  testImplementation rootProject.ext.testDependencies.mockito
 }

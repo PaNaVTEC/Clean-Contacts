@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 apply from: rootProject.file('gradle/checkstyle.gradle')
 
 def STRING = "String"
@@ -8,7 +7,6 @@ def INT = "int"
 
 android {
   compileSdkVersion parent.ext.androidCompileSdkVersion
-  buildToolsVersion parent.ext.androidBuildToolsVersion
 
   defaultConfig {
     applicationId parent.ext.androidApplicationId
@@ -35,8 +33,10 @@ android {
     }
   }
 
+  flavorDimensions "type"
   productFlavors {
     mock {
+      dimension "type"
       applicationId parent.ext.androidApplicationId + '.mock'
     }
   }
@@ -53,33 +53,34 @@ android {
 }
 
 dependencies {
-  compile rootProject.ext.dependencies.androidSupportv7
-  compile rootProject.ext.dependencies.dagger
-  apt rootProject.ext.dependencies.daggerCompiler
-  compile rootProject.ext.dependencies.butterknife
-  compile rootProject.ext.dependencies.snackBars
-  compile rootProject.ext.dependencies.recyclerView
-  compile rootProject.ext.dependencies.picasso
-  compile rootProject.ext.dependencies.recyclerAdapters
-  compile rootProject.ext.dependencies.fAB
-  compile rootProject.ext.dependencies.coordinator
-  apt rootProject.ext.dependencies.coordinatorCompiler
+  implementation rootProject.ext.dependencies.androidSupportv7
+  implementation rootProject.ext.dependencies.dagger
+  annotationProcessor rootProject.ext.dependencies.daggerCompiler
+  implementation rootProject.ext.dependencies.butterknife
+  annotationProcessor rootProject.ext.dependencies.butterknife
+  implementation rootProject.ext.dependencies.snackBars
+  implementation rootProject.ext.dependencies.recyclerView
+  implementation rootProject.ext.dependencies.picasso
+  implementation rootProject.ext.dependencies.recyclerAdapters
+  implementation rootProject.ext.dependencies.fAB
+  implementation rootProject.ext.dependencies.coordinator
+  annotationProcessor rootProject.ext.dependencies.coordinatorCompiler
 
-  compile project(':domain')
-  compile project(':presentation')
-  compile project(':data')
+  implementation project(':domain')
+  implementation project(':presentation')
+  implementation project(':data')
 
-  androidTestApt rootProject.ext.dependencies.daggerCompiler
-  androidTestCompile rootProject.ext.testDependencies.mockito
-  androidTestCompile rootProject.ext.androidTestDependencies.runner
-  androidTestCompile rootProject.ext.androidTestDependencies.rules
-  androidTestCompile rootProject.ext.androidTestDependencies.espresso_core
-  androidTestCompile (rootProject.ext.androidTestDependencies.espresso_contrib) {
+  androidTestAnnotationProcessor rootProject.ext.dependencies.daggerCompiler
+  androidTestImplementation rootProject.ext.testDependencies.mockito
+  androidTestImplementation rootProject.ext.androidTestDependencies.runner
+  androidTestImplementation rootProject.ext.androidTestDependencies.rules
+  androidTestImplementation rootProject.ext.androidTestDependencies.espresso_core
+  androidTestImplementation (rootProject.ext.androidTestDependencies.espresso_contrib) {
     exclude module: 'support-annotations'
     exclude module: 'recyclerview-v7'
     exclude module: 'support-v4'
   }
-  androidTestCompile rootProject.ext.androidTestDependencies.espresso_intents
+  androidTestImplementation rootProject.ext.androidTestDependencies.espresso_intents
 
 }
 
